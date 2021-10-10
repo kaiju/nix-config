@@ -52,7 +52,7 @@
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  #hardware.pulseaudio.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   #services.xserver.libinput.enable = true;
@@ -77,15 +77,31 @@
     vim
     wget
     curl
-    firefox
+    firefox-wayland
     chromium
     git
     gnupg
     lm_sensors
     brillo
     file
-    usbutils 
+    usbutils
+    pulseaudio
   ];
+
+  # ?? some firefox/wayland stuff
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gtk
+    ];
+    gtkUsePortal = true;
+  };
 
   programs.vim.defaultEditor = true;
   programs.zsh.enable = true;
