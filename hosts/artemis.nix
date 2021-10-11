@@ -4,7 +4,7 @@
     ../common/base.nix
     ../common/efi-boot.nix
     ../common/server.nix
-    ../josh.nix
+    ../common/user-josh.nix
   ];
 
   networking = {

@@ -8,7 +8,7 @@ in {
     "${nixos-hardware}/lenovo/thinkpad/x1/7th-gen"
     ../common/base.nix
     ../common/efi-boot.nix
-    ../josh.nix
+    ../common/user-josh.nix
   ];
 
   powerManagement.enable = true;

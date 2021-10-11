@@ -4,6 +4,7 @@
     ../common/base.nix
     ../common/efi-boot.nix
     ../common/server.nix
+    ../common/user-josh.nix
   ];
 
   boot.blacklistedKernelModules = [
