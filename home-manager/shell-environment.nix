@@ -4,11 +4,17 @@
 
   home.packages = with pkgs; [
     exa
-    tmux
-    htop
     ranger
     bitwarden-cli
   ];
+
+  programs.htop = {
+    enable = true;
+  };
+
+  programs.tmux = {
+    enable = true;
+  };
 
   programs.starship = {
     enable = true;
@@ -38,8 +44,8 @@
     enableCompletion = true;
 
     shellAliases = {
-      ls = "exa -F";
-      vi = "vim";
+      ls = "${pkgs.exa}/bin/exa -F";
+      vi = "${pkgs.vim}/bin/vim";
     };
 
     initExtra = ''

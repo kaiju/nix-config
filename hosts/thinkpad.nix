@@ -6,14 +6,17 @@ let
 in {
   imports = [
     "${nixos-hardware}/lenovo/thinkpad/x1/7th-gen"
-    ../common/base.nix
-    ../common/efi-boot.nix
-    ../common/user-josh.nix
+    ../roles/base.nix
+    ../roles/efi-boot.nix
+    ../roles/user-josh.nix
   ];
 
   home-manager.users.josh.imports = [
     ../home-manager/shell-environment.nix
     ../home-manager/dev-tools.nix
+    ../home-manager/ssh-config.nix
+    ../home-manager/gui-environment.nix
+    ../home-manager/gnupg.nix
   ];
 
   powerManagement.enable = true;
@@ -65,8 +68,6 @@ in {
   environment.systemPackages = with pkgs; [
     pulseaudio
     usbutils
-    # move these to home-manager
-    gnupg
   ];
 
 }

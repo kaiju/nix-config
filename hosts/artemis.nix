@@ -1,15 +1,14 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../common/base.nix
-    ../common/efi-boot.nix
-    ../common/server.nix
-    ../common/user-josh.nix
+    ../roles/base.nix
+    ../roles/efi-boot.nix
+    ../roles/server.nix
+    ../roles/user-josh.nix
   ];
 
   home-manager.users.josh.imports = [
     ../home-manager/shell-environment.nix
-    ../home-manager/dev-tools.nix
   ];
 
   networking = {

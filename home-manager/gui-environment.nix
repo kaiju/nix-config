@@ -20,7 +20,6 @@
     bitwarden
     zoom-us
     sublime4
-    firefox-wayland
     chromium
 
     # wayland
@@ -31,6 +30,12 @@
     imv
     swaybg
   ];
+
+  home.sessionVariables = {
+    MOZ_ENABLE_WAYLAND = 1;
+    XDG_SESSION_TYPE = "wayland";
+    XDG_CURRENT_DESKTOP = "sway";
+  };
 
   wayland.windowManager.sway = {
     enable = true;
@@ -65,12 +70,12 @@
         }
       ];
       keybindings = lib.mkOptionDefault {
-        "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ '-5%'";
-        "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ '+5%'";
-        "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-        "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-        "XF86MonBrightnessUp" = "exec brillo -A 5";
-        "XF86MonBrightnessDown" = "exec brillo -U 5";
+        "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'";
+        "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'";
+        "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        "XF86AudioMicMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+        "XF86MonBrightnessUp" = "exec ${pkgs.brillo}/bin/brillo -A 5";
+        "XF86MonBrightnessDown" = "exec ${pkgs.brillo}/bin/brillo -U 5";
       };
       input = {
         "1:1:AT_Translated_Set_2_keyboard" = {
@@ -89,6 +94,17 @@
     extraConfig = ''for_window [class="^.*"] inhibit_idle fullscreen
                     for_window [app_id="^.*"] inhibit_idle fullscreen
                   '';
+  };
+
+  programs.firefox = {
+    enable = true;
+    package = pkgs.firefox-wayland;
+    profiles.default = {
+      isDefault = true;
+      settings = {
+        "apz.gtk.kinetic_scroll.enabled" = false;
+      };
+    };
   };
 
   programs.i3status-rust = {
@@ -145,6 +161,7 @@
     temperature.night = 2700;
   };
 
+  # notification daemon for Wayland
   programs.mako = {
     enable = true;
     font = "Iosevka 12";
@@ -192,6 +209,7 @@
     };
   };
 
+  xresources.path = "$HOME/.Xdefaults";
   xresources.properties = {
     "rofi.combi-modi" = "drun,window,ssh";
     "rofi.modi" = "combi";
