@@ -12,6 +12,7 @@ in {
   ];
 
   powerManagement.enable = true;
+
   networking = {
     hostName = "aether";
     useDHCP = false;
@@ -62,4 +63,5 @@ in {
     # move these to home-manager
     gnupg
   ];
+
 }

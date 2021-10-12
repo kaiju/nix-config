@@ -3,6 +3,10 @@
   home.packages = with pkgs; [
     # cloud tools
     aws-vault
+    k9s
+    helm
+    argocd
+    tektoncd-cli
     jq
     terraform
     terraform-ls
