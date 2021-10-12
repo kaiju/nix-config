@@ -7,6 +7,11 @@
     ../common/user-josh.nix
   ];
 
+  home-manager.users.josh.imports = [
+    ../home-manager/shell-environment.nix
+    ../home-manager/dev-tools.nix
+  ];
+
   networking = {
     useDHCP = false;
     interfaces = {

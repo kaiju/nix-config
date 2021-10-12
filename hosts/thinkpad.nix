@@ -11,6 +11,11 @@ in {
     ../common/user-josh.nix
   ];
 
+  home-manager.users.josh.imports = [
+    ../home-manager/shell-environment.nix
+    ../home-manager/dev-tools.nix
+  ];
+
   powerManagement.enable = true;
 
   networking = {
