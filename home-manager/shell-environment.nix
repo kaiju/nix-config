@@ -37,7 +37,9 @@
     userEmail = "josh@kaiju.net";
     userName = "Josh";
     extraConfig = {
-      "init.defaultBranch" = "main";
+      init = {
+        defaultBranch = "main";
+      };
     };
   };
 
