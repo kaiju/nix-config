@@ -13,6 +13,7 @@
 
   networking = {
     useDHCP = false;
+    networkmanager.enable = true;
     interfaces = {
       ens3.useDHCP = true;
     };

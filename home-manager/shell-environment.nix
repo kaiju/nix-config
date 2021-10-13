@@ -36,6 +36,9 @@
     enable = true;
     userEmail = "josh@kaiju.net";
     userName = "Josh";
+    extraConfig = {
+      "init.defaultBranch" = "main";
+    };
   };
 
   programs.zsh = {

@@ -18,6 +18,7 @@
   networking = {
     hostName = "garage";
     useDHCP = false;
+    networkmanager.enable = true;
     defaultGateway = {
       address = "192.168.8.1";
       interface = "enp2s0";
@@ -65,7 +66,7 @@
     serviceConfig = {
       Type = "simple";
       User = "root";
-      ExecStart = ''${pkgs.rtl-433}/bin/rtl_433 -C si -f 914.906M -Y classic -R 78 -M newmodel -F mqtt:mqtt.mast.haus:1883'';
+      ExecStart = ''${pkgs.rtl_433}/bin/rtl_433 -C si -f 914.906M -Y classic -R 78 -M newmodel -F mqtt:mqtt.mast.haus:1883'';
     };
   };
 }
