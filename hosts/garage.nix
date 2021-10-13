@@ -17,6 +17,7 @@
 
   networking = {
     hostName = "garage";
+    networkmanager.enable = true;
     useDHCP = false;
     networkmanager.enable = true;
     defaultGateway = {
@@ -29,8 +30,8 @@
       "8.8.8.8"
     ];
     interfaces = {
-      en2ps0 = {
-        useDHCP = true;
+      enp2s0 = {
+        useDHCP = false;
         ipv4.addresses = [
           { address = "192.168.8.10"; prefixLength = 21; }
         ];
