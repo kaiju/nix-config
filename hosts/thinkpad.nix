@@ -8,11 +8,11 @@ in {
     "${nixos-hardware}/lenovo/thinkpad/x1/7th-gen"
     ../roles/base.nix
     ../roles/efi-boot.nix
+    ../roles/bluetooth.nix
     ../roles/user-josh.nix
   ];
 
   home-manager.users.josh.imports = [
-    ../home-manager/shell-environment.nix
     ../home-manager/dev-tools.nix
     ../home-manager/ssh-config.nix
     ../home-manager/gui-environment.nix
@@ -33,7 +33,6 @@ in {
 
   hardware = {
     brillo.enable = true; # brightness controls
-    bluetooth.enable = true;
   };
 
   sound.enable = true;
@@ -46,7 +45,6 @@ in {
   services = {
     fwupd.enable = true; # firmware updater
     fprintd.enable = true; # fingerprint reader
-    blueman.enable = true; # bluetooth
     printing.enable = true;
     pipewire = {
       enable = true;

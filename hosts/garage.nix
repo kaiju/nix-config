@@ -4,19 +4,12 @@
     ../roles/base.nix
     ../roles/efi-boot.nix
     ../roles/server.nix
+    ../roles/bluetooth.nix
     ../roles/user-josh.nix
   ];
 
-  home-manager.users.josh.imports = [
-    ../home-manager/shell-environment.nix
-  ];
-
-  boot.blacklistedKernelModules = [
-    "dvd_usb_rtl28xxu"
-  ];
-
   networking = {
-    hostName = "garage";
+    hostName = "sigint";
     networkmanager.enable = true;
     useDHCP = false;
     networkmanager.enable = true;
@@ -39,11 +32,6 @@
     };
   };
 
-  hardware = {
-    bluetooth.enable = true;
-    rtl-sdr.enable = true;
-  };
-
   sound.enable = true;
 
   virtualisation = {
@@ -51,13 +39,17 @@
     podman.enable = true;
   };
 
-  services = {
-    blueman.enable = true; # bluetooth
+  # SDR who-whats-its
+  hardware = {
+    rtl-sdr.enable = true;
   };
+
+  boot.blacklistedKernelModules = [
+    "dvd_usb_rtl28xxu"
+  ];
 
   environment.systemPackages = with pkgs; [
     rtl_433
-    bluez
   ];
 
   systemd.services.rtl_433 = {
