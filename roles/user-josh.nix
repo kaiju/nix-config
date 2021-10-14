@@ -25,4 +25,4 @@ in {
     home.stateVersion = config.system.stateVersion;
   };
 
-ix}
+}
