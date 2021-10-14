@@ -20,6 +20,8 @@ in {
       ../home-manager/shell-environment.nix
     ];
 
+    nixpkgs.config.allowUnfree = true;
+
     home.username = "josh";
     home.homeDirectory = "/home/josh";
     home.stateVersion = config.system.stateVersion;
