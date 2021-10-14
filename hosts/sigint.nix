@@ -12,7 +12,6 @@
     hostName = "sigint";
     networkmanager.enable = true;
     useDHCP = false;
-    networkmanager.enable = true;
     defaultGateway = {
       address = "192.168.8.1";
       interface = "enp2s0";
