@@ -13,7 +13,7 @@ This repository contains my personal NixOS & Home Manager configurations across 
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      /home/josh/nixos-configs/hosts/garage.nix
+      /home/josh/nix-config/hosts/garage.nix
     ];
 
   system.stateVersion = "20.09"; # Did you read the comment?
