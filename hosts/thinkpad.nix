@@ -20,6 +20,7 @@ in {
   ];
 
   powerManagement.enable = true;
+  hardware.opengl.enable = true;
 
   networking = {
     hostName = "aether";
