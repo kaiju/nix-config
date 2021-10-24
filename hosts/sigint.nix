@@ -5,6 +5,7 @@
     ../roles/efi-boot.nix
     ../roles/server.nix
     ../roles/bluetooth.nix
+    ../roles/sdr.nix
     ../roles/user-josh.nix
   ];
 
@@ -38,15 +39,6 @@
     podman.enable = true;
   };
 
-  # SDR who-whats-its
-  hardware = {
-    rtl-sdr.enable = true;
-  };
-
-  boot.blacklistedKernelModules = [
-    "dvd_usb_rtl28xxu"
-  ];
-
   environment.systemPackages = with pkgs; [
     rtl_433
   ];
@@ -58,7 +50,7 @@
     serviceConfig = {
       Type = "simple";
       User = "root";
-      ExecStart = ''${pkgs.rtl_433}/bin/rtl_433 -C si -f 914.906M -Y classic -R 78 -M newmodel -F mqtt:mqtt.mast.haus:1883'';
+      ExecStart = ''${pkgs.rtl_433}/bin/rtl_433 -C si -f 915M -Y classic -s 250k -R 78 -M newmodel -F mqtt:mqtt.mast.haus:1883'';
     };
   };
 }

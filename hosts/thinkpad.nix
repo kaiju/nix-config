@@ -9,7 +9,8 @@ in {
     ../roles/base.nix
     ../roles/efi-boot.nix
     ../roles/bluetooth.nix
-    ../roles/fonts.nix
+    #../roles/fonts.nix
+    ../roles/sdr.nix
     ../roles/user-josh.nix
   ];
 
