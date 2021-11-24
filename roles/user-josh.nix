@@ -10,10 +10,11 @@ in {
 
   users.users.josh = {
     isNormalUser = true;
-    extraGroups = [ "users" "wheel" "networkmanager" "docker" "video" ];
+    extraGroups = [ "users" "wheel" "networkmanager" "docker" "video" "plugdev" ];
     shell = pkgs.zsh;
   };
 
+  home-manager.useUserPackages = true;
   home-manager.users.josh = {
 
     imports = [
