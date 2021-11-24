@@ -17,6 +17,7 @@
     git
     file
     lm_sensors
+    dnsutils
   ];
 
   programs.zsh.enable = true;
