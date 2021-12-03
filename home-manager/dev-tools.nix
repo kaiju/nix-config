@@ -4,7 +4,7 @@
     # cloud tools
     aws-vault
     k9s
-    helm
+    kubernetes-helm
     argocd
     tektoncd-cli
     jq
