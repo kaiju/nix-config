@@ -2,6 +2,11 @@
 {
 
   time.timeZone = "America/New_York";
+
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
   nixpkgs.config.allowUnfree = true;
 
   users.defaultUserShell = pkgs.zsh;
