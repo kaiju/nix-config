@@ -2,14 +2,25 @@
 
 {
 
+  fonts.fontconfig.enable = true;
+
   home.packages = with pkgs; [
-    rofi
     xorg.xbacklight
     ncpamixer
+    xorg.xrdb
+    xdg-utils
 
     # Fonts
     iosevka
+    ibm-plex
     font-awesome
+    dejavu_fonts
+    ubuntu_font_family
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    inconsolata
+    cantarell-fonts
 
     # Apps
     element-desktop
@@ -22,78 +33,28 @@
     sublime4
     chromium
 
-    # wayland
-    swaylock
-    swayidle
-    wl-clipboard
-    bemenu
-    imv
-    swaybg
   ];
 
-  home.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = 1;
-    XDG_SESSION_TYPE = "wayland";
-    XDG_CURRENT_DESKTOP = "sway";
+  services.syncthing.enable = true;
+
+  programs.pidgin = {
+    enable = true;
+    plugins = [
+      pkgs.purple-slack
+      pkgs.purple-discord
+      pkgs.telegram-purple
+      pkgs.purple-matrix
+    ];
   };
 
-  wayland.windowManager.sway = {
+  programs.rofi = {
     enable = true;
-    wrapperFeatures.gtk = true;
-    config = {
-      colors.focused = {
-        background = "#8c9440";
-        indicator = "#b5bd68";
-        text = "#ffffff";
-        border = "#b5bd68";
-        childBorder = "#8c9440";
-      };
-      modifier = "Mod4";
-      menu = "rofi -show combi";
-      terminal = "alacritty";
-      gaps = {
-        smartBorders = "on";
-        smartGaps = true;
-        inner = 7;
-      };
-      startup = [
-        { command = "${pkgs.swayidle}/bin/swayidle -w timeout 300 'swaymsg \"output * dpms off\"' resume 'swaymsg \"output * dpms on\"'"; }
-      ];
-      bars = [
-        {
-          fonts = {
-            names = [ "Iosevka" "Font Awesome 5 Free 12" ];
-            size = 12.0;
-          };
-          position = "top";
-          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
-        }
-      ];
-      keybindings = lib.mkOptionDefault {
-        "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'";
-        "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'";
-        "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-        "XF86AudioMicMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-        "XF86MonBrightnessUp" = "exec ${pkgs.brillo}/bin/brillo -A 5";
-        "XF86MonBrightnessDown" = "exec ${pkgs.brillo}/bin/brillo -U 5";
-      };
-      input = {
-        "1:1:AT_Translated_Set_2_keyboard" = {
-          xkb_options = "ctrl:nocaps";
-        };
-      };
-      output = {
-        "*" = {
-          bg = "~/Pictures/awesome_bg_0.png tile";
-        };
-        eDP-1 = {
-          scale = "1.3";
-        };
-      };
+    font = "IBM Plex Mono 12";
+    terminal = "${pkgs.alacritty}/bin/alacritty";
+    theme = "Pop-Dark";
+    extraConfig = {
+      combi-modi = "drun,window,ssh";
     };
-    extraConfig = ''for_window [class="^.*"] inhibit_idle fullscreen
-                    for_window [app_id="^.*"] inhibit_idle fullscreen
-                  '';
   };
 
   programs.firefox = {
@@ -102,13 +63,14 @@
     profiles.default = {
       isDefault = true;
       settings = {
+        "browser.shell.checkDefaultBrowser" = false;
         "apz.gtk.kinetic_scroll.enabled" = false;
       };
     };
   };
 
   programs.i3status-rust = {
-    enable = true;
+    enable = false;
     bars = {
       default = {
         theme = "plain";
@@ -161,15 +123,6 @@
     temperature.night = 2700;
   };
 
-  # notification daemon for Wayland
-  programs.mako = {
-    enable = true;
-    font = "Iosevka 12";
-    backgroundColor = "#333333CC";
-    borderSize = 0;
-    defaultTimeout = 5000;
-  };
-
   programs.urxvt = {
     enable = true;
     extraConfig = {
@@ -182,7 +135,7 @@
       "keysym.C-v" = "perl:clipdboard:paste";
     };
     fonts = [
-      "xft:Iosevka:size=12"
+      "xft:Iosevka:size=14"
     ];
     scroll.bar.enable = false;
   };
@@ -209,13 +162,8 @@
     };
   };
 
-  xresources.path = "$HOME/.Xdefaults";
+  xresources.path = ".Xdefaults";
   xresources.properties = {
-    "rofi.combi-modi" = "drun,window,ssh";
-    "rofi.modi" = "combi";
-    "rofi.theme" = "gruvbox-dark";
-    "rofi.font" = "Iosevka 12";
-    "rofi.terminal" = "alacritty";
     "*.background" = "#1d1f21";
     "*.foreground" = "#c5c8c6";
     "*.cursorColor" = "#c5c8c6";
@@ -243,6 +191,26 @@
     # white
     "*.color7" = "#c5c8c6";
     "*.color15" = "#eaeaea";
+  };
+
+  xdg = {
+    enable = false;
+    mime.enable = true;
+    #mimeApps.enable = true;
+    mimeApps.defaultApplications = {
+      "image/jpeg" = [ "imv.desktop" ];
+      "image/png" = [ "imv.desktop" ];
+      "image/gif" = [ "imv.desktop" ];
+      "image/tiff" = [ "imv.desktop" ];
+      "image/webp" = [ "imv.desktop" ];
+    };
+    desktopEntries = {
+      imv = {
+        name = "imv";
+        exec = "${pkgs.imv}/bin/imv";
+        mimeType = [ "image/jpeg" "image/png" "image/gif" "image/tiff" "image/webp" ]; 
+      };
+    };
   };
 
 }

@@ -9,7 +9,7 @@ in {
     ../roles/base.nix
     ../roles/efi-boot.nix
     ../roles/bluetooth.nix
-    #../roles/fonts.nix
+    ../roles/xorg.nix
     ../roles/sdr.nix
     ../roles/user-josh.nix
   ];
@@ -19,10 +19,28 @@ in {
     ../home-manager/ssh-config.nix
     ../home-manager/gui-environment.nix
     ../home-manager/gnupg.nix
+    ../home-manager/wayland.nix
   ];
 
   powerManagement.enable = true;
+
   hardware.opengl.enable = true;
+
+  # DPI settings
+  hardware.video.hidpi.enable = true;
+  environment.variables = {
+    GDK_DPI_SCALE = "1.0";
+    QT_SCALE_FACTOR = "1";
+    _JAVA_OPTIONS = "-Dsun.java2d.uiScale=1";
+  };
+
+  programs.dconf.enable = true;
+
+  home-manager.users.josh.gtk.enable = true;
+  home-manager.users.josh.gtk.font.name = "Cantarell";
+  home-manager.users.josh.gtk.font.size = 10;
+  home-manager.users.josh.qt.enable = true;
+  home-manager.users.josh.qt.platformTheme = "gtk";
 
   networking = {
     hostName = "aether";
@@ -69,6 +87,7 @@ in {
   environment.systemPackages = with pkgs; [
     pulseaudio
     usbutils
+    qt5.qtwayland # :(
   ];
 
 }

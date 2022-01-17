@@ -7,6 +7,7 @@
       iosevka
       ibm-plex
       font-awesome
+      inconsolata
     ];
     fontconfig = {
       defaultFonts = {
