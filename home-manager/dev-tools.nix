@@ -4,6 +4,7 @@
     # cloud tools
     aws-vault
     k9s
+    kubectl
     kubernetes-helm
     argocd
     tektoncd-cli
