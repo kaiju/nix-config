@@ -50,7 +50,6 @@
 
     shellAliases = {
       ls = "${pkgs.exa}/bin/exa -F";
-      vi = "${pkgs.vim}/bin/vim";
     };
 
     initExtra = ''
@@ -85,7 +84,7 @@
   #};
 
   programs.vim = {
-      enable = true;
+      enable = false;
       plugins = with pkgs.vimPlugins; [
         vim-airline
         nerdtree
