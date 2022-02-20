@@ -17,6 +17,10 @@
 
     displayManager = {
       lightdm.enable = true;
+      lightdm.greeters.mini = {
+        enable = true;
+        user = "josh";
+      };
       defaultSession = "xsession";
       session = [
         {
