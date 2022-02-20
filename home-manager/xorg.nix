@@ -9,6 +9,16 @@
       enable = true;
       package = pkgs.i3-gaps;
       config = {
+        bars = [
+          {
+            fonts = {
+              names = [ "IBM Plex Mono" ];
+              size = 10.0;
+            };
+            statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
+            position = "top";
+          }
+        ];
         colors.focused = {
           background = "#8c9440";
           indicator = "#b5bd68";
@@ -16,6 +26,7 @@
           border = "#b5bd68";
           childBorder = "#8c9440";
         };
+        defaultWorkspace = "workspace number 1";
         modifier = "Mod4";
 
         menu = "${pkgs.rofi}/bin/rofi -show combi";
@@ -42,6 +53,36 @@
     picom = {
       enable = true;
       vSync = true;
+    };
+  };
+
+  programs.i3status-rust = {
+    enable = true;
+    bars = {
+      default = {
+        theme = "plain";
+        icons = "none";
+        blocks = [
+          {
+            block = "memory";
+            display_type = "memory";
+            format_mem = "{mem_total_used}";
+          }
+          {
+            block = "load";
+            format = "{1m} {5m} {15m}";
+          }
+          {
+            block = "cpu";
+            interval = 1;
+          }
+          {
+            block = "time";
+            interval = 60;
+            format = "%a %m/%d %I:%M%P";
+          }
+        ];
+      };
     };
   };
 
