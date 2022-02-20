@@ -23,29 +23,8 @@
     cantarell-fonts
 
     # Apps
-    element-desktop
-    tdesktop
-    obsidian
-    virt-manager
-    syncthing
     bitwarden
-    zoom-us
-    sublime4
-    chromium
-
   ];
-
-  services.syncthing.enable = true;
-
-  programs.pidgin = {
-    enable = true;
-    plugins = [
-      pkgs.purple-slack
-      pkgs.purple-discord
-      pkgs.telegram-purple
-      pkgs.purple-matrix
-    ];
-  };
 
   programs.rofi = {
     enable = true;
@@ -57,6 +36,7 @@
     };
   };
 
+  programs.chromium.enable = true;
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-wayland;
@@ -191,26 +171,6 @@
     # white
     "*.color7" = "#c5c8c6";
     "*.color15" = "#eaeaea";
-  };
-
-  xdg = {
-    enable = false;
-    mime.enable = true;
-    #mimeApps.enable = true;
-    mimeApps.defaultApplications = {
-      "image/jpeg" = [ "imv.desktop" ];
-      "image/png" = [ "imv.desktop" ];
-      "image/gif" = [ "imv.desktop" ];
-      "image/tiff" = [ "imv.desktop" ];
-      "image/webp" = [ "imv.desktop" ];
-    };
-    desktopEntries = {
-      imv = {
-        name = "imv";
-        exec = "${pkgs.imv}/bin/imv";
-        mimeType = [ "image/jpeg" "image/png" "image/gif" "image/tiff" "image/webp" ]; 
-      };
-    };
   };
 
 }
