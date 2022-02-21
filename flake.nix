@@ -25,7 +25,7 @@
       ];
     };
 
-    nixosConfigurations.werk = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.work = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = inputs;
       modules = [
