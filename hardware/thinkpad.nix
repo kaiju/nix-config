@@ -23,7 +23,7 @@
       fsType = "vfat";
     };
 
-  swapDevices = [ ];
+  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   # high-resolution display
