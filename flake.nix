@@ -25,5 +25,16 @@
       ];
     };
 
+    nixosConfigurations.werk = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = inputs;
+      modules = [
+        { system.stateVersion = "21.11"; }
+        home-manager.nixosModule
+        ./hardware/vmware-guest.nix
+        ./hosts/werk.nix
+      ];
+    };
+
   };
 }
