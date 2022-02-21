@@ -23,6 +23,7 @@
     file
     lm_sensors
     dnsutils
+    usbutils
   ];
 
   programs.zsh.enable = true;

@@ -4,14 +4,13 @@
     ./xorg.nix # wayland under vmware still isn't there yet
   ];
 
+  hardware.opengl.enable = true;
+
   # Enable VMWare guest additions
   virtualisation.vmware.guest.enable = true;
 
   networking.interfaces.ens33.useDHCP = true;
   networking.firewall.enable = false;
-
-  # Since we're running in VM on OSX, swap around our goofy keyboard setup
-  services.xserver.xkbOptions = "altwin:swap_alt_win";
 
   # No passwords, no problems
   security.sudo.wheelNeedsPassword = false;
