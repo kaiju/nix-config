@@ -2,7 +2,6 @@
 {
   home.packages = with pkgs; [
     # cloud tools
-    aws-vault
     k9s
     kubectl
     kubernetes-helm
@@ -17,13 +16,8 @@
     shellcheck
     awscli2
     google-cloud-sdk
+    python3
+    go_1_17
   ];
 
-  # Enable pass for aws-vault
-  programs.password-store.enable = true;
-  services.pass-secret-service.enable = true;
-
-  home.sessionVariables = {
-    AWS_VAULT_BACKEND = "pass";
-  };
 }
