@@ -1,11 +1,6 @@
 { config, pkgs, ... }:
-let
-  nixos-hardware = builtins.fetchGit {
-    url = "https://github.com/NixOS/nixos-hardware.git";
-  };
-in {
+{
   imports = [
-    "${nixos-hardware}/lenovo/thinkpad/x1/7th-gen"
     ../roles/base.nix
     ../roles/efi-boot.nix
     ../roles/bluetooth.nix
@@ -17,9 +12,14 @@ in {
   home-manager.users.josh.imports = [
     ../home-manager/dev-tools.nix
     ../home-manager/ssh-config.nix
+    ../home-manager/obsidian.nix
+    ../home-manager/comms.nix
+    ../home-manager/sublime-text.nix
     ../home-manager/gui-environment.nix
+    ../home-manager/neovim.nix
     ../home-manager/gnupg.nix
     ../home-manager/wayland.nix
+    ../home-manager/xorg.nix
   ];
 
   powerManagement.enable = true;
@@ -89,5 +89,7 @@ in {
     usbutils
     qt5.qtwayland # :(
   ];
+
+  system.stateVersion = "21.05";
 
 }
