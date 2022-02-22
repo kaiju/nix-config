@@ -17,6 +17,24 @@
             };
             statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
             position = "top";
+            colors = {
+              background = "#06060f";
+              activeWorkspace = {
+                background = "#06060f";
+                border = "#06060f";
+                text = "#61b9c6";
+              };
+              focusedWorkspace = {
+                background = "#06060f";
+                border = "#06060f";
+                text = "#61b9c6";
+              };
+              inactiveWorkspace = {
+                background = "#06060f";
+                border = "#06060f";
+                text = "#cccccc";
+              };
+            };
           }
         ];
         colors.focused = {
@@ -33,8 +51,8 @@
 
         terminal = "${pkgs.alacritty}/bin/alacritty";
         gaps = {
-          smartBorders = "on";
-          smartGaps = true;
+          smartBorders = "off";
+          smartGaps = false;
           inner = 7;
         };
         keybindings = lib.mkOptionDefault {
@@ -56,12 +74,47 @@
     };
   };
 
+  services.polybar = {
+    enable = true;
+    package = pkgs.polybar.override {
+      i3GapsSupport = true;
+    };
+    script = "polybar -r top &";
+    settings = {
+      "bar/top" = {
+        bottom = false;
+        width = "100%";
+        locale = "en_US.UTF-8";
+        font = [
+          "IBM Plex Mono:size=10"
+        ];
+        modules-left = "i3";
+        modules-right = "date";
+      };
+      "module/i3" = {
+        type = "internal/i3";
+      };
+      "module/date" = {
+        type = "internal/date";
+        interval = 1.0;
+        label = "%date% %time%";
+        date = "%Y/%m/%d%";
+        time = "%I:%M%P";
+      };
+    };
+  };
+
   programs.i3status-rust = {
     enable = true;
     bars = {
       default = {
-        theme = "plain";
         icons = "none";
+        settings = {
+          theme.name = "plain";
+          theme.overrides = {
+            separator = "";
+          };
+        };
         blocks = [
           {
             block = "memory";
