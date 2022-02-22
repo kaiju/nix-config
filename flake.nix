@@ -49,7 +49,7 @@
       system = "x86_64-linux";
       specialArgs = inputs;
       modules = [
-        home-manage.nixosModule
+        home-manager.nixosModule
         ./hardware/sigint.nix
         ./hosts/sigint.nix
       ];
