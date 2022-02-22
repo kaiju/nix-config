@@ -29,12 +29,6 @@
       system = "x86_64-linux";
       specialArgs = inputs;
       modules = [
-        {
-          system.stateVersion = "21.11";
-
-          # OSX :(
-          services.xserver.xkbOptions = "altwin:swap_alt_win";
-        }
         home-manager.nixosModule
         ./hardware/vmware-guest.nix
         ./hosts/work.nix
@@ -48,6 +42,16 @@
         home-manager.nixosModule
         ./hardware/vmware-guest.nix
         ./hosts/erebus.nix
+      ];
+    };
+
+    nixosConfigurations.sigint = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = inputs;
+      modules = [
+        home-manage.nixosModule
+        ./hardware/sigint.nix
+        ./hosts/sigint.nix
       ];
     };
 
