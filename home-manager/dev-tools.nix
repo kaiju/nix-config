@@ -18,6 +18,9 @@
     google-cloud-sdk
     python3
     go_1_17
+    pre-commit
+    nodejs
+    gcc
   ];
 
 }
