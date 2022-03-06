@@ -76,7 +76,7 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "narHash": "sha256-4Ny6FYFvLs/3HubAiZLpNpO0nRz4haeNAEt9EvOo3TY=",
+        "narHash": "sha256-VwfvCvCNVv0KoiIptRibWgvbyBf8Px6gqLaXu+sWKHg=",
         "path": "./packages",
         "type": "path"
       },
