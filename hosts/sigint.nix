@@ -58,12 +58,16 @@
 
   systemd.services.ble-thermometer-scan = {
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
+    after = [ "network.target" "bluetooth.target" ];
     description = "BLE Thermometer Scanner";
+    path = [
+    	pkgs.bluez
+    ];
     serviceConfig = {
       Type = "simple";
       User = "root";
-      ExecStart = ''${pkgs.ble-thermometer-scan}/bin/ble-thermometer-scan.sh'';
+      ExecStart = ''${pkgs.ble-thermometer-scan}/bin/ble-thermometer-scan'';
+      Restart = "on-failure";
     };
   };
 
