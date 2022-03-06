@@ -41,6 +41,7 @@
       system = "x86_64-linux";
       specialArgs = inputs;
       modules = [
+        my-overlays
         home-manager.nixosModule
         ./hardware/vmware-guest.nix
         ./hosts/work.nix
@@ -51,6 +52,7 @@
       system = "x86_64-linux";
       specialArgs = inputs;
       modules = [
+        my-overlays
         home-manager.nixosModule
         ./hardware/vmware-guest.nix
         ./hosts/erebus.nix
