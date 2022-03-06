@@ -7,14 +7,13 @@
     shell = pkgs.zsh;
   };
 
+  home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.users.josh = {
 
     imports = [
       ../home-manager/shell-environment.nix
     ];
-
-    nixpkgs.config.allowUnfree = true;
 
     home.username = "josh";
     home.homeDirectory = "/home/josh";

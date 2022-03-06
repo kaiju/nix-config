@@ -1,9 +1,15 @@
 { config, pkgs, lib, ... }:
 {
+
+  home.packages = with pkgs; [ 
+    feh
+  ];
+
   xsession = {
     enable = true;
     initExtra = ''
       setxkbmap -option 'ctrl:nocaps'
+      feh --bg-fill ${pkgs.wallpaper}/FBupGeOVcAQWnEc.jpg
     '';
     windowManager.i3 = {
       enable = true;
@@ -47,7 +53,7 @@
         defaultWorkspace = "workspace number 1";
         modifier = "Mod4";
 
-        menu = "${pkgs.rofi}/bin/rofi -show combi";
+        menu = "${pkgs.rofi}/bin/rofi -dpi -show combi";
 
         terminal = "${pkgs.alacritty}/bin/alacritty";
         gaps = {
@@ -75,7 +81,7 @@
   };
 
   services.polybar = {
-    enable = true;
+    enable = false;
     package = pkgs.polybar.override {
       i3GapsSupport = true;
     };

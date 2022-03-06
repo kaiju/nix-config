@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   console.useXkbConfig = true;
+  services.autorandr.enable = true;
   services.xserver = {
     enable = true;
 

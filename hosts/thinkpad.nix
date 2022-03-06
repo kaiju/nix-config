@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-{
+let 
+  dpi = 168;
+in {
   imports = [
     ../roles/base.nix
     ../roles/efi-boot.nix
@@ -18,7 +20,7 @@
     ../home-manager/gui-environment.nix
     ../home-manager/neovim.nix
     ../home-manager/gnupg.nix
-    ../home-manager/wayland.nix
+    #../home-manager/wayland.nix
     ../home-manager/xorg.nix
   ];
 
@@ -28,11 +30,20 @@
 
   # DPI settings
   hardware.video.hidpi.enable = true;
+  services.xserver.dpi = dpi;
   environment.variables = {
-    GDK_DPI_SCALE = "1.0";
-    QT_SCALE_FACTOR = "1";
-    _JAVA_OPTIONS = "-Dsun.java2d.uiScale=1";
+    GDK_SCALE = "1";
+    GDK_DPI_SCALE = "0.9";
+    #QT_SCALE_FACTOR = "2";
+    #_JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
   };
+  services.xserver.displayManager.sessionCommands = ''
+    setxkbmap -option 'caps:ctrl_modifier'
+    ${pkgs.xorg.xrdb}/bin/xrdb -merge <<EOF
+    Xft.dpi: ${builtins.toString dpi} 
+    *.dpi: ${builtins.toString dpi} 
+    EOF
+  '';
 
   programs.dconf.enable = true;
 

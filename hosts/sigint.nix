@@ -55,4 +55,16 @@
       ExecStart = ''${pkgs.rtl_433}/bin/rtl_433 -C si -f 915M -Y classic -s 250k -R 78 -M newmodel -F mqtt:mqtt.mast.haus:1883'';
     };
   };
+
+  systemd.services.ble-thermometer-scan = {
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    description = "BLE Thermometer Scanner";
+    serviceConfig = {
+      Type = "simple";
+      User = "root";
+      ExecStart = ''${pkgs.ble-thermometer-scan}/bin/ble-thermometer-scan.sh'';
+    };
+  };
+
 }

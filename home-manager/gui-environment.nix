@@ -2,8 +2,6 @@
 
 {
 
-  fonts.fontconfig.enable = true;
-
   home.packages = with pkgs; [
     xorg.xbacklight
     ncpamixer
@@ -114,7 +112,7 @@
       background = "[90]#1d1f21";
       perl-ext-common = "url-select,clipboard";
       "keysym.C-c" = "perl:clipboard:copy";
-      "keysym.C-v" = "perl:clipdboard:paste";
+      "keysym.C-v" = "perl:clipboard:paste";
     };
     fonts = [
       "xft:Iosevka:size=14"

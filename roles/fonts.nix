@@ -10,6 +10,7 @@
       inconsolata
     ];
     fontconfig = {
+      enable = true;
       defaultFonts = {
         monospace = [
           "IBM Plex Mono"
