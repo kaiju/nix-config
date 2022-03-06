@@ -5,6 +5,7 @@
     k9s
     kubectl
     kubernetes-helm
+    kustomize
     argocd
     tektoncd-cli
     jq

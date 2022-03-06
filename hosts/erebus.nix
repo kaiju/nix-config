@@ -5,6 +5,7 @@
     ../roles/efi-boot.nix
     ../roles/vmware-guest.nix
     ../roles/user-josh.nix
+    ../roles/containers.nix
     ../roles/xorg.nix
   ];
   home-manager.users.josh.imports = [
