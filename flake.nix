@@ -10,17 +10,18 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    my-pkgs.url = "path:./packages";
+    my-pkgs = {
+      url = "path:./packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
   outputs = { self, nixpkgs, nixos-hardware, my-pkgs, home-manager }@inputs:
   let
     my-overlays = {
-      nixpkgs.overlays = [
-        my-pkgs.overlays.wallpaper
-        my-pkgs.overlays.ble-thermometer-scan
-      ];
+      # just mash in all of my packages from my-pkgs in as overlays
+      nixpkgs.overlays = nixpkgs.lib.attrValues my-pkgs.overlays;
     };
   in {
 
