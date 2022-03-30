@@ -12,7 +12,6 @@
   users.defaultUserShell = pkgs.zsh;
 
   environment.systemPackages = with pkgs; [
-    vim
     exa
     tmux
     htop
