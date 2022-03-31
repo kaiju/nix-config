@@ -2,7 +2,6 @@
 {
   imports = [
     ../roles/base.nix
-    ../roles/efi-boot.nix
     ../roles/server.nix
     ../roles/bluetooth.nix
     ../roles/sdr.nix

@@ -4,7 +4,6 @@ let
 in {
   imports = [
     ../roles/base.nix
-    ../roles/efi-boot.nix
     ../roles/bluetooth.nix
     ../roles/xorg.nix
     ../roles/sdr.nix
@@ -20,6 +19,7 @@ in {
     ../home-manager/gui-environment.nix
     ../home-manager/neovim.nix
     ../home-manager/gnupg.nix
+    ../home-manager/rbw.nix
     #../home-manager/wayland.nix
     ../home-manager/xorg.nix
   ];
@@ -47,6 +47,9 @@ in {
 
   programs.dconf.enable = true;
 
+  home-manager.users.josh.home.packages = with pkgs; [
+    vlc
+  ];
   home-manager.users.josh.gtk.enable = true;
   home-manager.users.josh.gtk.font.name = "Cantarell";
   home-manager.users.josh.gtk.font.size = 10;

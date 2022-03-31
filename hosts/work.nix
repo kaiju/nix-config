@@ -2,7 +2,6 @@
 {
   imports = [
     ../roles/base.nix
-    ../roles/efi-boot.nix
     ../roles/vmware-guest.nix
     ../roles/user-josh.nix
     ../roles/containers.nix

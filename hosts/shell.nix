@@ -2,18 +2,25 @@
 {
   imports = [
     ../roles/base.nix
-    ../roles/efi-boot.nix
     ../roles/server.nix
   ];
 
   networking = {
     useDHCP = false;
-    networkmanager.enable = true;
+    defaultGateway = {
+      address = "192.168.8.1";
+      interface = "eth0";
+    };
+    nameservers = [
+      "192.168.8.1"
+    ];
     interfaces = {
-      ens3.useDHCP = false;
-      ipv4.addresses = [
-        { address = "192.168.8.15"; prefixLength = 21; }
-      ];
+      eth0 = {
+        useDHCP = false;
+        ipv4.addresses = [
+          { address = "192.168.8.15"; prefixLength = 21; }
+        ];
+      };
     };
     hostName = "shell";
   };
@@ -31,18 +38,32 @@
   users.users.josh = {
     uid = 1000;
     isNormalUser = true;
-    extraGroups = [ "mast" ];
+    extraGroups = [ "mast" "wheel" ];
+  };
+
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.sharedModules = [
+    ../home-manager/shell-environment.nix
+    ../home-manager/neovim.nix
+  ];
+
+  home-manager.users.josh = {
+    home.username = "josh";
+    home.homeDirectory = "/home/josh";
+    home.stateVersion = config.system.stateVersion;
   };
 
   environment.systemPackages = with pkgs; [
     rtorrent
   ];
 
+  networking.firewall.allowedTCPPorts = [ 5357 ];
+  networking.firewall.allowedUDPPorts = [ 3702 ];
+
   services.samba = {
-    enable = true;
+    enable = false;
     openFirewall = true;
-    samba-wsdd.enable = true;
-    samba-wsdd.domain = "mast.haus";
     shares = {
       media = {
         comment = "Media";
@@ -55,6 +76,11 @@
         "create mask" = 0655;
       };
     };
+  };
+
+  services.samba-wsdd = {
+    enable = false;
+    domain = "mast.haus";
   };
 
 }
