@@ -22,7 +22,7 @@
     nameservers = [ "192.168.8.1" ];
 
     interfaces.internal0 = {
-      virtual = true
+      virtual = true;
       virtualOwner = "root";
       virtualType = "tap";
     };
