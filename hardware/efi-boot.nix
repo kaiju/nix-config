@@ -4,7 +4,7 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "uchi_hcd", "ehci_pci", "ata_piix", "mpt3sas", "usb_storage", "usbhid", "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "uchi_hcd" "ehci_pci" "ata_piix" "mpt3sas" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
