@@ -35,7 +35,7 @@
       ipv4.addresses = [ { address = "192.168.8.11"; prefixLength = 22; }];
     };
 
-    interfaces.bridges = {
+    bridges = {
       internalbr0.interfaces = [ "internal0" ];
       br0.interfaces = [ "enp1s0f0" ];
     };
