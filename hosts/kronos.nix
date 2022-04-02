@@ -47,7 +47,7 @@
     enable = true;
     allowedBridges = [ "internalbr0" "br0" ];
     qemu.ovmf.enable = true;
-    package = pkgs.libvirt.override { enableIscsi = true; }
+    package = pkgs.libvirt.override { enableIscsi = true; };
   };
 
   system.stateVersion = "21.11";
