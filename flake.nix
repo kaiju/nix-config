@@ -64,6 +64,16 @@
       ];
     };
 
+    nixosConfigurations.kronos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        my-overlays
+        home-manager.nixosModule
+        ./hardware/efi-boot.nix
+        ./hosts/kronos.nix
+      ];
+    };
+
     nixosConfigurations.work = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = inputs;
