@@ -61,7 +61,7 @@
   home-manager.useUserPackages = true;
   home-manager.sharedModules = [
     ../home-manager/shell-environment.nix
-    ../home-manage/neovim.nix
+    ../home-manager/neovim.nix
   ];
   home-manager.users.josh = {
     home.username = "josh";
