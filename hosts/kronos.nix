@@ -64,6 +64,9 @@
     rm /var/lib/libvirt/qemu/networks/default.xml
     rm /var/lib/libvirt/qemu/networks/autostart/default.xml
   '';
+  environment.systemPackages = with pkgs; [
+    virtiofsd
+  ];
 
   system.stateVersion = "21.11";
 
