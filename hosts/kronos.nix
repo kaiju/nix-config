@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports = [
     ../roles/base.nix
@@ -14,12 +14,21 @@
   services.zfs.autoScrub.enable = true;
 
   # Networking
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   networking = {
     hostName = "kronos";
     hostId = "00dddef1";
     useDHCP = false;
     defaultGateway = "192.168.8.1";
     nameservers = [ "192.168.8.1" ];
+
+    nat = {
+      enable = true;
+      externalInterface = "br0";
+      internalInterfaces = [
+        "internalbr0"
+      ];
+    };
 
     interfaces.internal0 = {
       virtual = true;
@@ -32,7 +41,7 @@
     };
 
     interfaces.br0 = {
-      ipv4.addresses = [ { address = "192.168.8.11"; prefixLength = 22; }];
+      ipv4.addresses = [ { address = "192.168.8.44"; prefixLength = 22; }];
     };
 
     bridges = {
@@ -43,12 +52,18 @@
   };
 
   # Libvirt
+  security.polkit.enable = true; # can't virsh as libvirtd group user w/o this
   virtualisation.libvirtd = { 
-    enable = true;
+    enable = true; 
     allowedBridges = [ "internalbr0" "br0" ];
     qemu.ovmf.enable = true;
-    package = pkgs.libvirt.override { enableIscsi = true; };
   };
+  # Prevent default libvirt network from getting created and autostarted
+  # https://github.com/NixOS/nixpkgs/issues/73418#issuecomment-883701022
+  systemd.services.libvirtd-config.script = lib.mkAfter ''
+    rm /var/lib/libvirt/qemu/networks/default.xml
+    rm /var/lib/libvirt/qemu/networks/autostart/default.xml
+  '';
 
   system.stateVersion = "21.11";
 
@@ -67,6 +82,7 @@
     home.username = "josh";
     home.homeDirectory = "/home/josh";
     home.stateVersion = config.system.stateVersion;
+    home.sessionVariables.LIBVIRT_DEFAULT_URI = "qemu:///system";
   };
 
 }
