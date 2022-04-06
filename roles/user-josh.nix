@@ -5,14 +5,16 @@
     isNormalUser = true;
     extraGroups = [ "users" "wheel" "networkmanager" "docker" "video" "plugdev" ];
     shell = pkgs.zsh;
+    openssh.authorizedKeys.keyFiles = [
+      ../files/josh.pubkey
+    ];
   };
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
   home-manager.users.josh = {
 
     imports = [
       ../home-manager/shell-environment.nix
+      ../home-manager/neovim.nix
     ];
 
     home.username = "josh";

@@ -3,6 +3,7 @@
   imports = [
     ../roles/base.nix
     ../roles/server.nix
+    ../roles/user-josh.nix
   ];
   
   # ZFS configuration
@@ -67,22 +68,7 @@
 
   system.stateVersion = "21.11";
 
-  # me
-  users.users.josh = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd" ];
-  };
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.sharedModules = [
-    ../home-manager/shell-environment.nix
-    ../home-manager/neovim.nix
-  ];
-  home-manager.users.josh = {
-    home.username = "josh";
-    home.homeDirectory = "/home/josh";
-    home.stateVersion = config.system.stateVersion;
-    home.sessionVariables.LIBVIRT_DEFAULT_URI = "qemu:///system";
-  };
+  users.users.josh.extraGroups = [ "libvirtd" ];
+  home-manager.users.josh.home.sessionVariables.LIBVIRT_DEFAULT_URI = "qemu:///system";
 
 }
