@@ -40,6 +40,20 @@
       '';
     };
 
+    # example qemu guest vm
+    # build a disk image with
+    # nix build '.#vm.config.system.build.rawimage' or
+    # nix build '.#vm.config.system.build.qcowimage'
+    # nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
+    #   system = "x86_64-linux";
+    #   modules = [
+    #     "./hardware/qemu-guest.nix"
+    #     my-overlays
+    #     home-manager.nixosModule
+    #     ./hosts/<host config>.nix
+    #   ];
+    # };
+
     # shell host configuration
     nixosConfigurations.shell = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -64,6 +78,7 @@
       ];
     };
 
+    # mess-around virtualisation machine, 16 core xeon, 192GB
     nixosConfigurations.kronos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
