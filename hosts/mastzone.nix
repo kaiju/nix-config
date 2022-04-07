@@ -30,7 +30,7 @@
         ];
       };
     };
-    firewall.trustedInterfaces = [ "wg0 ];
+    firewall.trustedInterfaces = [ "wg0" ];
 
   };
 
