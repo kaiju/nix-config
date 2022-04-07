@@ -97,6 +97,7 @@
         my-overlays
         home-manager.nixosModule
         ./hosts/mastzone.nix
+      ];
     };
 
     nixosConfigurations.work = nixpkgs.lib.nixosSystem {
