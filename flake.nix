@@ -89,6 +89,16 @@
       ];
     };
 
+    # VPS
+    nixosConfigurations.mastzone = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./hardware/vps2day.nix
+        my-overlays
+        home-manager.nixosModule
+        ./hosts/mastzone.nix
+    };
+
     nixosConfigurations.work = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = inputs;
