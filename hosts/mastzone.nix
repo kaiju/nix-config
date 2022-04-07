@@ -30,7 +30,12 @@
         ];
       };
     };
-    firewall.trustedInterfaces = [ "wg0" ];
+
+    firewall.trustedInterfaces = [
+      "wg0" # wireguard
+      "cni0" # K8s
+      "flannel.1" # K8s
+    ];
 
   };
 
@@ -44,10 +49,6 @@
   services.k3s.enable = true;
   services.k3s.extraFlags = "--disable=traefik --service-node-port-range=1025-32767";
   networking.firewall.allowedTCPPorts = [ 80 443 ];
-  networking.firewall.trustedInterfaces = [
-    "cni0"
-    "flannel.1"
-  ];
 
   services.openssh.passwordAuthentication = false;
   services.openssh.permitRootLogin = "no";
