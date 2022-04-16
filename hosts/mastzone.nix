@@ -15,6 +15,10 @@
     };
     hostName = "mastzone";
 
+    extraHosts = ''
+      git.mast.haus     192.168.8.50
+    '';
+
     wireguard = {
       enable = true;
       interfaces.wg0 = {
@@ -49,6 +53,12 @@
   services.k3s.enable = true;
   services.k3s.extraFlags = "--disable=traefik --service-node-port-range=1025-32767";
   networking.firewall.allowedTCPPorts = [ 80 443 ];
+
+  services.resolved.enable = true;
+  services.resolved.fallbackDns = [
+    "1.1.1.1"
+    "8.8.8.8"
+  ];
 
   services.openssh.passwordAuthentication = false;
   services.openssh.permitRootLogin = "no";
