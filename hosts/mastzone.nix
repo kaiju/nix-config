@@ -23,7 +23,7 @@
         ips = [ "192.168.12.20/32" ];
         peers = [
           {
-            allowedIPs = [ "192.168.8.0/22" ];
+            allowedIPs = [ "192.168.0.0/16" ];
             publicKey = "Xkdgk9fWNWtF5pe9Q7hHLyLaqPRr6zN9rgl71iwYvkc=";
             endpoint = "mast.haus:51900";
           }
