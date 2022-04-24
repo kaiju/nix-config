@@ -66,7 +66,9 @@
 
   # K8s
   services.k3s.enable = true;
-  services.k3s.extraFlags = "--disable=traefik --service-node-port-range=1025-32767";
+  # --resolv-conf /run/systemd/resolve/resolv.conf is used in ?? with systemd-resolved, to prevent coredns from falling over:
+  # https://github.com/k3s-io/k3s/issues/4087
+  services.k3s.extraFlags = "--disable=traefik --resolv-conf /run/systemd/resolve/resolv.conf --service-node-port-range=1025-32767";
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   services.resolved.enable = true;
