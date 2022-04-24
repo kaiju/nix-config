@@ -9,6 +9,11 @@
     pinentry-curses
   ];
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.htop = {
     enable = true;
   };
