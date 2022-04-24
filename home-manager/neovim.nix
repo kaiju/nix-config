@@ -39,7 +39,7 @@ lua << EOF
 
 	local nvimtree = require('nvim-tree')
 	nvimtree.setup{}
-
+        
 	local cmp = require('cmp')
 	cmp.setup({
 	  snippet = {
@@ -82,8 +82,27 @@ lua << EOF
 
         local lspconfig = require('lspconfig')
 	local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 	lspconfig.gopls.setup{
 	  capabilities = capabilities
+        }
+
+        lspconfig.yamlls.setup{
+          capabilities = capabilities,
+          settings = {
+            yaml = {
+              format = {
+                enable = true,
+              },
+              validate = true,
+              hover = true,
+              completion = true,
+              schemaStore = {
+                enable = true,
+                url = "https://www.schemastore.org/api/json/catalog.json",
+              },
+            },
+          },
         }
 
 	require('lualine').setup()
@@ -92,6 +111,7 @@ EOF
     '';
     extraPackages = with pkgs; [
       gopls
+      yaml-language-server
     ]; # probably throw lsp servers in here?
   };
 }
