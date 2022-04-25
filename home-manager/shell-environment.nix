@@ -6,7 +6,6 @@
     exa
     ranger
     bitwarden-cli
-    pinentry-curses
   ];
 
   programs.direnv = {
