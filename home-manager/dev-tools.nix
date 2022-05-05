@@ -9,6 +9,7 @@
     argocd
     tektoncd-cli
     jq
+    yq
     terraform
     terraform-ls
     terraform-docs
