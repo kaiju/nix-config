@@ -6,6 +6,7 @@
     kubectl
     kubernetes-helm
     kustomize
+    kubebuilder
     argocd
     tektoncd-cli
     jq
