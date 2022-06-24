@@ -63,7 +63,17 @@
         };
       });
 
+      # override pinentry so we don't build a bunch of xorg garbage
+      # https://github.com/NixOS/nixpkgs/issues/124753
+      pinentry = (final: prev: {
+        pinentry = prev.pinentry.override {
+          enabledFlavors = [ "curses" ];
+        };
+      });
+
     };
+
+
 
   };
 }
