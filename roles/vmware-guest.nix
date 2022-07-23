@@ -4,6 +4,8 @@
     ./xorg.nix # wayland under vmware still isn't there yet
   ];
 
+  services.xserver.videoDrivers = [ "vmware" ];
+
   hardware.opengl.enable = true;
 
   # Enable VMWare guest additions
