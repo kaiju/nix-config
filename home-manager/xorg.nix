@@ -33,6 +33,7 @@
             position = "top";
             colors = {
               background = "#161313";
+              separator = "#161313";
               focusedWorkspace = {
                 background = "#202729";
                 border = "#202729";
@@ -139,6 +140,9 @@
           theme.name = "plain";
           theme.overrides = {
             separator = "";
+            idle_bg = "#161313";
+            good_bg = "#161313";
+            info_bg = "#161313";
           };
         };
         blocks = [
