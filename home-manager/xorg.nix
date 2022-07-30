@@ -32,21 +32,26 @@
             statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
             position = "top";
             colors = {
-              background = "#06060f";
-              activeWorkspace = {
-                background = "#06060f";
-                border = "#06060f";
-                text = "#61b9c6";
-              };
+              background = "#161313";
               focusedWorkspace = {
-                background = "#06060f";
-                border = "#06060f";
-                text = "#61b9c6";
+                background = "#202729";
+                border = "#202729";
+                text = "#99ccc9";
+              };
+              activeWorkspace = {
+                background = "#202729";
+                border = "#202729";
+                text = "#99ccc9";
+              };
+              urgentWorkspace = {
+                background = "#6e2926";
+                border = "#6e2926";
+                text = "#ffffff";
               };
               inactiveWorkspace = {
-                background = "#06060f";
-                border = "#06060f";
-                text = "#cccccc";
+                background = "#161613";
+                border = "#161613";
+                text = "#75756e";
               };
             };
           }
