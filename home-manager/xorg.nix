@@ -16,7 +16,6 @@
   xsession = {
     enable = true;
     initExtra = ''
-      setxkbmap -option 'ctrl:nocaps'
       feh --bg-fill ${pkgs.wallpaper}/jr-korpa-YXQew2KZjzY-unsplash.jpg
     '';
 
