@@ -52,6 +52,7 @@
             };
           }
         ];
+
         colors.focused = {
           background = "#8c9440";
           indicator = "#b5bd68";
@@ -89,6 +90,8 @@
     picom = {
       enable = true;
       vSync = true;
+      shadow = true;
+      # shadowOffsets = [ ];
       experimentalBackends = true;
     };
   };
@@ -137,19 +140,23 @@
         blocks = [
           {
             block = "memory";
+            icons_format = "ram ";
             display_type = "memory";
             format_mem = "{mem_used_percents}";
           }
           {
             block = "load";
+            icons_format = "load ";
             format = "{1m} {5m} {15m}";
           }
           {
             block = "cpu";
+            icons_format = "cpu ";
             interval = 1;
           }
           {
             block = "time";
+            icons_format = "  ";
             interval = 60;
             format = "%a %m/%d %I:%M%P";
           }

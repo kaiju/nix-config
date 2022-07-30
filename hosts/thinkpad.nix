@@ -27,23 +27,27 @@ in {
   home-manager.users.josh.programs.i3status-rust = {
     bars.default.blocks = [
       {
+        icons_format = "screen ";
         block = "backlight";
         device = "intel_backlight";
       }
       {
         block = "battery";
-      }
-      {
-        block = "bluetooth";
-        mac = "DF:46:7C:EB:FD:66";
-        hide_disconnected = true;
+        icons_format = "power ";
       }
       {
         block = "sound";
+        icons_format = "";
+        format = "{output_name} {volume}";
+        mappings = {
+          "bluez_output.DF_46_7C_EB_FD_66.a2dp-sink" = "btaudio";
+          "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink" = "audio";
+        };
       }
       {
         block = "networkmanager";
         primary_only = true;
+        icons_format = "";
       }
     ];
   };
