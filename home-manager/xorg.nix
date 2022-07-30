@@ -1,6 +1,14 @@
 { config, pkgs, lib, ... }:
 {
 
+  dconf.settings = {
+    "org/gnome/desktop/input-sources" = {
+      xkb-options = [
+        "ctrl:nocaps"
+      ];
+    };
+  };
+
   home.packages = with pkgs; [ 
     feh
   ];
@@ -9,8 +17,9 @@
     enable = true;
     initExtra = ''
       setxkbmap -option 'ctrl:nocaps'
-      feh --bg-fill ${pkgs.wallpaper}/FBupGeOVcAQWnEc.jpg
+      feh --bg-fill ${pkgs.wallpaper}/jr-korpa-YXQew2KZjzY-unsplash.jpg
     '';
+
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;
@@ -50,17 +59,20 @@
           border = "#b5bd68";
           childBorder = "#8c9440";
         };
+
         defaultWorkspace = "workspace number 1";
         modifier = "Mod4";
 
         menu = "${pkgs.rofi}/bin/rofi -dpi -show combi";
 
         terminal = "${pkgs.alacritty}/bin/alacritty";
+
         gaps = {
           smartBorders = "off";
           smartGaps = false;
           inner = 7;
         };
+
         keybindings = lib.mkOptionDefault {
           "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'";
           "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'";
@@ -77,6 +89,7 @@
     picom = {
       enable = true;
       vSync = true;
+      experimentalBackends = true;
     };
   };
 
@@ -125,7 +138,7 @@
           {
             block = "memory";
             display_type = "memory";
-            format_mem = "{mem_total_used}";
+            format_mem = "{mem_used_percents}";
           }
           {
             block = "load";

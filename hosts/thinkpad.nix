@@ -20,9 +20,33 @@ in {
     ../home-manager/neovim.nix
     ../home-manager/gnupg.nix
     ../home-manager/rbw.nix
-    #../home-manager/wayland.nix
     ../home-manager/xorg.nix
   ];
+
+  # laptop specific i3 status configuration
+  home-manager.users.josh.programs.i3status-rust = {
+    bars.default.blocks = [
+      {
+        block = "backlight";
+        device = "intel_backlight";
+      }
+      {
+        block = "battery";
+      }
+      {
+        block = "bluetooth";
+        mac = "DF:46:7C:EB:FD:66";
+        hide_disconnected = true;
+      }
+      {
+        block = "sound";
+      }
+      {
+        block = "networkmanager";
+        primary_only = true;
+      }
+    ];
+  };
 
   powerManagement.enable = true;
 
@@ -95,7 +119,6 @@ in {
       xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk
     ];
-    gtkUsePortal = true;
   };
 
   environment.systemPackages = with pkgs; [
