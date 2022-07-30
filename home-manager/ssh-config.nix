@@ -4,8 +4,8 @@
     enable = true;
     # wonder if we can just build this out of all our flake outputs?
     matchBlocks = {
-      "gojira.kaiju.net" = {
-        hostname = "gojira.kaiju.net";
+      "mast.zone" = {
+        hostname = "mast.zone";
         forwardAgent = true;
       };
       "straylight" = {
