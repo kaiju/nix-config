@@ -69,8 +69,6 @@ in {
     EOF
   '';
 
-  programs.dconf.enable = true;
-
   home-manager.users.josh.home.packages = with pkgs; [
     vlc
   ];

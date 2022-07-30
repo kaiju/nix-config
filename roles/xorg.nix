@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 {
+  programs.dconf.enable = true;
+
   console.useXkbConfig = true;
   services.autorandr.enable = true;
   services.xserver = {
