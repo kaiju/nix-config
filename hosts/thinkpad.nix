@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
-let 
-  dpi = 168;
-in {
+{
   imports = [
     ../roles/base.nix
     ../roles/bluetooth.nix
@@ -52,36 +50,34 @@ in {
     ];
   };
 
-  powerManagement.enable = true;
-
-  hardware.opengl.enable = true;
-
-  # DPI settings
-  hardware.video.hidpi.enable = true;
-  services.xserver.dpi = dpi;
+  # High DPI settings
+  services.xserver = {
+    dpi = 210;
+    displayManager.setupCommands = with pkgs; ''
+      DISPLAY=:0 ${xorg.xrandr}/bin/xrandr --output eDP-1 --scale '1.3x1.3'
+    '';
+    displayManager.sessionCommands = with pkgs; ''
+      ${xorg.xrandr}/bin/xrandr --output eDP-1 --scale '1.3x1.3'
+    '';
+  };
   environment.variables = {
-    GDK_SCALE = "1";
-    GDK_DPI_SCALE = "0.9";
-    QT_SCALE_FACTOR = "0.9";
-    #_JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+    GDK_SCALE = "2";
+    GDK_DPI_SCALE = "0.5";
+    QT_AUTO_SCREEN_SET_FACTOR = "0";
+    QT_SCALE_FACTOR = "2";
+    QT_FONT_DPI = "96";
   };
 
-  # fix this
-  services.xserver.displayManager.sessionCommands = ''
-    ${pkgs.xorg.xrdb}/bin/xrdb -merge <<EOF
-    Xft.dpi: ${builtins.toString dpi} 
-    *.dpi: ${builtins.toString dpi} 
-    EOF
-  '';
+  home-manager.users.josh.xresources.properties = {
+    "Xft.dpi" = "210";
+    "*.dpi" = "210";
+    "Xcursor.size" = "35";
+  };
+  # end
 
   home-manager.users.josh.home.packages = with pkgs; [
     vlc
   ];
-  home-manager.users.josh.gtk.enable = true;
-  home-manager.users.josh.gtk.font.name = "Cantarell";
-  home-manager.users.josh.gtk.font.size = 10;
-  home-manager.users.josh.qt.enable = true;
-  home-manager.users.josh.qt.platformTheme = "gtk";
 
   networking = {
     hostName = "aether";
@@ -112,19 +108,13 @@ in {
     };
   };
 
+  # What did I need this for...
   security.rtkit.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
-      xdg-desktop-portal-gtk
-    ];
-  };
 
   environment.systemPackages = with pkgs; [
     pulseaudio
     usbutils
+    xorg.xdpyinfo
     qt5.qtwayland # :(
   ];
 

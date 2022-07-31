@@ -3,6 +3,15 @@
   programs.dconf.enable = true;
 
   console.useXkbConfig = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gtk
+    ];
+  };
+
   services.autorandr.enable = true;
   services.xserver = {
     enable = true;
@@ -20,6 +29,7 @@
 
     displayManager = {
       lightdm.enable = true;
+      lightdm.background = "${pkgs.wallpaper}/jr-korpa-YXQew2KZjzY-unsplash.jpg";
       lightdm.greeters.mini = {
         enable = true;
         user = "josh";

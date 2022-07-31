@@ -25,6 +25,19 @@
     bitwarden
   ];
 
+  gtk = {
+    enable = true;
+    font = {
+      name = "Cantarell";
+      size = 10;
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+  };
+
   programs.rofi = {
     enable = true;
     font = "IBM Plex Mono 10";

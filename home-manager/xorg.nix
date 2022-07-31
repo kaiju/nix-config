@@ -16,7 +16,8 @@
   xsession = {
     enable = true;
     initExtra = ''
-      feh --bg-fill ${pkgs.wallpaper}/jr-korpa-YXQew2KZjzY-unsplash.jpg
+      ${pkgs.xorg.setxkbmap}/bin/setxkbmap -option 'ctrl:nocaps'
+      ${pkgs.feh}/bin/feh --bg-fill ${pkgs.wallpaper}/jr-korpa-YXQew2KZjzY-unsplash.jpg
     '';
 
     windowManager.i3 = {
