@@ -20,7 +20,7 @@
     awscli2
     google-cloud-sdk
     python3
-    go_1_17
+    go_1_18
     pre-commit
     nodejs
     gcc
