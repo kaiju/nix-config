@@ -19,6 +19,7 @@
     noto-fonts-emoji
     inconsolata
     cantarell-fonts
+    nerdfonts
 
     # Apps
     bitwarden
@@ -45,54 +46,6 @@
       };
     };
   };
-
-  /*
-  programs.i3status-rust = {
-    enable = false;
-    bars = {
-      default = {
-        theme = "plain";
-        icons = "none";
-        blocks = [
-          {
-            block = "networkmanager";
-            on_click = "alacritty -e nmtui";
-            ap_format = "{ssid} ({strength})";
-            primary_only = true;
-          }
-          {
-            block = "memory";
-            display_type = "memory";
-            format_mem = "{mem_total_used}";
-          }
-          {
-            block = "cpu";
-            interval = 1;
-          }
-          {
-            block = "temperature";
-            scale = "celsius";
-          }
-          {
-            block = "battery";
-          }
-          {
-            block = "backlight";
-          }
-          {
-            block = "sound";
-            on_click = "alacritty -e ncpamixer";
-          }
-          {
-            block = "time";
-            interval = 60;
-            format = "%a %m/%d %I:%M%P";
-          }
-        ];
-      };
-    };
-  };
-  */
 
   services.gammastep = {
     enable = true;
@@ -135,7 +88,7 @@
       font = {
         size = 11.0;
         normal = {
-          family = "Iosevka";
+          family = "Iosevka Nerd Font";
         };
       };
     };
