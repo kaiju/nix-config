@@ -62,11 +62,12 @@ in {
   environment.variables = {
     GDK_SCALE = "1";
     GDK_DPI_SCALE = "0.9";
-    #QT_SCALE_FACTOR = "2";
+    QT_SCALE_FACTOR = "0.9";
     #_JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
   };
+
+  # fix this
   services.xserver.displayManager.sessionCommands = ''
-    setxkbmap -option 'caps:ctrl_modifier'
     ${pkgs.xorg.xrdb}/bin/xrdb -merge <<EOF
     Xft.dpi: ${builtins.toString dpi} 
     *.dpi: ${builtins.toString dpi} 
@@ -92,9 +93,7 @@ in {
     };
   };
 
-  hardware = {
-    brillo.enable = true; # brightness controls
-  };
+  hardware.brillo.enable = true; # brightness controls
 
   sound.enable = true;
 
