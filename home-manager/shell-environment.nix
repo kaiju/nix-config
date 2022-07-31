@@ -42,7 +42,7 @@
 
   programs.git = {
     enable = true;
-    userEmail = "josh@kaiju.net";
+    userEmail = "josh@mast.zone";
     userName = "Josh";
     extraConfig = {
       init = {
