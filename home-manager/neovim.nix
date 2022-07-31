@@ -7,6 +7,7 @@
     plugins = with pkgs.vimPlugins; [
       lualine-nvim
       nvim-lspconfig
+
       nvim-cmp
       cmp-nvim-lua
       cmp-buffer
@@ -37,9 +38,18 @@
 lua << EOF
         local luasnip = require('luasnip')
 
+        -- nvim tree
 	local nvimtree = require('nvim-tree')
-	nvimtree.setup{}
+	nvimtree.setup({
+          renderer = {
+            indent_markers = {
+              enable = true,
+            },
+            highlight_opened_files = "all",
+          },
+        })
         
+        -- cmp autocomplete
 	local cmp = require('cmp')
 	cmp.setup({
 	  snippet = {
@@ -80,14 +90,23 @@ lua << EOF
 	  })
 	})
 
+        -- lsp setup
         local lspconfig = require('lspconfig')
 	local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-	lspconfig.gopls.setup{
-	  capabilities = capabilities
-        }
+        lspconfig.terraformls.setup({
+          capabilities = capabilities,
+        })
+        vim.api.nvim_create_autocmd({"BufWritePre"}, {
+          pattern = {"*.tf", "*.tfvars"},
+          callback = vim.lsp.buf.formatting_sync,
+        })
 
-        lspconfig.yamlls.setup{
+	lspconfig.gopls.setup({
+	  capabilities = capabilities
+        })
+
+        lspconfig.yamlls.setup({
           capabilities = capabilities,
           settings = {
             yaml = {
@@ -103,8 +122,9 @@ lua << EOF
               },
             },
           },
-        }
+        })
 
+        -- lualine
 	require('lualine').setup()
 
 EOF
@@ -112,6 +132,7 @@ EOF
     extraPackages = with pkgs; [
       gopls
       yaml-language-server
+      terraform-ls
     ]; # probably throw lsp servers in here?
   };
 }
