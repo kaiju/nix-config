@@ -15,6 +15,7 @@
   services.autorandr.enable = true;
   services.xserver = {
     enable = true;
+    exportConfiguration = true;
 
     libinput = {
       enable = true;
