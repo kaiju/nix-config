@@ -55,10 +55,15 @@
     home.username = "josh";
     home.homeDirectory = "/home/josh";
     home.stateVersion = config.system.stateVersion;
+    systemd.user.tmpfiles.rules = [
+      "L /home/josh/files - - - - /homes/josh"
+    ];
   };
 
   environment.systemPackages = with pkgs; [
     rtorrent
+    youtube-dl
+    beets
   ];
 
   # virtiofs filesystem mounts
