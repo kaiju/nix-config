@@ -39,6 +39,7 @@
     uid = 1000;
     isNormalUser = true;
     extraGroups = [ "mast" "wheel" ];
+    password = "";
   };
 
   home-manager.useGlobalPkgs = true;
@@ -58,12 +59,40 @@
     rtorrent
   ];
 
+  # virtiofs filesystem mounts
+  fileSystems.media = {
+    device = "media";
+    fsType = "virtiofs";
+    mountPoint = "/media";
+  };
+
+  fileSystems.homes = {
+    device = "homes";
+    fsType = "virtiofs";
+    mountPoint = "/homes";
+  };
+
   networking.firewall.allowedTCPPorts = [ 5357 ];
   networking.firewall.allowedUDPPorts = [ 3702 ];
 
   services.samba = {
-    enable = false;
+    enable = true;
     openFirewall = true;
+    extraConfig = ''
+      netbios name = NEWFILES
+      workgroup = WORKGROUP
+      min protocol = SMB2
+
+      ea support = yes
+      vfs objects = fruit streams_xattr
+      fruit:metadata = stream
+      fruit:model = MacSamba
+      fruit:veto_appledouble = no
+      fruit:posix_rename = yes
+      fruit:zero_file_id = yes
+      fruit:wipe_intentionally_left_blank_rfork = yes
+      fruit:delete_empty_adfiles = yes
+    '';
     shares = {
       media = {
         comment = "Media";
@@ -79,7 +108,7 @@
   };
 
   services.samba-wsdd = {
-    enable = false;
+    enable = true;
     domain = "mast.haus";
   };
 
