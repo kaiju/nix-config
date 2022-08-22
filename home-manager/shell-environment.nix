@@ -32,6 +32,9 @@
       container = {
         disabled = true;
       };
+      hostname = {
+        style = "bold fg:16 bg:70";
+      };
     };
   };
 
