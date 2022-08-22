@@ -47,7 +47,7 @@
     # nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
     #   system = "x86_64-linux";
     #   modules = [
-    #     "./hardware/qemu-guest.nix"
+    #     ./hardware/qemu-guest.nix
     #     my-overlays
     #     home-manager.nixosModule
     #     ./hosts/<host config>.nix
@@ -58,7 +58,7 @@
     nixosConfigurations.shell = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        "${nixpkgs}/nixos/modules/virtualisation/lxc-container.nix"
+        ./hardware/qemu-guest.nix
         my-overlays
         home-manager.nixosModule
         ./hosts/shell.nix
