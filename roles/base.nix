@@ -23,6 +23,7 @@
     lm_sensors
     dnsutils
     usbutils
+    nix-tree
   ];
 
   programs.zsh.enable = true;
