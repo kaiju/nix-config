@@ -38,6 +38,8 @@
         icons_format = "";
         format = "{output_name} {volume}";
         mappings = {
+          "bluez_sink.DF_46_7C_EB_FD_66.a2dp_sink" = "btaudio";
+          "bluez_sink.F4_4E_FD_D4_BA_8F.a2dp_sink" = "garage";
           "bluez_output.DF_46_7C_EB_FD_66.a2dp-sink" = "btaudio";
           "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink" = "audio";
         };
@@ -112,17 +114,18 @@
     podman.enable = true;
   };
 
+  hardware.pulseaudio.enable = true;
   services = {
     fwupd.enable = true; # firmware updater
     fprintd.enable = true; # fingerprint reader
     printing.enable = true;
-    pipewire = {
-      enable = true;
-      pulse.enable = true;
-    };
+    #pipewire = {
+    #  enable = true;
+    #  pulse.enable = true;
+    #};
   };
 
-  # What did I need this for...
+  # Needed for pulseaudio
   security.rtkit.enable = true;
 
   environment.systemPackages = with pkgs; [

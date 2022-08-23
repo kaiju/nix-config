@@ -3,7 +3,7 @@
 
   users.users.josh = {
     isNormalUser = true;
-    extraGroups = [ "users" "wheel" "networkmanager" "docker" "video" "plugdev" ];
+    extraGroups = [ "users" "wheel" "networkmanager" "docker" "video" "plugdev" "audio" ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keyFiles = [
       ../files/josh.pubkey

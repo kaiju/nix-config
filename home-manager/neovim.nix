@@ -22,8 +22,11 @@
       telescope-nvim
 
       nvim-tree-lua
+      nvim-web-devicons
 
       vim-terraform
+
+      tokyonight-nvim
     ];
     extraConfig = ''
       set autoindent
@@ -31,11 +34,20 @@
       set backspace=indent,eol,start
       set expandtab
       set number
+      set termguicolors
       set shiftwidth=2
       set smarttab
       set completeopt=menu,menuone,noselect
+      set cursorline
+      colorscheme tokyonight
 
 lua << EOF
+        require('lualine').setup({
+          options = {
+            theme = 'tokyonight'
+          },
+        })
+
         local luasnip = require('luasnip')
 
         -- nvim tree
@@ -48,6 +60,8 @@ lua << EOF
             highlight_opened_files = "all",
           },
         })
+
+        require('nvim-web-devicons').setup()
         
         -- cmp autocomplete
 	local cmp = require('cmp')
