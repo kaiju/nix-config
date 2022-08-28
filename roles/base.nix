@@ -1,6 +1,13 @@
 { config, pkgs, ... }:
 {
 
+  security.sudo = {
+    enable = true;
+    execWheelOnly = true;
+    wheelNeedsPassword = false;
+  };
+  security.pam.enableSSHAgentAuth = true;
+
   time.timeZone = "America/New_York";
 
   nix.extraOptions = ''

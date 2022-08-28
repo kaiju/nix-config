@@ -5,8 +5,8 @@
     isNormalUser = true;
     extraGroups = [ "users" "wheel" "networkmanager" "docker" "video" "plugdev" "audio" ];
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keyFiles = [
-      ../files/josh.pubkey
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIADwZpb0PKtHjAPMMTLTPfS1R1pfpCXSaVllJqM5Y9E8 josh@mast.zone"
     ];
   };
 
