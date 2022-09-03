@@ -10,7 +10,7 @@
     useDHCP = false;
     networkmanager.enable = true;
     interfaces = {
-      ens3.useDHCP = true;
+      eth0.useDHCP = true;
     };
     hostName = "artemis";
   };

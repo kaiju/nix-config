@@ -10,6 +10,9 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+
     my-pkgs = {
       url = "path:./packages";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +20,7 @@
 
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, my-pkgs, home-manager }@inputs:
+  outputs = { self, nixpkgs, agenix, nixos-hardware, my-pkgs, home-manager }@inputs:
   let
 
     my-overlays = {
@@ -65,6 +68,17 @@
       ];
     };
 
+    # test vm
+    nixosConfigurations.artemis = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./hardware/qemu-guest.nix
+        my-overlays
+        home-manager.nixosModule
+        ./hosts/artemis.nix
+      ];
+    };
+
     # aether - Lenovo Thinkpad X1 (7th Gen)
     nixosConfigurations.aether = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -73,6 +87,7 @@
         my-overlays
         nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
         home-manager.nixosModule
+        agenix.nixosModule
         ./hardware/thinkpad.nix
         ./hosts/thinkpad.nix
       ];
