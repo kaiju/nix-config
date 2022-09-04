@@ -68,6 +68,16 @@
       ];
     };
 
+    nixosConfigurations.k8s = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./hardware/qemu-guest.nix
+        my-overlays
+        home-manager.nixosModule
+        ./hosts/k8s.nix
+      ];
+    };
+
     # test vm
     nixosConfigurations.artemis = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
