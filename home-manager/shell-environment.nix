@@ -60,7 +60,7 @@
     enableCompletion = true;
 
     shellAliases = {
-      ls = "${pkgs.exa}/bin/exa -F";
+      ls = "${pkgs.exa}/bin/exa -gF";
     };
 
     initExtra = ''

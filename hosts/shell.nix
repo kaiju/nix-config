@@ -27,39 +27,6 @@
     hostName = "shell";
   };
 
-  users.groups.mast = {
-    gid = 1002;
-  };
-
-  users.users.sky = {
-    uid = 1001;
-    isNormalUser = true;
-    extraGroups = [ "mast" ];
-  };
-
-  users.users.josh = {
-    uid = 1000;
-    isNormalUser = true;
-    extraGroups = [ "mast" "wheel" ];
-    password = "";
-  };
-
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.sharedModules = [
-    ../home-manager/shell-environment.nix
-    ../home-manager/neovim.nix
-  ];
-
-  home-manager.users.josh = {
-    home.username = "josh";
-    home.homeDirectory = "/home/josh";
-    home.stateVersion = config.system.stateVersion;
-    systemd.user.tmpfiles.rules = [
-      "L /home/josh/files - - - - /homes/josh"
-    ];
-  };
-
   environment.systemPackages = with pkgs; [
     rtorrent
     youtube-dl
@@ -79,6 +46,59 @@
     mountPoint = "/homes";
   };
 
+  # Common user settings
+  users.groups.mast = {
+    gid = 1002;
+  };
+
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.sharedModules = [
+    ../home-manager/shell-environment.nix
+    ../home-manager/neovim.nix
+  ];
+
+  # Josh
+  users.users.josh = {
+    uid = 1000;
+    isNormalUser = true;
+    extraGroups = [ "mast" "wheel" ];
+    password = "";
+  };
+
+  home-manager.users.josh = {
+    home.username = "josh";
+    home.homeDirectory = "/home/josh";
+    home.stateVersion = config.system.stateVersion;
+    systemd.user.tmpfiles.rules = [
+      "L /home/josh/files - - - - /homes/josh"
+    ];
+    programs.beets = {
+      enable = true;
+      settings = {
+        directory = "/media/music";
+        library = "/media/musiclibrary.db";
+      };
+    };
+  };
+
+  # Sky
+  users.users.sky = {
+    uid = 1001;
+    isNormalUser = true;
+    extraGroups = [ "mast" ];
+  };
+
+  home-manager.users.sky = {
+    home.username = "sky";
+    home.homeDirectory = "/home/sky";
+    home.stateVersion = config.system.stateVersion;
+    systemd.user.tmpfiles.rules = [
+      "L /home/sky/files - - - - /homes/sky"
+    ];
+  };
+
+
   networking.firewall.allowedTCPPorts = [ 5357 ];
   networking.firewall.allowedUDPPorts = [ 3702 ];
 
@@ -86,8 +106,6 @@
     enable = true;
     openFirewall = true;
     extraConfig = ''
-      netbios name = NEWFILES
-      workgroup = WORKGROUP
       min protocol = SMB2
 
       ea support = yes
@@ -99,6 +117,14 @@
       fruit:zero_file_id = yes
       fruit:wipe_intentionally_left_blank_rfork = yes
       fruit:delete_empty_adfiles = yes
+
+      [homes]
+        comment = Home Directories
+        browseable = no
+        create mask = 0700
+        directory mask = 0700
+        valid users = %S
+        path = %H/files
     '';
     shares = {
       media = {
@@ -116,7 +142,11 @@
 
   services.samba-wsdd = {
     enable = true;
-    domain = "mast.haus";
+  };
+
+  services.plex = {
+    enable = true;
+    openFirewall = true;
   };
 
 }
