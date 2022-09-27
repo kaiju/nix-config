@@ -19,6 +19,8 @@
     shellcheck
     awscli2
     google-cloud-sdk
+    cloud-sql-proxy
+    postgresql
     python3
     go_1_18
     pre-commit
