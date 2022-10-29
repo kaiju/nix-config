@@ -25,6 +25,7 @@ in {
     systemd.services."serial-getty@ttyS0".enable = true;
 
     # TODO: write system.build.vm here
+    # Reference existing system.build.vm from virtualisations
     # system.build.vm = pkgs.runCommand "nixos-vm" {} ''
     # ''
 
