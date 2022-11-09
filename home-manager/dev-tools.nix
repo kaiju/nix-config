@@ -3,11 +3,12 @@
   home.packages = with pkgs; [
     # cloud tools
     k9s
+    buildpack
     kubectl
     kubernetes-helm
     kustomize
     kubebuilder
-    argocd
+    #argocd
     tektoncd-cli
     jq
     yq
@@ -22,11 +23,13 @@
     cloud-sql-proxy
     postgresql
     python3
+    poetry
     go_1_18
     pre-commit
     nodejs
     gcc
     rustup
+    magic-wormhole-rs
   ];
 
 }

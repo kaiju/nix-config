@@ -25,7 +25,7 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
-      add_newline = false;
+      add_newline = true;
       directory = {
         truncation_length = 8;
       };
@@ -64,6 +64,9 @@
     };
 
     initExtra = ''
+
+      # FUCK you
+      setopt no_prompt_cr
 
       # Nix-friendly terminfo paths
       TERMINFO_DIRS="$HOME/.nix-profile/share/terminfo:$TERMINFO_DIRS"
