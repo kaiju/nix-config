@@ -5,6 +5,8 @@
     ../roles/bluetooth.nix
     ../roles/xorg.nix
     ../roles/sdr.nix
+    ../roles/containers.nix
+    ../roles/audio.nix
     ../roles/user-josh.nix
   ];
 
@@ -25,29 +27,25 @@
   home-manager.users.josh.programs.i3status-rust = {
     bars.default.blocks = [
       {
-        icons_format = "screen ";
         block = "backlight";
         device = "intel_backlight";
       }
       {
         block = "battery";
-        icons_format = "power ";
+      }
+      {
+        block = "bluetooth";
+        format = "{label} bookshelf";
+        mac = "DF:46:7C:EB:FD:66";
+        hide_disconnected = true;
       }
       {
         block = "sound";
-        icons_format = "";
-        format = "{output_name} {volume}";
-        mappings = {
-          "bluez_sink.DF_46_7C_EB_FD_66.a2dp_sink" = "btaudio";
-          "bluez_sink.F4_4E_FD_D4_BA_8F.a2dp_sink" = "garage";
-          "bluez_output.DF_46_7C_EB_FD_66.a2dp-sink" = "btaudio";
-          "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink" = "audio";
-        };
+        format = "{volume}";
       }
       {
         block = "networkmanager";
         primary_only = true;
-        icons_format = "";
       }
     ];
   };
@@ -91,10 +89,6 @@
   };
   # end
 
-  home-manager.users.josh.home.packages = with pkgs; [
-    vlc
-  ];
-
   networking = {
     hostName = "aether";
     useDHCP = false;
@@ -107,29 +101,14 @@
 
   hardware.brillo.enable = true; # brightness controls
 
-  sound.enable = true;
-
-  virtualisation = {
-    docker.enable = true;
-    podman.enable = true;
-  };
-
-  hardware.pulseaudio.enable = true;
   services = {
     fwupd.enable = true; # firmware updater
     fprintd.enable = true; # fingerprint reader
     printing.enable = true;
-    #pipewire = {
-    #  enable = true;
-    #  pulse.enable = true;
-    #};
   };
 
-  # Needed for pulseaudio
-  security.rtkit.enable = true;
-
   environment.systemPackages = with pkgs; [
-    pulseaudio
+    #pulseaudio
     usbutils
     xorg.xdpyinfo
     qt5.qtwayland # :(

@@ -4,6 +4,7 @@
     ../roles/base.nix
     ../roles/xorg.nix
     ../roles/containers.nix
+    ../roles/audio.nix
     ../roles/user-josh.nix
   ];
 
@@ -21,15 +22,5 @@
 
   networking.hostName = "garage";
   system.stateVersion = "22.05";
-
-  # sloppy
-  sound.enable = true;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
 
 }
