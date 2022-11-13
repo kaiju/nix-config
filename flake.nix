@@ -103,6 +103,17 @@
       ];
     };
 
+    # garage workstation
+    nixosConfigurations.garage = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        my-overlays
+	home-manager.nixosModule
+	./hardware/ugh.nix
+	./hosts/garage.nix
+      ];
+    };
+
     # mess-around virtualisation machine, 16 core xeon, 192GB
     nixosConfigurations.kronos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

@@ -25,7 +25,7 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
-      add_newline = true;
+      add_newline = false;
       directory = {
         truncation_length = 8;
       };

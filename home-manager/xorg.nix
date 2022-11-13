@@ -33,12 +33,12 @@
             statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
             position = "top";
             colors = {
-              background = "#161313";
-              separator = "#161313";
+              background = "#1d1f21";
+              separator = "#1d1f21";
               focusedWorkspace = {
-                background = "#202729";
-                border = "#202729";
-                text = "#99ccc9";
+                background = "#373b41";
+                border = "#373b41";
+                text = "#6b7443";
               };
               activeWorkspace = {
                 background = "#202729";
@@ -59,12 +59,41 @@
           }
         ];
 
+        colors.background = "#1d1f21";
         colors.focused = {
-          background = "#8c9440";
-          indicator = "#b5bd68";
-          text = "#ffffff";
-          border = "#b5bd68";
+          border = "#707880";
+          background = "#1d1f21";
+          text = "#707880";
+          indicator = "#8c9440";
           childBorder = "#8c9440";
+        };
+        colors.unfocused = {
+          border = "#707880";
+          background = "#1d1f21";
+          text = "#707880";
+          indicator = "#5f819d";
+          childBorder = "#5f819d";
+        };
+        colors.focusedInactive = {
+          border = "#707880";
+          background = "#1d1f21";
+          text = "#707880";
+          indicator = "#5f819d";
+          childBorder = "#5f819d";
+        };
+        colors.urgent = {
+          border = "#707880";
+          background = "#1d1f21";
+          text = "#707880";
+          indicator = "#5f819d";
+          childBorder = "#5f819d";
+        };
+        colors.placeholder = {
+          border = "#707880";
+          background = "#1d1f21";
+          text = "#707880";
+          indicator = "#5f819d";
+          childBorder = "#5f819d";
         };
 
         defaultWorkspace = "workspace number 1";
@@ -97,7 +126,9 @@
       enable = true;
       vSync = true;
       shadow = true;
-      # shadowOffsets = [ ];
+      # Not sure why this is throwing syntax error when giving negative signed ints
+      #shadowOffsets = [ -10 -10 ];
+      shadowOpacity = 1.0;
       experimentalBackends = true;
     };
   };
@@ -141,9 +172,9 @@
           theme.name = "plain";
           theme.overrides = {
             separator = "";
-            idle_bg = "#161313";
-            good_bg = "#161313";
-            info_bg = "#161313";
+            idle_bg = "#1d1f21";
+            good_bg = "#1d1f21";
+            info_bg = "#1d1f21";
           };
         };
         blocks = [

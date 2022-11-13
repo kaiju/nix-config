@@ -7,6 +7,7 @@
     ncpamixer
     xorg.xrdb
     xdg-utils
+    screenfetch
 
     # Fonts
     iosevka
@@ -92,7 +93,7 @@
         "TERM" = "xterm-256color";
       };
       window = {
-        opacity = 0.9;
+        opacity = 1.0;
         padding = {
           x = 10;
           y = 10;
