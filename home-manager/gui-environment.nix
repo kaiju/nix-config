@@ -106,6 +106,32 @@
           family = "Iosevka Nerd Font";
         };
       };
+      colors = {
+        primary = {
+          foreground = "";
+          background = "";
+        };
+        normal = {
+          black = "";
+          red = "";
+          green = "";
+          yellow = "";
+          blue = "";
+          magenta = "";
+          cyan = "";
+          white = "";
+        };
+        bright = {
+          black = "";
+          red = "";
+          green = "";
+          yellow = "";
+          blue = "";
+          magenta = "";
+          cyan = "";
+          white = "";
+        };
+      };
     };
   };
 
