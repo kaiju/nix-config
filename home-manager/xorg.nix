@@ -24,26 +24,28 @@
       enable = true;
       package = pkgs.i3-gaps;
       config = {
+
         bars = [
           {
             fonts = {
-              names = [ "IBM Plex Mono" ];
+              #names = [ "IBM Plex Mono" ];
+              names = [ "BlexMono Nerd Font" ];
               size = 10.0;
             };
             statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
             position = "top";
             colors = {
-              background = "#1d1f21";
-              separator = "#1d1f21";
+              background = "#1e1e20";
+              separator = "#1e1e20";
               focusedWorkspace = {
                 background = "#373b41";
                 border = "#373b41";
-                text = "#6b7443";
+                text = "#c5c8c6";
               };
               activeWorkspace = {
                 background = "#202729";
                 border = "#202729";
-                text = "#99ccc9";
+                text = "#c5c8c6";
               };
               urgentWorkspace = {
                 background = "#6e2926";
@@ -59,7 +61,7 @@
           }
         ];
 
-        colors.background = "#1d1f21";
+        colors.background = "#1e1e20";
         colors.focused = {
           border = "#707880";
           background = "#1d1f21";
@@ -107,6 +109,10 @@
           smartBorders = "off";
           smartGaps = false;
           inner = 7;
+        };
+
+        window = {
+          border = 1;
         };
 
         keybindings = lib.mkOptionDefault {
@@ -167,7 +173,7 @@
     enable = true;
     bars = {
       default = {
-        icons = "none";
+        icons = "material-nf";
         settings = {
           theme.name = "plain";
           theme.overrides = {
@@ -180,18 +186,15 @@
         blocks = [
           {
             block = "memory";
-            icons_format = "ram ";
             display_type = "memory";
             format_mem = "{mem_used_percents}";
           }
           {
             block = "load";
-            icons_format = "load ";
             format = "{1m} {5m} {15m}";
           }
           {
             block = "cpu";
-            icons_format = "cpu ";
             interval = 1;
           }
           {

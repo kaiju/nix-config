@@ -24,6 +24,7 @@
 
     # Apps
     bitwarden
+    vlc
   ];
 
   gtk = {
@@ -109,34 +110,81 @@
   };
 
   xresources.path = ".Xdefaults";
+
+  xresources.extraConfig = ''
+    ! Base16 Yesterday
+    ! Scheme: FroZnShiva (https://github.com/FroZnShiva)
+
+    #define base00 #1d1f21
+    #define base01 #282a2e
+    #define base02 #4d4d4c
+    #define base03 #969896
+    #define base04 #8e908c
+    #define base05 #d6d6d6
+    #define base06 #efefef
+    #define base07 #ffffff
+    #define base08 #c82829
+    #define base09 #f5871f
+    #define base0A #eab700
+    #define base0B #718c00
+    #define base0C #3e999f
+    #define base0D #4271ae
+    #define base0E #8959a8
+    #define base0F #7f2a1d
+
+    *foreground:   base05
+    *background:   base00
+    *cursorColor:  base05
+
+    *color0:       base00
+    *color1:       base08
+    *color2:       base0B
+    *color3:       base0A
+    *color4:       base0D
+    *color5:       base0E
+    *color6:       base0C
+    *color7:       base05
+
+    *color8:       base03
+    *color9:       base09
+    *color10:      base01
+    *color11:      base02
+    *color12:      base04
+    *color13:      base06
+    *color14:      base0F
+    *color15:      base07
+  '';
+
+  /*
   xresources.properties = {
-    "*.background" = "#1d1f21";
-    "*.foreground" = "#c5c8c6";
-    "*.cursorColor" = "#c5c8c6";
+    "*foreground" = "#c5c8c6";
+    "*background" = "#1d1f21";
+    "*cursorColor" = "#c5c8c6";
     # black
-    "*.color0" = "#1d1f21";
-    "*.color8" = "#666666";
+    "*color0" = "#1d1f21";
+    "*color8" = "#666666";
     # red
-    "*.color1" = "#cc6666";
-    "*.color9" = "#d54e53";
+    "*color1" = "#cc6666";
+    "*color9" = "#d54e53";
     # green
-    "*.color2" = "#b5bd68";
-    "*.color10" = "#b9ca4a";
+    "*color2" = "#b5bd68";
+    "*color10" = "#b9ca4a";
     # yellow
-    "*.color3" = "#f0c674";
-    "*.color11" = "#e7c547";
+    "*color3" = "#f0c674";
+    "*color11" = "#e7c547";
     # blue
-    "*.color4" = "#81a2be";
-    "*.color12" = "#7aa6da";
+    "*color4" = "#81a2be";
+    "*color12" = "#7aa6da";
     # magenta
-    "*.color5" = "#b294bb";
-    "*.color13" = "#c397d8";
+    "*color5" = "#b294bb";
+    "*color13" = "#c397d8";
     # cyan
-    "*.color6" = "#8abeb7";
-    "*.color14" = "#70c0b1";
+    "*color6" = "#8abeb7";
+    "*color14" = "#70c0b1";
     # white
-    "*.color7" = "#c5c8c6";
-    "*.color15" = "#eaeaea";
+    "*color7" = "#c5c8c6";
+    "*color15" = "#eaeaea";
   };
+  */
 
 }
