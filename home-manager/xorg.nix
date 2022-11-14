@@ -60,6 +60,7 @@
           }
         ];
 
+        # todo -- fix these
         colors.background = "#1e1e20";
         colors.focused = {
           border = "#707880";
