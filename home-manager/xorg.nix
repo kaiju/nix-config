@@ -28,34 +28,33 @@
         bars = [
           {
             fonts = {
-              #names = [ "IBM Plex Mono" ];
               names = [ "BlexMono Nerd Font" ];
               size = 10.0;
             };
             statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
             position = "top";
             colors = {
-              background = "#1e1e20";
-              separator = "#1e1e20";
+              background = "#1a1b26";
+              separator = "#1a1b26";
               focusedWorkspace = {
-                background = "#373b41";
-                border = "#373b41";
-                text = "#c5c8c6";
+                background = "#32344a";
+                border = "#32344a";
+                text = "#9ece6a";
               };
               activeWorkspace = {
-                background = "#202729";
-                border = "#202729";
-                text = "#c5c8c6";
+                background = "#1a1b26";
+                border = "#1a1b26";
+                text = "#787c99";
               };
               urgentWorkspace = {
-                background = "#6e2926";
-                border = "#6e2926";
-                text = "#ffffff";
+                background = "#1a1b26";
+                border = "#1a1b26";
+                text = "#ff7a93";
               };
               inactiveWorkspace = {
-                background = "#161613";
-                border = "#161613";
-                text = "#75756e";
+                background = "#1a1b26";
+                border = "#1a1b26";
+                text = "#a9b1d6";
               };
             };
           }
@@ -178,9 +177,16 @@
           theme.name = "plain";
           theme.overrides = {
             separator = "";
-            idle_bg = "#1d1f21";
-            good_bg = "#1d1f21";
-            info_bg = "#1d1f21";
+            idle_bg = "#1a1b26";
+            idle_fg = "#a9b1d6";
+            good_bg = "#1a1b26";
+            good_fg = "#9ece6a";
+            info_bg = "#1a1b26";
+            info_fg = "#787c99";
+            critical_bg = "#1a1b26";
+            critical_fg = "#ff7a93";
+            warning_bg = "#1a1b26";
+            warning_fg = "#e0af68";
           };
         };
         blocks = [
