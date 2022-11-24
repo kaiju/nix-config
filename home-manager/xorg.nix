@@ -17,7 +17,7 @@
     enable = true;
     initExtra = ''
       ${pkgs.xorg.setxkbmap}/bin/setxkbmap -option 'ctrl:nocaps'
-      ${pkgs.feh}/bin/feh --bg-fill ${pkgs.wallpaper}/jr-korpa-YXQew2KZjzY-unsplash.jpg
+      ${pkgs.feh}/bin/feh --bg-fill ${pkgs.wallpaper}/simple-background-blue-simple-minimalism-wallpaper-6f8cd2ff7d993518a77d9204a4f35000.jpg
     '';
 
     windowManager.i3 = {
