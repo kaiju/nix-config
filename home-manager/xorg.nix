@@ -37,9 +37,9 @@
               background = "#1a1b26";
               separator = "#1a1b26";
               focusedWorkspace = {
-                background = "#32344a";
-                border = "#32344a";
-                text = "#9ece6a";
+                background = "#445441";
+                border = "#445441";
+                text = "#acb0d0";
               };
               activeWorkspace = {
                 background = "#1a1b26";
