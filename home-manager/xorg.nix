@@ -135,7 +135,6 @@
       # Not sure why this is throwing syntax error when giving negative signed ints
       #shadowOffsets = [ -10 -10 ];
       shadowOpacity = 1.0;
-      experimentalBackends = true;
     };
   };
 
