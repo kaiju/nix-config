@@ -21,6 +21,5 @@
   ];
 
   networking.hostName = "garage";
-  system.stateVersion = "22.05";
 
 }

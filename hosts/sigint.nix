@@ -8,8 +8,6 @@
     ../roles/user-josh.nix
   ];
 
-  system.stateVersion = "20.09";
-
   networking = {
     hostName = "sigint";
     networkmanager.enable = true;

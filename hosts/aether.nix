@@ -67,12 +67,6 @@
         Option "PreferredMode" "3328x1872_60.00"
       EndSection
     '';
-    #displayManager.setupCommands = with pkgs; ''
-    #  DISPLAY=:0 ${xorg.xrandr}/bin/xrandr --output eDP-1 --scale '1.3x1.3'
-    #'';
-    #displayManager.sessionCommands = with pkgs; ''
-    #  ${xorg.xrandr}/bin/xrandr --output eDP-1 --scale '1.3x1.3'
-    #'';
   };
   environment.variables = {
     GDK_SCALE = "2";
@@ -108,12 +102,9 @@
   };
 
   environment.systemPackages = with pkgs; [
-    #pulseaudio
     usbutils
     xorg.xdpyinfo
     qt5.qtwayland # :(
   ];
-
-  system.stateVersion = "22.05";
 
 }

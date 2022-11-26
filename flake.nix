@@ -17,7 +17,7 @@
   let
 
     # Pull in my overlays -- can remove this with custom system creating functions
-    overlays = import ./overlays.nix { pkgs = nixpkgs.legacyPackages.x86_64-linux; };
+    overlays = import ./overlays.nix; 
 
     # function to build nixos systems in a common way
     nixosSystem = import ./lib/nixosSystem.nix { inherit nixpkgs home-manager; };
@@ -26,8 +26,8 @@
 
   in {
 
-    nixosConfigurations.new-aether = nixosSystem {
-      host = "thinkpad"; # maybe rename to 'config'
+    nixosConfigurations.aether = nixosSystem {
+      host = "aether"; # maybe rename to 'config'
       system = "x86_64-linux";
       hardware = ./hardware/thinkpad.nix; # rename to target? 
       modules = [
@@ -35,30 +35,21 @@
       ];
     };
 
-    # aether - Lenovo Thinkpad X1 (7th Gen)
-    nixosConfigurations.aether = nixpkgs.lib.nixosSystem {
+    # garage workstation
+    nixosConfigurations.garage = nixosSystem {
+      host = "garage";
       system = "x86_64-linux";
-      modules = [
-        overlays
-        nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
-        home-manager.nixosModule
-        ./hardware/thinkpad.nix
-        ./hosts/thinkpad.nix
-      ];
+      hardware = ./hardware/ugh.nix;
+    };
+
+    # sigint -- radio intelligence
+    nixosConfigurations.sigint = nixosSystem {
+      host = "sigint";
+      system = "x86_64-linux";
+      hardware = ./hardware/sigint.nix;
     };
 
     # shell host configuration
-    /*
-    nixosConfigurations.shell = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./hardware/qemu-guest.nix
-        overlays
-        home-manager.nixosModule
-        ./hosts/shell.nix
-      ];
-    };
-    */
     nixosConfigurations.shell = nixosSystem {
       host = "shell";
       system = "x86_64-linux";
@@ -115,16 +106,7 @@
     };
 
 
-    # garage workstation
-    nixosConfigurations.garage = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        overlays
-	home-manager.nixosModule
-	./hardware/ugh.nix
-	./hosts/garage.nix
-      ];
-    };
+
 
     # mess-around virtualisation machine, 16 core xeon, 192GB
     nixosConfigurations.kronos = nixpkgs.lib.nixosSystem {
@@ -168,17 +150,6 @@
         home-manager.nixosModule
         ./hardware/vmware-guest.nix
         ./hosts/erebus.nix
-      ];
-    };
-
-    nixosConfigurations.sigint = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = inputs;
-      modules = [
-        overlays
-        home-manager.nixosModule
-        ./hardware/sigint.nix
-        ./hosts/sigint.nix
       ];
     };
 
