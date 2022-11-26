@@ -16,13 +16,14 @@
   outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager }@inputs:
   let
 
-    # function to build nixos systems in a common way
+    # function to build nixos systems in a common pattern 
     nixosSystem = import ./lib/nixosSystem.nix { inherit nixpkgs home-manager; };
 
-    # TODO: functions to create various types of VMs
+    # TODO: functions to create various types of VM images
 
   in {
 
+    # Lenovo Thinkpad X1 (7th Gen)
     nixosConfigurations.aether = nixosSystem {
       host = "aether"; # maybe rename to 'config'
       system = "x86_64-linux";
@@ -32,7 +33,7 @@
       ];
     };
 
-    # garage workstation
+    # Cobbled together i7-3770 workstation in the garage 
     nixosConfigurations.garage = nixosSystem {
       host = "garage";
       system = "x86_64-linux";
@@ -53,14 +54,21 @@
       hardware = ./hardware/sigint.nix;
     };
 
-    # shell host configuration
+    # mess-around lab virtualisation machine, 16 core xeon, 192GB ram
+    nixosConfigurations.kronos = nixosSystem {
+      host = "kronos";
+      system = "x86_64-linux";
+      hardware = ./hardware/efi-boot.nix;
+    };
+
+    # shell host vm configuration
     nixosConfigurations.shell = nixosSystem {
       host = "shell";
       system = "x86_64-linux";
       hardware = ./hardware/qemu-guest.nix;
     };
 
-    # home k8s instance using k3s
+    # home k8s vm instance using k3s
     nixosConfigurations.k8s = nixosSystem {
       host = "k8s";
       system = "x86_64-linux";
@@ -72,13 +80,6 @@
       host = "artemis";
       system = "x86_64-linux";
       hardware = ./hardware/qemu-guest.nix;
-    };
-
-    # mess-around lab virtualisation machine, 16 core xeon, 192GB ram
-    nixosConfigurations.kronos = nixosSystem {
-      host = "kronos";
-      system = "x86_64-linux";
-      hardware = ./hardware/efi-boot.nix;
     };
 
     # old work VM
