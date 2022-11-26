@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../roles/base.nix
     ../roles/server.nix
     ../roles/bluetooth.nix
     ../roles/sdr.nix
@@ -9,7 +8,6 @@
   ];
 
   networking = {
-    hostName = "sigint";
     networkmanager.enable = true;
     useDHCP = false;
     defaultGateway = {
@@ -53,6 +51,9 @@
     };
   };
 
+  # TODO -- why is this broken since I switched up how I pull ble-thermometer-scan in?
+  # It's not building the actual package :(
+  # I'm doing the imports wrong somehow :(
   systemd.services.ble-thermometer-scan = {
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" "bluetooth.target" ];
