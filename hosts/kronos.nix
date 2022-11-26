@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    ../roles/base.nix
     ../roles/server.nix
     ../roles/user-josh.nix
   ];
@@ -68,8 +67,6 @@
   environment.systemPackages = with pkgs; [
     virtiofsd
   ];
-
-  system.stateVersion = "21.11";
 
   users.users.josh.extraGroups = [ "libvirtd" ];
   home-manager.users.josh.home.sessionVariables.LIBVIRT_DEFAULT_URI = "qemu:///system";

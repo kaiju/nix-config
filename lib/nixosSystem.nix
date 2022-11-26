@@ -1,40 +1,42 @@
+/* This function returns a function that will create nixpkgs.lib.nixosSystem configurations in a common
+   pattern */
 { nixpkgs, home-manager }:
 { host, system, hardware, modules ? [] }:
-let
-  # open question -- what passes pkgs, config, etc here? is it an aspect of `import` ?
-  # durrr -- any function that gets passed into nixpkgs.lib.nixosSystem.modules
-  # gets treated as a NixOS Module, i.e. it gets pkgs, config, etc passed in as an
-  # attrset
-  overlays = import ../overlays.nix;
-in
 nixpkgs.lib.nixosSystem {
   inherit system;
 
-  /* something to consider here is whether we want to define too much of a base
-     system here, vs. just pulling in a single module */
-  modules = modules ++ [
-    # Should this go into roles/base.nix? Or maybe we just import that
-    # in here directly?
-    {
-      # Set a common stateVersion across all systems
-      system.stateVersion = "22.05";
+  /*
+    Open Question -- what passes pkgs, config, and all those other attrset attributes in?
 
+    Answer: They're passed in as a matter of being a function that's passed into
+    nixpkgs.lib.nixosSystem.modules, or via a NixOS module's `imports`. Confusing
+    implicit behavior!
+  */
+
+  /* Pull in our common modules, along with any additional modules specified via
+     the `modules` attribute */
+  modules = modules ++ [
+    {
       # Set hostname
       networking.hostName = host;
     }
 
     hardware
 
-    ../roles/base.nix
-
+    # Add home-manager w/ our default configuration settings
     home-manager.nixosModule {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-
-      # bet I could pull in some home-manager defaults for my user here
     }
 
-    overlays
+    # Pull in our base config
+    ../roles/base.nix
+
+    # Add our overlays from overlays.nix
+    #overlays
+    ../modules/overlays.nix
+
+    # and finally, host-specific configuration
     ../hosts/${host}.nix
   ];
 }

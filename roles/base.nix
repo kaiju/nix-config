@@ -1,5 +1,8 @@
+/* This module represents basic configuration common across all systems. */
 { config, pkgs, ... }:
 {
+
+  system.stateVersion = "22.05"; # NixOS 22.05
 
   security.sudo = {
     enable = true;

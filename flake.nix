@@ -16,9 +16,6 @@
   outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager }@inputs:
   let
 
-    # Pull in my overlays -- can remove this with custom system creating functions
-    overlays = import ./overlays.nix; 
-
     # function to build nixos systems in a common way
     nixosSystem = import ./lib/nixosSystem.nix { inherit nixpkgs home-manager; };
 
@@ -42,6 +39,13 @@
       hardware = ./hardware/ugh.nix;
     };
 
+    # VPS
+    nixosConfigurations.mastzone = nixosSystem {
+      host = "mastzone";
+      system = "x86_64-linux";
+      hardware = ./hardware/vps2day.nix;
+    };
+
     # sigint -- radio intelligence
     nixosConfigurations.sigint = nixosSystem {
       host = "sigint";
@@ -56,6 +60,44 @@
       hardware = ./hardware/qemu-guest.nix;
     };
 
+    # home k8s instance using k3s
+    nixosConfigurations.k8s = nixosSystem {
+      host = "k8s";
+      system = "x86_64-linux";
+      hardware = ./hardware/qemu-guest.nix;
+    };
+
+    # testing/playground vm
+    nixosConfigurations.artemis = nixosSystem {
+      host = "artemis";
+      system = "x86_64-linux";
+      hardware = ./hardware/qemu-guest.nix;
+    };
+
+    # mess-around lab virtualisation machine, 16 core xeon, 192GB ram
+    nixosConfigurations.kronos = nixosSystem {
+      host = "kronos";
+      system = "x86_64-linux";
+      hardware = ./hardware/efi-boot.nix;
+    };
+
+    # old work VM
+    nixosConfigurations.work = nixosSystem {
+      host = "work";
+      system = "x86_64-linux";
+      hardware = ./hardware/vmware-guest.nix;
+    };
+      
+    # old vmware desktop VM
+    nixosConfigurations.erebus = nixosSystem {
+      host = "erebus";
+      system = "x86_64-linux";
+      hardware = ./hardware/vmware-guest.nix;
+    };
+
+    /*
+     * EXPERIMENTAL STUFF
+     */
     # build a lxc container image from shell system config
     # nix build '.#shell-container' builds a rootfs tarball and metadata
     # neccessary for importing into lxc
@@ -82,76 +124,5 @@
     #     ./hosts/<host config>.nix
     #   ];
     # };
-
-
-    nixosConfigurations.k8s = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./hardware/qemu-guest.nix
-        overlays
-        home-manager.nixosModule
-        ./hosts/k8s.nix
-      ];
-    };
-
-    # test vm
-    nixosConfigurations.artemis = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./hardware/qemu-guest.nix
-        overlays
-        home-manager.nixosModule
-        ./hosts/artemis.nix
-      ];
-    };
-
-
-
-
-    # mess-around virtualisation machine, 16 core xeon, 192GB
-    nixosConfigurations.kronos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        overlays
-        home-manager.nixosModule
-        ./hardware/efi-boot.nix
-        ./hosts/kronos.nix
-      ];
-    };
-
-    # VPS
-    nixosConfigurations.mastzone = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = inputs;
-      modules = [
-        ./hardware/vps2day.nix
-        overlays
-        home-manager.nixosModule
-        ./hosts/mastzone.nix
-      ];
-    };
-
-    nixosConfigurations.work = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = inputs;
-      modules = [
-        overlays
-        home-manager.nixosModule
-        ./hardware/vmware-guest.nix
-        ./hosts/work.nix
-      ];
-    };
-
-    nixosConfigurations.erebus = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = inputs;
-      modules = [
-        overlays
-        home-manager.nixosModule
-        ./hardware/vmware-guest.nix
-        ./hosts/erebus.nix
-      ];
-    };
-
   };
 }

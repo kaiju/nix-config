@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../roles/base.nix
     ../roles/server.nix
     ../roles/user-josh.nix
   ];
@@ -13,7 +12,6 @@
         useDHCP = true;
       };
     };
-    hostName = "mastzone";
 
     extraHosts = ''
       git.mast.haus     192.168.8.50
@@ -42,21 +40,6 @@
     ];
 
   };
-
-  # lmao?
-  nixpkgs.overlays = [
-    (self: super:
-      {
-        weechat = super.weechat.override {
-          configure = { availablePlugins, ... }: {
-            scripts = with super.weechatScripts; [
-              weechat-matrix
-            ];
-          };
-        };
-      }
-    )
-  ];
 
   environment.systemPackages = with pkgs; [
     weechat

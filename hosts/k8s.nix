@@ -1,12 +1,9 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../roles/base.nix
     ../roles/server.nix
     ../roles/user-josh.nix
   ];
-
-  system.stateVersion = "22.11";
 
   networking = {
     useDHCP = false;
