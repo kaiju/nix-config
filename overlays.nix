@@ -1,14 +1,10 @@
-/*
-  Do we need to pass nixpkgs in or nixpkgs.legacyPackages.<arch> in?
-  Yeah, probably need to pass in pkgs
-*/
-{ nixpkgs }:
+{ pkgs, ... }:
 {
   nixpkgs.overlays = [
 
     # wallpaper
     (final: prev: {
-      wallpaper = import ./packages/wallpaper { pkgs = nixpkgs.legacyPackages.x86_64-linux; };
+      wallpaper = import ./packages/wallpaper { inherit pkgs; };
       })
 
     # pinentry
@@ -20,7 +16,7 @@
 
     # ble-thermometer-scan
     (final: prev: {
-      ble-thermometer-scan = nixpkgs.legacyPackages.x86_64-linux.callPackage nixpkgs.legacyPackages.x86_64-linux.fetchFromGitHub {
+      ble-thermometer-scan = pkgs.callPackage pkgs.fetchFromGitHub {
         owner = "kaiju";
         repo = "ble-thermometer-scan";
         rev = "main";

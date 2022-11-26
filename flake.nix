@@ -11,18 +11,59 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
-
   };
 
-  outputs = { self, nixpkgs, flake-utils, agenix, nixos-hardware, home-manager }@inputs:
+  outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager }@inputs:
   let
 
-    # Pull in my overlays
-    overlays = import ./overlays.nix { inherit nixpkgs; };
+    # Pull in my overlays -- can remove this with custom system creating functions
+    overlays = import ./overlays.nix { pkgs = nixpkgs.legacyPackages.x86_64-linux; };
+
+    # function to build nixos systems in a common way
+    nixosSystem = import ./lib/nixosSystem.nix { inherit nixpkgs home-manager; };
+
+    # TODO: functions to create various types of VMs
 
   in {
+
+    nixosConfigurations.new-aether = nixosSystem {
+      host = "thinkpad"; # maybe rename to 'config'
+      system = "x86_64-linux";
+      hardware = ./hardware/thinkpad.nix; # rename to target? 
+      modules = [
+        nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
+      ];
+    };
+
+    # aether - Lenovo Thinkpad X1 (7th Gen)
+    nixosConfigurations.aether = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        overlays
+        nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
+        home-manager.nixosModule
+        ./hardware/thinkpad.nix
+        ./hosts/thinkpad.nix
+      ];
+    };
+
+    # shell host configuration
+    /*
+    nixosConfigurations.shell = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./hardware/qemu-guest.nix
+        overlays
+        home-manager.nixosModule
+        ./hosts/shell.nix
+      ];
+    };
+    */
+    nixosConfigurations.shell = nixosSystem {
+      host = "shell";
+      system = "x86_64-linux";
+      hardware = ./hardware/qemu-guest.nix;
+    };
 
     # build a lxc container image from shell system config
     # nix build '.#shell-container' builds a rootfs tarball and metadata
@@ -51,16 +92,6 @@
     #   ];
     # };
 
-    # shell host configuration
-    nixosConfigurations.shell = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./hardware/qemu-guest.nix
-        overlays
-        home-manager.nixosModule
-        ./hosts/shell.nix
-      ];
-    };
 
     nixosConfigurations.k8s = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -83,19 +114,6 @@
       ];
     };
 
-    # aether - Lenovo Thinkpad X1 (7th Gen)
-    nixosConfigurations.aether = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        { nixpkgs.config.permittedInsecurePackages = [ "electron-13.6.9" ]; }
-        overlays
-        nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
-        home-manager.nixosModule
-        agenix.nixosModule
-        ./hardware/thinkpad.nix
-        ./hosts/thinkpad.nix
-      ];
-    };
 
     # garage workstation
     nixosConfigurations.garage = nixpkgs.lib.nixosSystem {
