@@ -2,6 +2,7 @@
   inputs = {
 
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -13,20 +14,13 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
-    my-pkgs = {
-      url = "path:./packages";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
   };
 
-  outputs = { self, nixpkgs, agenix, nixos-hardware, my-pkgs, home-manager }@inputs:
+  outputs = { self, nixpkgs, flake-utils, agenix, nixos-hardware, home-manager }@inputs:
   let
 
-    my-overlays = {
-      # just mash in all of my packages from my-pkgs in as overlays
-      nixpkgs.overlays = nixpkgs.lib.attrValues my-pkgs.overlays;
-    };
+    # Pull in my overlays
+    overlays = import ./overlays.nix { inherit nixpkgs; };
 
   in {
 
@@ -62,7 +56,7 @@
       system = "x86_64-linux";
       modules = [
         ./hardware/qemu-guest.nix
-        my-overlays
+        overlays
         home-manager.nixosModule
         ./hosts/shell.nix
       ];
@@ -72,7 +66,7 @@
       system = "x86_64-linux";
       modules = [
         ./hardware/qemu-guest.nix
-        my-overlays
+        overlays
         home-manager.nixosModule
         ./hosts/k8s.nix
       ];
@@ -83,7 +77,7 @@
       system = "x86_64-linux";
       modules = [
         ./hardware/qemu-guest.nix
-        my-overlays
+        overlays
         home-manager.nixosModule
         ./hosts/artemis.nix
       ];
@@ -94,7 +88,7 @@
       system = "x86_64-linux";
       modules = [
         { nixpkgs.config.permittedInsecurePackages = [ "electron-13.6.9" ]; }
-        my-overlays
+        overlays
         nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
         home-manager.nixosModule
         agenix.nixosModule
@@ -107,7 +101,7 @@
     nixosConfigurations.garage = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        my-overlays
+        overlays
 	home-manager.nixosModule
 	./hardware/ugh.nix
 	./hosts/garage.nix
@@ -118,7 +112,7 @@
     nixosConfigurations.kronos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        my-overlays
+        overlays
         home-manager.nixosModule
         ./hardware/efi-boot.nix
         ./hosts/kronos.nix
@@ -131,7 +125,7 @@
       specialArgs = inputs;
       modules = [
         ./hardware/vps2day.nix
-        my-overlays
+        overlays
         home-manager.nixosModule
         ./hosts/mastzone.nix
       ];
@@ -141,7 +135,7 @@
       system = "x86_64-linux";
       specialArgs = inputs;
       modules = [
-        my-overlays
+        overlays
         home-manager.nixosModule
         ./hardware/vmware-guest.nix
         ./hosts/work.nix
@@ -152,7 +146,7 @@
       system = "x86_64-linux";
       specialArgs = inputs;
       modules = [
-        my-overlays
+        overlays
         home-manager.nixosModule
         ./hardware/vmware-guest.nix
         ./hosts/erebus.nix
@@ -163,7 +157,7 @@
       system = "x86_64-linux";
       specialArgs = inputs;
       modules = [
-        my-overlays
+        overlays
         home-manager.nixosModule
         ./hardware/sigint.nix
         ./hosts/sigint.nix
