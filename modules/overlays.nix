@@ -1,10 +1,17 @@
 { pkgs, ... }:
-{
-  nixpkgs.overlays = [
+let
 
-    /* Bring in our package derivation from packages/wallpaper which provides us with images
-       to use for desktop wallpaper */
+  ble-thermometer-scan = pkgs.fetchFromGitHub {
+    owner = "kaiju";
+    repo = "ble-thermometer-scan";
+    rev = "main";
+    sha256 = "sha256-p4o2ISMeMmAxdI43T/TE4iYswc6ZfilRnYk7w9wq+3Q=";
+  }; 
+
+in {
+  nixpkgs.overlays = [
     (final: prev: {
+
       /*
          Open question: What's the difference between
            pkgs.callPackage ../packages/wallpaper {}
@@ -14,36 +21,46 @@
 
          Answer: It's a convienence function, see: https://nixos.org/guides/nix-pills/callpackage-design-pattern.html#idm140737319882144
       */
-      wallpaper = pkgs.callPackage ../packages/wallpaper {};
-      })
 
-    /* Override the nixpkgs pinentry module to prevent it from building a bunch of
-       unneccessary xorg packages */
-    (final: prev: {
+      # Bring in our local derivation of wallpaper images
+      wallpaper = prev.callPackage ../packages/wallpaper {};
+
+      # Override pinentry to prevent it from building a bunch of unneccessary xorg packages
       pinentry = prev.pinentry.override {
         enabledFlavors = [ "curses" ];
       };
-    })
 
-    /* Fetch our ble-thermometer-scan package from GitHub */
-    (final: prev: {
-      ble-thermometer-scan = pkgs.callPackage pkgs.fetchFromGitHub {
-        owner = "kaiju";
-        repo = "ble-thermometer-scan";
-        rev = "main";
-        sha256 = "sha256-gx6k9oIzpVu/GT1LgLZg8hsczXD88niWEATKxN76I88=";
-      };
-    })
-
-    /* Add weechat-matrix into weechat */
-    (final: prev: {
+      # Add weechat-matrix plugin to weechat
       weechat = prev.weechat.override {
         configure = { availablePlugins, ...}: {
-          scripts = with prev.weechatScripts; [
-            weechat-matrix
+          scripts = [
+            prev.weechatScripts.weechat-matrix
           ];
         };
       };
+
+      /*
+        Open Question:  why didn't this derivation actually build at first?
+
+        Originally this was written as:
+
+        ble-thermometer-scan = prev.callPackage prev.fetchFromGitHub { ... }
+
+        and the result would add the derivation files itself to the nix store,
+        referenced as `ble-thermometer-scan`, but not the actual built derivation.
+
+        I _think_ this was a syntactical issue of not passing some addtional attrset
+        arguments. Wrapping prev.fetchFromGitHub {} in parens ala:
+
+        ble-thermometer-scan = prev.callPackage (prev.fetchFromGitHub { ... }) {}
+
+        worked fine. In this case, we opted to assign fetchFromGitHub to a variable
+        and pass it to callPackage that way.
+      */
+
+      # Add our ble-thermometer-scan derivation from GitHub
+      ble-thermometer-scan = prev.callPackage ble-thermometer-scan {};
+
     })
 
   ];
