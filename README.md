@@ -34,7 +34,7 @@ some of the speedbumps I've hit along with what I've learned via comments.
 }
 ```
 
- As my configuration grew and I added more systems, I quickly tired of the amount of attrset boilerplate I repeated for each system. I decided to abstract it in my own `nixosSystem` ([./lib/nixosSystem.nix]) function that applied a common configuration pattern across all systems.
+ As my configuration grew and I added more systems, I quickly tired of the amount of attrset boilerplate I repeated for each system. I decided to abstract it in my own `nixosSystem` ([lib/nixosSystem.nix](lib/nixosSystem.nix)) function that applied a common configuration pattern across all systems.
 
 `nixosSystem` wraps `nixpkgs.lib.nixosSystem` and passes in NixOS modules common to all systems along with the appropriate modules from `hardware/` and `hosts/`.
 
