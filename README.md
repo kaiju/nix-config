@@ -8,9 +8,9 @@ some of the speedbumps I've hit along with what I've learned via comments.
 
 ## Project Layout
 
-- `flake.nix`:  All system configurations are managed as Nix Flake outputs
+- `flake.nix`: All system configurations are managed as Nix Flake outputs
 - `lib/`: Additional functions and evaluations used by the Nix Flake  
-- `packages/`: Local Nix packages used by the NixOS configuration 
+- `packages/`: Local Nix packages used in NixOS configuration 
 - `hardware/`: NixOS modules providing configuration for various hardware targets (UEFI x86 PCs, qemu VMs, etc)
 - `modules/`: NixOS modules of common configuration patterns shared across multiple systems
 - `hosts/`: NixOS modules of host-specific configuration
@@ -34,7 +34,7 @@ some of the speedbumps I've hit along with what I've learned via comments.
 }
 ```
 
- As my configuration grew and I added more systems, I quickly tired of the amount of attrset boilerplate I repeated for each system. I decided to abstract it in my own `nixosSystem` ([lib/nixosSystem.nix](lib/nixosSystem.nix)) function that applied a common configuration pattern across all systems.
+ As my configuration grew and I added more systems, I quickly tired of the amount of attrset boilerplate I repeated for each system. I decided to abstract it in my own `nixosSystem` ([lib/nixosSystem.nix](lib/nixosSystem.nix)) function that applies a common configuration pattern across all systems. 
 
-`nixosSystem` wraps `nixpkgs.lib.nixosSystem` and passes in NixOS modules common to all systems along with the appropriate modules from `hardware/` and `hosts/`.
+ The `nixosSystem` function wraps `nixpkgs.lib.nixosSystem` and passes in NixOS modules common to all systems such as [Home Manager](https://github.com/nix-community/home-manager), the base configuration module, and nixpkgs overlays as well as appropriate modules from the `hardware/` and `hosts/` directories.
 
