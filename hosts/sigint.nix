@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../roles/server.nix
-    ../roles/bluetooth.nix
-    ../roles/sdr.nix
-    ../roles/user-josh.nix
+    ../modules/server.nix
+    ../modules/bluetooth.nix
+    ../modules/sdr.nix
+    ../modules/user-josh.nix
   ];
 
   networking = {

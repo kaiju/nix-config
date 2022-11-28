@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../roles/server.nix
-    ../roles/user-josh.nix
+    ../modules/server.nix
+    ../modules/user-josh.nix
   ];
 
   networking = {

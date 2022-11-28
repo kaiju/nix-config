@@ -1,10 +1,10 @@
 { ... }:
 {
   imports = [
-    ../roles/vmware-guest.nix
-    ../roles/user-josh.nix
-    ../roles/containers.nix
-    ../roles/xorg.nix
+    ../modules/vmware-guest.nix
+    ../modules/user-josh.nix
+    ../modules/containers.nix
+    ../modules/xorg.nix
   ];
   home-manager.users.josh.imports = [
     ../home-manager/dev-tools.nix

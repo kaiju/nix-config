@@ -1,11 +1,11 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../roles/base.nix
-    ../roles/xorg.nix
-    ../roles/containers.nix
-    ../roles/audio.nix
-    ../roles/user-josh.nix
+    ../modules/base.nix
+    ../modules/xorg.nix
+    ../modules/containers.nix
+    ../modules/audio.nix
+    ../modules/user-josh.nix
   ];
 
   home-manager.users.josh.imports = [

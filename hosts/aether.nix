@@ -1,13 +1,12 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../roles/base.nix
-    ../roles/bluetooth.nix
-    ../roles/xorg.nix
-    ../roles/sdr.nix
-    ../roles/containers.nix
-    ../roles/audio.nix
-    ../roles/user-josh.nix
+    ../modules/bluetooth.nix
+    ../modules/xorg.nix
+    ../modules/sdr.nix
+    ../modules/containers.nix
+    ../modules/audio.nix
+    ../modules/user-josh.nix
   ];
 
   home-manager.users.josh.imports = [
@@ -17,7 +16,6 @@
     ../home-manager/comms.nix
     ../home-manager/sublime-text.nix
     ../home-manager/gui-environment.nix
-    ../home-manager/neovim.nix
     ../home-manager/gnupg.nix
     ../home-manager/rbw.nix
     ../home-manager/xorg.nix

@@ -21,22 +21,30 @@ nixpkgs.lib.nixosSystem {
       networking.hostName = host;
     }
 
+    # Target hardware configuration
     hardware
 
     # Add home-manager w/ our default configuration settings
     home-manager.nixosModule {
+
+      /* This makes home-manager use the same nixpkgs instance used by the
+         rest of our NixOS configuration. This is particularly helpful since
+         we build our home configuration via the NixOS module and apply it
+         along with the rest of the system via nixos-rebuild. This also prevents
+         some confusion since we only have to apply overlays to a single nixpkgs
+         instance. */
       home-manager.useGlobalPkgs = true;
+
       home-manager.useUserPackages = true;
     }
 
-    # Pull in our base config
-    ../roles/base.nix
+    # Pull in our base config common to all systems
+    ../modules/base.nix
 
-    # Add our overlays from overlays.nix
-    #overlays
+    # Add our nixpkgs overlays from overlays.nix
     ../modules/overlays.nix
 
-    # and finally, host-specific configuration
+    # and finally, our host-specific configuration
     ../hosts/${host}.nix
   ];
 }
