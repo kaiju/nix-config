@@ -13,7 +13,7 @@ some of the speedbumps I've hit along with what I've learned via comments.
 - `packages/`: Local Nix packages used by the NixOS configuration 
 - `hardware/`: NixOS modules providing configuration for various hardware targets (UEFI x86 PCs, qemu VMs, etc)
 - `modules/`: NixOS modules of common configuration patterns shared across multiple systems
-- `hosts/`: NixOS modules with host-specific configuration
+- `hosts/`: NixOS modules of host-specific configuration
 - `home-manager/`: Home Manager modules
 
 ## How system configuration is built 
