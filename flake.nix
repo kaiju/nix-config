@@ -96,6 +96,29 @@
       hardware = ./hardware/vmware-guest.nix;
     };
 
+    /* Surprise! It turns out you can also include Home Manager configurations as
+       flake outputs! https://nix-community.github.io/home-manager/index.html#sec-flakes-standalone
+
+       This is useful for providing my home configurations in non-NixOS contexts, like
+       my work laptop, WSL2, etc where previously I was setting up a separate ~/.config/nixpkgs/home.nix
+       file.
+
+       WIP TODO:
+        - Figure out how best to manage multiple architectures
+        - Write function to barf out a common configuration across different systems 
+    */
+    homeConfigurations.josh = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+      modules = [
+        home-manager/josh.nix
+        home-manager/work.nix
+        home-manager/darwin.nix
+        home-manager/shell-environment.nix
+        home-manager/neovim.nix
+        home-manager/dev-tools.nix
+      ];
+    };
+
     /*
      * EXPERIMENTAL STUFF
      */
@@ -127,3 +150,4 @@
     # };
   };
 }
+
