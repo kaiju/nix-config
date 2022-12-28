@@ -23,6 +23,9 @@
     cloud-sql-proxy
     postgresql
     python3
+    pylint
+    python310Packages.flake8
+    black
     poetry
     go_1_18
     pre-commit
