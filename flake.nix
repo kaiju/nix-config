@@ -110,6 +110,9 @@
     homeConfigurations.josh = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.aarch64-darwin;
       modules = [
+        {
+          home.homeDirectory = nixpkgs.lib.mkOverride 10 "/Users/josh";
+        }
         home-manager/josh.nix
         home-manager/work.nix
         home-manager/darwin.nix

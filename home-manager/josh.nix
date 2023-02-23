@@ -1,7 +1,7 @@
-{ ... }:
+{ lib, ... }:
 {
-  home.stateVersion = "22.05"; # ternary this based off config
+  home.stateVersion = "22.05";
   home.username = "josh";
-  home.homeDirectory = "/home/josh"; # ternary this based off builtins.system
+  home.homeDirectory = lib.mkDefault "/home/josh";
   programs.home-manager.enable = true;
 }
