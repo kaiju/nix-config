@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../modules/base.nix
     ../modules/server.nix
   ];
 
@@ -45,6 +44,7 @@
   };
 
   # Common user settings
+  # should dump this in base
   users.groups.mast = {
     gid = 1002;
   };
