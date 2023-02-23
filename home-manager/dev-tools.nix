@@ -22,9 +22,14 @@
     google-cloud-sdk
     cloud-sql-proxy
     postgresql
-    python3
+    (python3.withPackages (p: with p; [
+      pip
+      keyring
+      keyrings-google-artifactregistry-auth
+      flake8
+      twine
+    ]))
     pylint
-    python310Packages.flake8
     black
     poetry
     go_1_18
