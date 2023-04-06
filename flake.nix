@@ -107,6 +107,22 @@
         - Figure out how best to manage multiple architectures
         - Write function to barf out a common configuration across different systems 
     */
+    homeConfigurations.macbook = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+      modules = [
+        home-manager/josh.nix
+        home-manager/shell-environment.nix
+        home-manager/neovim.nix
+        home-manager/dev-tools.nix
+      ];
+    };
+
+    homeConfigurations.wsl = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [
+      ];
+    };
+
     homeConfigurations.josh = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.aarch64-darwin;
       modules = [
