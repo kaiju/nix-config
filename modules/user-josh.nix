@@ -2,6 +2,7 @@
 {
 
   users.users.josh = {
+    uid = 1000;
     isNormalUser = true;
     extraGroups = [ "users" "wheel" "networkmanager" "docker" "video" "plugdev" "audio" ];
     shell = pkgs.zsh;

@@ -25,7 +25,7 @@
 
     # Lenovo Thinkpad X1 (7th Gen)
     nixosConfigurations.aether = nixosSystem {
-      host = "aether"; # maybe rename to 'config'
+      host = "aether";
       system = "x86_64-linux";
       hardware = ./hardware/thinkpad.nix; # rename to target? 
       modules = [

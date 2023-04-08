@@ -2,6 +2,7 @@
 {
   imports = [
     ../modules/server.nix
+    ../modules/user-josh.nix
   ];
 
   networking = {
@@ -24,6 +25,16 @@
     hostName = "shell";
   };
 
+  services.transmission = {
+    enable = true;
+    group = "mast";
+    settings = {
+      downloads-dir = "/torrents";
+      incomplete-dir = "/torrents/.incomplete";
+    };
+    openFirewall = true;
+  };
+
   environment.systemPackages = with pkgs; [
     rtorrent
     youtube-dl
@@ -31,16 +42,10 @@
   ];
 
   # virtiofs filesystem mounts
-  fileSystems.media = {
-    device = "media";
+  fileSystems.shares = {
+    device = "shares";
     fsType = "virtiofs";
-    mountPoint = "/media";
-  };
-
-  fileSystems.homes = {
-    device = "homes";
-    fsType = "virtiofs";
-    mountPoint = "/homes";
+    mountPoint = "/shares";
   };
 
   # Common user settings
@@ -57,25 +62,17 @@
   ];
 
   # Josh
-  users.users.josh = {
-    uid = 1000;
-    isNormalUser = true;
-    extraGroups = [ "mast" "wheel" ];
-    password = "";
-  };
+  users.users.josh.extraGroups = [ "mast" "wheel" ];
 
   home-manager.users.josh = {
-    home.username = "josh";
-    home.homeDirectory = "/home/josh";
-    home.stateVersion = config.system.stateVersion;
     systemd.user.tmpfiles.rules = [
-      "L /home/josh/files - - - - /homes/josh"
+      "L /home/josh/files - - - - /shares/josh"
     ];
     programs.beets = {
       enable = true;
       settings = {
-        directory = "/media/music";
-        library = "/media/musiclibrary.db";
+        directory = "/shares/media/music";
+        library = "/shares/media/musiclibrary.db";
       };
     };
   };
@@ -92,7 +89,7 @@
     home.homeDirectory = "/home/sky";
     home.stateVersion = config.system.stateVersion;
     systemd.user.tmpfiles.rules = [
-      "L /home/sky/files - - - - /homes/sky"
+      "L /home/sky/files - - - - /shares/sky"
     ];
   };
 
@@ -117,18 +114,20 @@
       fruit:delete_empty_adfiles = yes
 
       [homes]
-        comment = Home Directories
+        comment = User shares 
         browseable = no
         create mask = 0700
         directory mask = 0700
         valid users = %S
-        path = %H/files
+        path = /shares/%S
+        read only = no
+        force group = mast
     '';
     shares = {
       media = {
         comment = "Media";
         browseable = "yes";
-        path = "/media";
+        path = "/shares/media";
         "guest ok" = "yes";
         "force group" = "mast";
         "read only" = "no";
