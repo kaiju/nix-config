@@ -3,6 +3,7 @@
   imports = [
     ../modules/server.nix
     ../modules/user-josh.nix
+    ../modules/user-sky.nix
   ];
 
   networking = {
@@ -55,22 +56,12 @@
     mountPoint = "/shares";
   };
 
-  # Common user settings
-  # should dump this in base
-  users.groups.mast = {
-    gid = 1002;
-  };
-
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
   home-manager.sharedModules = [
     ../home-manager/shell-environment.nix
     ../home-manager/neovim.nix
   ];
 
   # Josh
-  users.users.josh.extraGroups = [ "mast" "wheel" ];
-
   home-manager.users.josh = {
     systemd.user.tmpfiles.rules = [
       "L /home/josh/files - - - - /shares/josh"
@@ -85,16 +76,7 @@
   };
 
   # Sky
-  users.users.sky = {
-    uid = 1001;
-    isNormalUser = true;
-    extraGroups = [ "mast" ];
-  };
-
   home-manager.users.sky = {
-    home.username = "sky";
-    home.homeDirectory = "/home/sky";
-    home.stateVersion = config.system.stateVersion;
     systemd.user.tmpfiles.rules = [
       "L /home/sky/files - - - - /shares/sky"
     ];

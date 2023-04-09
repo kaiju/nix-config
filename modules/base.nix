@@ -4,6 +4,10 @@
 
   system.stateVersion = "22.05"; # NixOS 22.05
 
+  users.groups.mast = {
+    gid = 1002;
+  };
+
   security.sudo = {
     enable = true;
     execWheelOnly = true;
