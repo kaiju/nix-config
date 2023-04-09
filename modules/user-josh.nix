@@ -1,6 +1,8 @@
 { lib, config, pkgs, ... }:
 {
 
+  nix.settings.trusted-users = [ "josh" ];
+
   users.users.josh = {
     uid = 1000;
     isNormalUser = true;

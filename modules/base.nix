@@ -26,6 +26,8 @@
     tmux
     htop
     ranger
+    unzip
+    p7zip
     wget
     curl
     git
