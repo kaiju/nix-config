@@ -30,20 +30,15 @@
       }
       {
         block = "battery";
-      }
-      {
-        block = "bluetooth";
-        format = "{label} bookshelf";
-        mac = "DF:46:7C:EB:FD:66";
-        hide_disconnected = true;
+        device = "BAT0";
       }
       {
         block = "sound";
-        format = "{volume}";
       }
       {
-        block = "networkmanager";
-        primary_only = true;
+        block = "net";
+        device = "wlp0s20f3";
+        format = " $icon $ssid $ip ";
       }
     ];
   };

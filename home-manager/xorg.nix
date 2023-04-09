@@ -174,7 +174,7 @@
       default = {
         icons = "material-nf";
         settings = {
-          theme.name = "plain";
+          theme.theme = "plain";
           theme.overrides = {
             separator = "";
             idle_bg = "#1a1b26";
@@ -191,23 +191,21 @@
         };
         blocks = [
           {
-            block = "memory";
-            display_type = "memory";
-            format_mem = "{mem_used_percents}";
-          }
-          {
             block = "load";
-            format = "{1m} {5m} {15m}";
           }
           {
             block = "cpu";
             interval = 1;
+            format = " $icon $utilization ";
+          }
+          {
+            block = "memory";
+            format = " $icon $mem_used_percents ";
           }
           {
             block = "time";
-            icons_format = "  ";
             interval = 60;
-            format = "%a %m/%d %I:%M%P";
+            format = " $timestamp.datetime(f:'%a %m/%d %I:%M%P')";
           }
         ];
       };
