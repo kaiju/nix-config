@@ -40,6 +40,7 @@
     dnsutils
     usbutils
     nix-tree
+    nfs-utils
   ];
 
   programs.zsh.enable = true;

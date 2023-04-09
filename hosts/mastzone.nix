@@ -13,10 +13,6 @@
       };
     };
 
-    extraHosts = ''
-      git.mast.haus     192.168.8.50
-    '';
-
     wireguard = {
       enable = true;
       interfaces.wg0 = {
@@ -27,9 +23,12 @@
           {
             allowedIPs = [ "192.168.0.0/16" ];
             publicKey = "Xkdgk9fWNWtF5pe9Q7hHLyLaqPRr6zN9rgl71iwYvkc=";
-            endpoint = "mast.haus:51900";
+            endpoint = "masthaus.duckdns.org:51900";
           }
         ];
+        postSetup = ''
+          resolvectl dns wg0 192.168.12.1
+        '';
       };
     };
 
@@ -54,13 +53,18 @@
   services.k3s.extraFlags = "--disable=traefik --resolv-conf /run/systemd/resolve/resolv.conf --service-node-port-range=1025-32767";
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-  services.resolved.enable = true;
-  services.resolved.fallbackDns = [
-    "1.1.1.1"
-    "8.8.8.8"
-  ];
+  services.resolved = {
+    enable = true;
+    extraConfig = ''
+      DNS=1.1.1.1 8.8.8.8
+    '';
+    fallbackDns = [
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
+  };
 
-  services.openssh.passwordAuthentication = false;
-  services.openssh.permitRootLogin = "no";
+  services.openssh.settings.passwordAuthentication = false;
+  services.openssh.settings.permitRootLogin = "no";
 
 }

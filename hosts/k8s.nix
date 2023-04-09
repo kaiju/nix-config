@@ -5,6 +5,11 @@
     ../modules/user-josh.nix
   ];
 
+  environment.systemPackages = [
+    pkgs.kubectl
+    pkgs.k9s
+  ];
+
   networking = {
     useDHCP = false;
     networkmanager.enable = true;
@@ -18,11 +23,11 @@
     interfaces = {
       eth0.useDHCP = false;
       eth0.ipv4.addresses = [
-        { address = "192.168.8.5"; prefixLength = 21; }
+        { address = "192.168.8.5"; prefixLength = 22; }
       ];
     };
     hostName = "k8s";
-    firewall.allowedTCPPorts = [ 80 443 ];
+    firewall.allowedTCPPorts = [ 80 443 2222 ];
     firewall.trustedInterfaces = [
       "eth0"
       "cni0"
