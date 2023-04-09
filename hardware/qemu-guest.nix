@@ -37,7 +37,7 @@ in {
     system.build.qcow2image = import "${toString modulesPath}/../lib/make-disk-image.nix" {
       inherit lib config pkgs;
       format = "qcow2";
-      additionalSpace = "50G";
+      additionalSpace = "100G";
     };
 
   };

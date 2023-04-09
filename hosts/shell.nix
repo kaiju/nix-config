@@ -29,10 +29,17 @@
     enable = true;
     group = "mast";
     settings = {
-      downloads-dir = "/torrents";
-      incomplete-dir = "/torrents/.incomplete";
+      download-dir = "/shares/shared/torrent_downloads";
+      incomplete-dir = "/shares/shared/torrent_downloads/incomplete";
+      watch-dir-enabled = true;
+      watch-dir = "/shares/shared/torrent_files";
+      rpc-bind-address = "0.0.0.0";
+      rpc-host-whitelist-enabled = false;
+      rpc-whitelist = "192.168.8.*,192.168.9.*,192.168.10.*,192.168.11.*";
     };
     openFirewall = true;
+    openRPCPort = true;
+    openPeerPorts = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -94,6 +101,7 @@
   };
 
 
+  # Neccessary for samba-wsdd
   networking.firewall.allowedTCPPorts = [ 5357 ];
   networking.firewall.allowedUDPPorts = [ 3702 ];
 
@@ -124,11 +132,19 @@
         force group = mast
     '';
     shares = {
+      shared = {
+        comment = "Shared files";
+        browseable = "yes";
+        path = "/shares/shared";
+        "force group" = "mast";
+        "read only" = "no";
+        "create mask" = 0655;
+        "valid users" = "josh sky";
+      };
       media = {
         comment = "Media";
         browseable = "yes";
         path = "/shares/media";
-        "guest ok" = "yes";
         "force group" = "mast";
         "read only" = "no";
         "read list" = "guest nobody";
@@ -139,6 +155,7 @@
 
   services.samba-wsdd = {
     enable = true;
+    hostname = "FILES";
   };
 
   services.plex = {
