@@ -41,4 +41,6 @@
     extraFlags = "--disable=traefik --service-node-port-range=1025-32767";
   };
 
+  services.prometheus.exporters.node.enable = pkgs.lib.mkOverride 10 false;
+
 }
