@@ -34,6 +34,7 @@
       }
       {
         block = "sound";
+        format = " $icon $output_description{ $volume|} ";
       }
       {
         block = "net";
