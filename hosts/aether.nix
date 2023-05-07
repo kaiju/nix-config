@@ -73,7 +73,13 @@
   home-manager.users.josh.xresources.properties = {
     "Xft.dpi" = "210";
     "*.dpi" = "210";
-    "Xcursor.size" = "35";
+  };
+
+  home-manager.users.josh.home.pointerCursor = {
+    package = pkgs.vanilla-dmz;
+    name = "Vanilla-DMZ";
+    size = 64;
+    x11.enable = true;
   };
   # end
 
