@@ -28,6 +28,7 @@
       keyrings-google-artifactregistry-auth
       flake8
       twine
+      wheel
     ]))
     pylint
     black
