@@ -47,7 +47,7 @@
     serviceConfig = {
       Type = "simple";
       User = "root";
-      ExecStart = ''${pkgs.rtl_433}/bin/rtl_433 -C si -f 915M -Y classic -s 250k -R 78 -M newmodel -F mqtt:192.168.8.5:1883 -F mqtt:mqtt.mast.haus:1883'';
+      ExecStart = ''${pkgs.rtl_433}/bin/rtl_433 -C si -f 915M -Y classic -s 250k -R 78 -M newmodel -F mqtt:192.168.8.5:1883'';
     };
   };
 
@@ -64,7 +64,7 @@
     serviceConfig = {
       Type = "simple";
       User = "root";
-      ExecStart = ''${pkgs.ble-thermometer-scan}/bin/ble-thermometer-scan mqtt.mast.haus 192.168.8.5'';
+      ExecStart = ''${pkgs.ble-thermometer-scan}/bin/ble-thermometer-scan 192.168.8.5'';
       Restart = "on-failure";
     };
   };

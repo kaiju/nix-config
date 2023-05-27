@@ -1,14 +1,13 @@
 { config, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    # cloud tools
+    age
     k9s
     buildpack
     kubectl
     kubernetes-helm
     kustomize
     kubebuilder
-    #argocd
     tektoncd-cli
     jq
     yq
@@ -39,6 +38,10 @@
     gcc
     rustup
     magic-wormhole-rs
+    jsonnet
+    gojsontoyaml
+    jsonnet-bundler
+    tanka
   ];
 
 }

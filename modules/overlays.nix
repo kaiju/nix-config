@@ -5,7 +5,7 @@ let
     owner = "kaiju";
     repo = "ble-thermometer-scan";
     rev = "main";
-    sha256 = "sha256-p4o2ISMeMmAxdI43T/TE4iYswc6ZfilRnYk7w9wq+3Q=";
+    sha256 = "sha256-/nxFGVC72xhGb9+omszuLDT/zGkhaomoNwjFe3/kjMU=";
   }; 
 
 in {
