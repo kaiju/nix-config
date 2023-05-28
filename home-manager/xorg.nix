@@ -136,6 +136,9 @@
       #shadowOffsets = [ -10 -10 ];
       shadowOpacity = 1.0;
     };
+    flameshot = {
+      enable = true;
+    };
   };
 
   services.polybar = {
