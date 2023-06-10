@@ -4,5 +4,6 @@
     element-desktop
     tdesktop
     zoom-us
+    signal-desktop
   ];
 }
