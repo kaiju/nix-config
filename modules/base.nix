@@ -26,6 +26,7 @@
   users.defaultUserShell = pkgs.zsh;
 
   environment.systemPackages = with pkgs; [
+    xxd
     exa
     tmux
     htop
