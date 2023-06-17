@@ -138,6 +138,12 @@
     };
     flameshot = {
       enable = true;
+      settings = {
+        General = {
+          showHelp = false;
+          savePath = "/home/josh";
+        };
+      };
     };
   };
 

@@ -102,6 +102,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    _86Box
     usbutils
     xorg.xdpyinfo
     qt5.qtwayland # :(
