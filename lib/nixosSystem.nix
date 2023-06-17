@@ -21,6 +21,12 @@ nixpkgs.lib.nixosSystem {
       networking.hostName = host;
     }
 
+    {
+      nixpkgs.config.permittedInsecurePackages = [
+        "openssl-1.1.1u"
+      ];
+    }
+
     # Target hardware configuration
     hardware
 
