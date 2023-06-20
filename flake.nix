@@ -122,7 +122,7 @@
     # old work VM
     nixosConfigurations.work = nixosSystem {
       host = "work";
-      system = "x86_64-linux";
+      system = "aarch64-linux";
       hardware = ./hardware/vmware-guest.nix;
     };
       
@@ -149,6 +149,9 @@
       modules = [
         {
           home.homeDirectory = nixpkgs.lib.mkOverride 10 "/Users/josh";
+          home.sessionPath = [
+            "$HOME/.rd/bin"
+          ];
         }
         home-manager/josh.nix
         home-manager/work.nix

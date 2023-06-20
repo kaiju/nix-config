@@ -43,6 +43,7 @@
     gojsontoyaml
     jsonnet-bundler
     tanka
+    dbmate
   ];
 
 }
