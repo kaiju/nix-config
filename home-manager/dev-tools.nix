@@ -20,6 +20,7 @@
     awscli2
     google-cloud-sdk
     cloud-sql-proxy
+    oci-cli
     postgresql
     (python3.withPackages (p: with p; [
       pip
