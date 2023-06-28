@@ -33,6 +33,17 @@
       ];
     };
 
+    # oracle cloud a1 vm
+    nixosConfigurations.armitage = nixosSystem {
+      host = "armitage";
+      system = "aarch64-linux";
+      hardware = ./hardware/oci.nix;
+      modules = [
+        ./modules/user-josh.nix
+        ./modules/server.nix
+      ];
+    };
+
     # Cobbled together i7-3770 workstation in the garage 
     nixosConfigurations.garage = nixosSystem {
       host = "garage";
@@ -80,6 +91,10 @@
       host = "artemis";
       system = "x86_64-linux";
       hardware = ./hardware/qemu-guest.nix;
+      modules = [
+        ./modules/server.nix
+        ./modules/user-josh.nix
+      ];
     };
 
     # old work VM
