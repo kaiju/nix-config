@@ -111,10 +111,10 @@ lua << EOF
         lspconfig.terraformls.setup({
           capabilities = capabilities,
         })
-        vim.api.nvim_create_autocmd({"BufWritePre"}, {
-          pattern = {"*.tf", "*.tfvars"},
-          callback = vim.lsp.buf.formatting_sync,
-        })
+        --vim.api.nvim_create_autocmd({"BufWritePre"}, {
+        --  pattern = {"*.tf", "*.tfvars"},
+        --  callback = vim.lsp.buf.formatting_sync,
+        --})
 
 	lspconfig.gopls.setup({
 	  capabilities = capabilities
