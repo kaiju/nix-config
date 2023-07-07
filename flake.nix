@@ -79,6 +79,17 @@
       hardware = ./hardware/qemu-guest.nix;
     };
 
+    # shell host vm configuration
+    nixosConfigurations.torrent = nixosSystem {
+      host = "torrent";
+      system = "x86_64-linux";
+      hardware = ./hardware/qemu-guest.nix;
+      modules = [
+        ./modules/server.nix
+        ./modules/user-josh.nix
+      ];
+    };
+
     # home k8s vm instance using k3s
     nixosConfigurations.k8s = nixosSystem {
       host = "k8s";
