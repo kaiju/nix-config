@@ -64,7 +64,7 @@
     ];
   };
 
-  services.openssh.settings.passwordAuthentication = false;
-  services.openssh.settings.permitRootLogin = "no";
+  services.openssh.settings.PasswordAuthentication = false;
+  services.openssh.settings.PermitRootLogin = "no";
 
 }
