@@ -19,32 +19,14 @@
       eth0 = {
         useDHCP = false;
         ipv4.addresses = [
-          { address = "192.168.8.15"; prefixLength = 21; }
+          { address = "192.168.8.15"; prefixLength = 22; }
         ];
       };
     };
     hostName = "shell";
   };
 
-  services.transmission = {
-    enable = true;
-    group = "mast";
-    settings = {
-      download-dir = "/shares/shared/torrent_downloads";
-      incomplete-dir = "/shares/shared/torrent_downloads/incomplete";
-      watch-dir-enabled = true;
-      watch-dir = "/shares/shared/torrent_files";
-      rpc-bind-address = "0.0.0.0";
-      rpc-host-whitelist-enabled = false;
-      rpc-whitelist = "192.168.8.*,192.168.9.*,192.168.10.*,192.168.11.*";
-    };
-    openFirewall = true;
-    openRPCPort = true;
-    openPeerPorts = true;
-  };
-
   environment.systemPackages = with pkgs; [
-    rtorrent
     youtube-dl
     beets
   ];
