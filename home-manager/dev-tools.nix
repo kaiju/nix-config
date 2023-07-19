@@ -21,7 +21,7 @@
     google-cloud-sdk
     cloud-sql-proxy
     oci-cli
-    postgresql
+    postgresql_15
     (python3.withPackages (p: with p; [
       pip
       keyring
