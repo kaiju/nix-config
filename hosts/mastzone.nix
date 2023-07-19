@@ -7,6 +7,7 @@
 
   networking = {
     useDHCP = false;
+    enableIPv6 = false;
     interfaces = {
       ens3 = {
         useDHCP = true;
