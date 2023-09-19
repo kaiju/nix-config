@@ -21,6 +21,8 @@
     ../home-manager/xorg.nix
   ];
 
+  boot.supportedFilesystems = [ "ntfs" ];
+
   # laptop specific i3 status configuration
   home-manager.users.josh.programs.i3status-rust = {
     bars.default.blocks = [

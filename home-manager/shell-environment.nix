@@ -3,7 +3,6 @@
 {
 
   home.packages = with pkgs; [
-    exa
     ranger
     bitwarden-cli
   ];
@@ -60,7 +59,7 @@
     enableCompletion = true;
 
     shellAliases = {
-      ls = "${pkgs.exa}/bin/exa -gF";
+      ls = "${pkgs.eza}/bin/eza -gF";
     };
 
     initExtra = ''

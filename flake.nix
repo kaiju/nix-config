@@ -33,6 +33,17 @@
       ];
     };
 
+    # new linux workstation for futzing with ml
+    nixosConfigurations.arcimedes = nixosSystem {
+    	host = "arcimedes";
+	system = "x86_64-linux";
+	hardware = ./hardware/efi-boot.nix;
+	modules = [
+	  ./modules/user-josh.nix
+
+	];
+    };
+
     # oracle cloud a1 vm
     nixosConfigurations.armitage = nixosSystem {
       host = "armitage";

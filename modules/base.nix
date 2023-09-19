@@ -27,7 +27,6 @@
 
   environment.systemPackages = with pkgs; [
     xxd
-    exa
     tmux
     htop
     ranger
@@ -42,6 +41,8 @@
     usbutils
     nix-tree
     nfs-utils
+    hwinfo
+    pciutils
   ];
 
   programs.zsh.enable = true;
