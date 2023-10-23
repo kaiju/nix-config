@@ -14,12 +14,13 @@
     terraform
     terraform-ls
     terraform-docs
+    tilt
     ansible
     packer
     shellcheck
     awscli2
     google-cloud-sdk
-    cloud-sql-proxy
+    google-cloud-sql-proxy
     oci-cli
     postgresql_15
     (python3.withPackages (p: with p; [
@@ -33,7 +34,8 @@
     pylint
     black
     poetry
-    go_1_18
+    mypy
+    go_1_20
     pre-commit
     nodejs
     gcc
