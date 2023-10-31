@@ -5,13 +5,12 @@
       address = "10.5.5.1";
       interface = "enp0s6";
     };
+    enableIPv6 = true;
     nameservers = [
       "169.254.169.254"
     ];
     interfaces.enp0s6 = {
-      ipv4.addresses = [
-        { address = "10.5.5.203"; prefixLength = 24; }
-      ];
+      useDHCP = true;
     };
 
     firewall.allowedTCPPorts = [ 80 443 ];
@@ -72,6 +71,11 @@
         basicAuthFile = "/opt/whylb/htpasswd";
       };
     };
+  };
+
+  services.matrix-conduit = {
+    enable = true;
+    settings.global.server_name = "matrix.mast.zone";
   };
 
   environment.systemPackages = with pkgs; [
