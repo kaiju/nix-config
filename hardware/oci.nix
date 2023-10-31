@@ -7,6 +7,8 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "virtio_pci" "virtio_scsi" "usbhid" ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = [ "console=ttyS0" ];
+  systemd.services."serial-getty@ttyS0".enable = true;
 
   fileSystems."/" =
     { device = "/dev/disk/by-label/nixos";
