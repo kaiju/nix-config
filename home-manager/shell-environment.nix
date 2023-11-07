@@ -83,6 +83,8 @@
         export KUBECONFIG="''${(j.:.)KUBE_CONFIGS}"
       fi
 
+      export PATH="$PATH:$HOME/.local/bin"
+
     '';
   };
 
