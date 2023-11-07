@@ -14,7 +14,7 @@
     terraform
     terraform-ls
     terraform-docs
-    tilt
+    #tilt
     ansible
     packer
     shellcheck
@@ -23,7 +23,7 @@
     google-cloud-sql-proxy
     oci-cli
     postgresql_15
-    (python3.withPackages (p: with p; [
+    (python311.withPackages (p: with p; [
       pip
       keyring
       keyrings-google-artifactregistry-auth
