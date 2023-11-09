@@ -35,7 +35,7 @@
     black
     poetry
     mypy
-    go_1_20
+    go_1_21
     pre-commit
     nodejs
     gcc
