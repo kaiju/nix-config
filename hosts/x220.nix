@@ -50,7 +50,7 @@
   };
 
   networking = {
-    useDHCP = true;
+    networkmanager.enable = true;
   };
 
   hardware.brillo.enable = true; # brightness controls
