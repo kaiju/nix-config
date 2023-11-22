@@ -3,7 +3,7 @@
   programs.rbw = {
     enable = true;
     settings = {
-      email = "josh@kaiju.net";
+      email = "josh@mast.zone";
       pinentry = "curses";
     };
   };
