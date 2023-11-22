@@ -35,7 +35,6 @@
 
   hardware.opengl.enable = true;
 
-  # high-resolution display
-  # This was deprecated?
-  # hardware.video.hidpi.enable = lib.mkDefault true;
+  hardware.brillo.enable = true;
+
 }

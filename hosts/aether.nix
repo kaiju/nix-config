@@ -89,7 +89,6 @@
   # end
 
   networking = {
-    hostName = "aether";
     useDHCP = false;
     networkmanager.enable = true;
     interfaces = {
@@ -97,8 +96,6 @@
       wlp0s20f3.useDHCP = true;
     };
   };
-
-  hardware.brillo.enable = true; # brightness controls
 
   services = {
     fwupd.enable = true; # firmware updater

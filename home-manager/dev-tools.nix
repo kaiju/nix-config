@@ -14,11 +14,11 @@
     terraform
     terraform-ls
     terraform-docs
-    #tilt
+    tilt
     ansible
     packer
     shellcheck
-    awscli2
+    #awscli2 # -- broken
     google-cloud-sdk
     google-cloud-sql-proxy
     oci-cli
@@ -26,7 +26,7 @@
     (python311.withPackages (p: with p; [
       pip
       keyring
-      keyrings-google-artifactregistry-auth
+      #keyrings-google-artifactregistry-auth # -- broken
       flake8
       twine
       wheel

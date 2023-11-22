@@ -4,6 +4,11 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,13 +18,11 @@
 
   };
 
-  outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager }@inputs:
+  outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager, agenix }@inputs:
   let
 
-    # function to build nixos systems in a common pattern 
     nixosSystem = import ./lib/nixosSystem.nix { inherit nixpkgs home-manager; };
-
-    # TODO: functions to create various types of VM images
+    vmImage = import ./lib/vmImage.nix { inherit nixpkgs self; };
 
   in {
 
@@ -27,7 +30,7 @@
     nixosConfigurations.aether = nixosSystem {
       host = "aether";
       system = "x86_64-linux";
-      hardware = ./hardware/thinkpad.nix; # rename to target? 
+      hardware = ./hardware/thinkpad_x1.nix;
       modules = [
         nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
       ];
@@ -90,9 +93,18 @@
       hardware = ./hardware/qemu-guest.nix;
     };
 
-    # shell host vm configuration
     nixosConfigurations.torrent = nixosSystem {
       host = "torrent";
+      system = "x86_64-linux";
+      hardware = ./hardware/qemu-guest.nix;
+      modules = [
+        ./modules/server.nix
+        ./modules/user-josh.nix
+      ];
+    };
+
+    nixosConfigurations.ops = nixosSystem {
+      host = "ops";
       system = "x86_64-linux";
       hardware = ./hardware/qemu-guest.nix;
       modules = [
@@ -140,9 +152,6 @@
        my work laptop, WSL2, etc where previously I was setting up a separate ~/.config/nixpkgs/home.nix
        file.
 
-       WIP TODO:
-        - Figure out how best to manage multiple architectures
-        - Write function to barf out a common configuration across different systems 
     */
     homeConfigurations.macbook = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.aarch64-darwin;
@@ -174,32 +183,19 @@
     /*
      * EXPERIMENTAL STUFF
      */
-    # build a lxc container image from shell system config
-    # nix build '.#shell-container' builds a rootfs tarball and metadata
-    # neccessary for importing into lxc
-    shell-container = nixpkgs.legacyPackages.x86_64-linux.stdenv.mkDerivation {
-      name = "shell-container";
-      src = self;
-      installPhase = ''
-        mkdir -p $out
-        ln -s "${self.nixosConfigurations.shell.config.system.build.tarball}/tarball/nixos-system-x86_64-linux.tar.xz" $out/nixos-rootfs.tar.xz
-        ln -s "${self.nixosConfigurations.shell.config.system.build.metadata}/tarball/nixos-system-x86_64-linux.tar.xz" $out/nixos-metadata.tar.xz
-      '';
+    build-vm = vmImage {
+      nixosConfiguration = self.nixosConfigurations.artemis;
     };
 
-    # example qemu guest vm
-    # build a disk image with
-    # nix build '.#vm.config.system.build.rawimage' or
-    # nix build '.#vm.config.system.build.qcowimage'
-    # nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
-    #   system = "x86_64-linux";
-    #   modules = [
-    #     ./hardware/qemu-guest.nix
-    #     my-overlays
-    #     home-manager.nixosModule
-    #     ./hosts/<host config>.nix
-    #   ];
-    # };
-  };
+    devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.mkShell {
+      packages = with nixpkgs.legacyPackages.x86_64-linux; [
+        python311
+        openssh
+        rage
+        jq
+      ];
+    };
+
+  }; 
 }
 
