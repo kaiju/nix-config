@@ -36,6 +36,15 @@
       ];
     };
 
+    nixosConfigurations.x220 = nixosSystem {
+      host = "x220";
+      system = "x86_64-linux";
+      hardware = ./hardware/x220.nix;
+      modules = [
+        nixos-hardware.nixosModules.lenovo-thinkpad-x220
+      ];
+    };
+
     # new linux workstation for futzing with ml
     nixosConfigurations.arcimedes = nixosSystem {
     	host = "arcimedes";
