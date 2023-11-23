@@ -56,6 +56,7 @@
     profiles.default = {
       isDefault = true;
       settings = {
+        "browser.compactmode.show" = true;
         "security.ask_for_password" = 0;
         "dom.battery.enabled" = false;
         "extensions.pocket.enabled" = false;
