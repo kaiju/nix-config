@@ -1,3 +1,5 @@
+# This only gets imported from homeConfigurations flake outputs
+# and we probably don't actually need it.
 { lib, ... }:
 {
   home.stateVersion = "22.05";
