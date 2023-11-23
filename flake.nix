@@ -39,7 +39,7 @@
     nixosConfigurations.x220 = nixosSystem {
       host = "x220";
       system = "x86_64-linux";
-      hardware = ./hardware/x220.nix;
+      hardware = ./hardware/thinkpad_x220.nix;
       modules = [
         nixos-hardware.nixosModules.lenovo-thinkpad-x220
       ];
@@ -48,12 +48,11 @@
     # new linux workstation for futzing with ml
     nixosConfigurations.arcimedes = nixosSystem {
     	host = "arcimedes";
-	system = "x86_64-linux";
-	hardware = ./hardware/efi-boot.nix;
-	modules = [
-	  ./modules/user-josh.nix
-
-	];
+    	system = "x86_64-linux";
+    	hardware = ./hardware/efi-boot.nix;
+      modules = [
+        ./modules/user-josh.nix
+      ];
     };
 
     # oracle cloud a1 vm
@@ -94,6 +93,10 @@
       system = "x86_64-linux";
       hardware = ./hardware/efi-boot.nix;
     };
+
+    /*
+      VMs
+    */
 
     # shell host vm configuration
     nixosConfigurations.shell = nixosSystem {
@@ -138,20 +141,6 @@
         ./modules/server.nix
         ./modules/user-josh.nix
       ];
-    };
-
-    # old work VM
-    nixosConfigurations.work = nixosSystem {
-      host = "work";
-      system = "aarch64-linux";
-      hardware = ./hardware/vmware-guest.nix;
-    };
-      
-    # old vmware desktop VM
-    nixosConfigurations.erebus = nixosSystem {
-      host = "erebus";
-      system = "x86_64-linux";
-      hardware = ./hardware/vmware-guest.nix;
     };
 
     /* Surprise! It turns out you can also include Home Manager configurations as

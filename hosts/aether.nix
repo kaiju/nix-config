@@ -49,6 +49,10 @@
     ];
   };
 
+  home-manager.users.josh.home.packages = with pkgs.mastpkgs; [
+    bootstrap
+  ];
+
   # High DPI settings
   services.xserver = {
     dpi = 210;
