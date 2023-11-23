@@ -3,3 +3,4 @@
 
   Common configuration for laptops
 */
+{}
