@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 {
   imports = [
+    ../modules/workstation.nix
+    ../modules/laptop.nix
     ../modules/bluetooth.nix
     ../modules/xorg.nix
     ../modules/sdr.nix

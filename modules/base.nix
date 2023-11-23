@@ -1,4 +1,8 @@
-/* This module represents basic configuration common across all systems. */
+/*
+  Profile: base
+
+  This profile is common and applied to all NixOS configurations
+*/
 { config, pkgs, ... }:
 {
 

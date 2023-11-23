@@ -10,7 +10,7 @@ some of the speedbumps I've hit along with what I've learned via comments.
 
 - `flake.nix`: All system configurations are managed as Nix Flake outputs
 - `lib/`: Additional functions and evaluations used by the Nix Flake  
-- `packages/`: Local Nix packages used in NixOS configuration 
+- `mastpkgs/`: My own personal Nix packages used in my NixOS configurations
 - `hardware/`: NixOS modules providing configuration for various hardware targets (UEFI x86 PCs, qemu VMs, etc)
 - `modules/`: NixOS modules of common configuration patterns shared across multiple systems
 - `hosts/`: NixOS modules of host-specific configuration

@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 {
   imports = [
+    ../modules/workstation.nix
+    ../modules/laptop.nix
     ../modules/bluetooth.nix
     ../modules/xorg.nix
     ../modules/sdr.nix
@@ -21,10 +23,9 @@
     ../home-manager/xorg.nix
   ];
 
-  boot.supportedFilesystems = [ "ntfs" ];
-
-  # allow us to build to aarch64
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  # x220 wallpaper
+  #services.xserver.displayManager.lightdm.background = "${pkgs.mastpkgs.wallpaper}/thinkpad_x220.png";
+  #home-manager.users.josh.xsession
 
   # laptop specific i3 status configuration
   home-manager.users.josh.programs.i3status-rust = {
