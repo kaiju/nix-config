@@ -6,7 +6,11 @@
 { config, pkgs, ... }:
 {
 
-  system.stateVersion = "22.05"; # NixOS 22.05
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1w"
+  ];
+
+  system.stateVersion = "22.05";
 
   users.groups.mast = {
     gid = 1002;

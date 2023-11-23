@@ -13,7 +13,6 @@
 
   home-manager.users.josh.imports = [
     ../home-manager/dev-tools.nix
-    ../home-manager/ssh-config.nix
     ../home-manager/obsidian.nix
     ../home-manager/comms.nix
     ../home-manager/sublime-text.nix
