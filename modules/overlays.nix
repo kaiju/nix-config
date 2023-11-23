@@ -1,16 +1,9 @@
 { pkgs, ... }:
-let
-
-  ble-thermometer-scan = pkgs.fetchFromGitHub {
-    owner = "kaiju";
-    repo = "ble-thermometer-scan";
-    rev = "main";
-    sha256 = "sha256-/nxFGVC72xhGb9+omszuLDT/zGkhaomoNwjFe3/kjMU=";
-  }; 
-
-in {
+{
   nixpkgs.overlays = [
     (final: prev: {
+
+      mastpkgs = prev.callPackage ../mastpkgs {};
 
       /*
          Open question: What's the difference between
@@ -21,10 +14,6 @@ in {
 
          Answer: It's a convienence function, see: https://nixos.org/guides/nix-pills/callpackage-design-pattern.html#idm140737319882144
       */
-
-      # Bring in our local derivation of wallpaper images
-      mastpkgs.wallpaper = prev.callPackage ../packages/wallpaper {};
-      mastpkgs.bootstrap = prev.callPackage ../packages/bootstrap {};
 
       # Override pinentry to prevent it from building a bunch of unneccessary xorg packages
       pinentry = prev.pinentry.override {
@@ -58,9 +47,6 @@ in {
         worked fine. In this case, we opted to assign fetchFromGitHub to a variable
         and pass it to callPackage that way.
       */
-
-      # Add our ble-thermometer-scan derivation from GitHub
-      mastpkgs.ble-thermometer-scan = prev.callPackage ble-thermometer-scan {};
 
     })
 
