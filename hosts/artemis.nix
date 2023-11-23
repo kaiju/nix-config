@@ -1,17 +1,13 @@
 { config, pkgs, ... }:
 {
-  imports = [
-    ../modules/server.nix
-    ../modules/user-josh.nix
-  ];
 
   networking = {
-    useDHCP = false;
-    networkmanager.enable = true;
-    interfaces = {
-      eth0.useDHCP = true;
-    };
+    useDHCP = true;
     hostName = "artemis";
+    domain = "mast.haus";
+    firewall.trustedInterfaces = [
+      "eth0"
+    ];
   };
 
 }
