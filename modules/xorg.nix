@@ -30,7 +30,7 @@
 
     displayManager = {
       lightdm.enable = true;
-      lightdm.background = "${pkgs.wallpaper}/jr-korpa-YXQew2KZjzY-unsplash.jpg";
+      lightdm.background = "${pkgs.mastpkgs.wallpaper}/jr-korpa-YXQew2KZjzY-unsplash.jpg";
       lightdm.greeters.mini = {
         enable = true;
         user = "josh";

@@ -17,7 +17,7 @@
     enable = true;
     initExtra = ''
       ${pkgs.xorg.setxkbmap}/bin/setxkbmap -option 'ctrl:nocaps'
-      ${pkgs.feh}/bin/feh --bg-fill ${pkgs.wallpaper}/aishy-FuqKy-SXsAA76Dk.jpg
+      ${pkgs.feh}/bin/feh --bg-fill ${pkgs.mastpkgs.wallpaper}/aishy-FuqKy-SXsAA76Dk.jpg
     '';
 
     windowManager.i3 = {

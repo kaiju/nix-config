@@ -23,7 +23,8 @@ in {
       */
 
       # Bring in our local derivation of wallpaper images
-      wallpaper = prev.callPackage ../packages/wallpaper {};
+      mastpkgs.wallpaper = prev.callPackage ../packages/wallpaper {};
+      mastpkgs.bootstrap = prev.callPackage ../packages/bootstrap {};
 
       # Override pinentry to prevent it from building a bunch of unneccessary xorg packages
       pinentry = prev.pinentry.override {
@@ -59,7 +60,7 @@ in {
       */
 
       # Add our ble-thermometer-scan derivation from GitHub
-      ble-thermometer-scan = prev.callPackage ble-thermometer-scan {};
+      mastpkgs.ble-thermometer-scan = prev.callPackage ble-thermometer-scan {};
 
     })
 
