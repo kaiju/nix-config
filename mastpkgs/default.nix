@@ -4,7 +4,7 @@ let
     owner = "kaiju";
     repo = "ble-thermometer-scan";
     rev = "main";
-    sha256 = "sha256-/nxFGVC72xhGb9+omszuLDT/zGkhaomoNwjFe3/kjMU=";
+    sha256 = "sha256-xcYXH7TaO12d7Fxr4sQdjXWyHaandEZG2HK8s2OFKPA=";
   };
 in {
   wallpaper = pkgs.callPackage ./wallpaper {};
