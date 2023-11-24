@@ -33,6 +33,9 @@
       hardware = ./hardware/thinkpad_x1.nix;
       modules = [
         nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
+        ./modules/workstation.nix
+        ./modules/laptop.nix
+        ./modules/users-josh.nix
       ];
     };
 
@@ -42,6 +45,9 @@
       hardware = ./hardware/thinkpad_x220.nix;
       modules = [
         nixos-hardware.nixosModules.lenovo-thinkpad-x220
+        ./modules/workstation.nix
+        ./modules/laptop.nix
+        ./modules/user-josh.nix
       ];
     };
 

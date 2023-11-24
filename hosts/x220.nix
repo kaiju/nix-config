@@ -1,14 +1,11 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../modules/workstation.nix
-    ../modules/laptop.nix
     ../modules/bluetooth.nix
     ../modules/xorg.nix
     ../modules/sdr.nix
     ../modules/containers.nix
     ../modules/audio.nix
-    ../modules/user-josh.nix
   ];
 
   home-manager.users.josh.imports = [
@@ -43,7 +40,7 @@
       }
       {
         block = "net";
-        device = "wlp0s20f3";
+        device = "wlp3s0";
         format = " $icon $ssid $ip ";
       }
     ];

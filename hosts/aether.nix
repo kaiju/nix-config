@@ -1,14 +1,11 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../modules/workstation.nix
-    ../modules/laptop.nix
     ../modules/bluetooth.nix
     ../modules/xorg.nix
     ../modules/sdr.nix
     ../modules/containers.nix
     ../modules/audio.nix
-    ../modules/user-josh.nix
   ];
 
   home-manager.users.josh.imports = [
@@ -21,11 +18,6 @@
     ../home-manager/rbw.nix
     ../home-manager/xorg.nix
   ];
-
-  boot.supportedFilesystems = [ "ntfs" ];
-
-  # allow us to build to aarch64
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # laptop specific i3 status configuration
   home-manager.users.josh.programs.i3status-rust = {
@@ -49,10 +41,6 @@
       }
     ];
   };
-
-  home-manager.users.josh.home.packages = with pkgs.mastpkgs; [
-    bootstrap
-  ];
 
   # High DPI settings
   services.xserver = {
