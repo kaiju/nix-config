@@ -35,7 +35,7 @@
         nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
         ./modules/workstation.nix
         ./modules/laptop.nix
-        ./modules/users-josh.nix
+        ./modules/user-josh.nix
       ];
     };
 
