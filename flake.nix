@@ -67,8 +67,8 @@
       system = "aarch64-linux";
       hardware = ./hardware/oci.nix;
       modules = [
-        ./modules/user-josh.nix
         ./modules/server.nix
+        ./modules/user-josh.nix
       ];
     };
 
