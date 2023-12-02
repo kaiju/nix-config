@@ -14,6 +14,7 @@
   };
 
   services.autorandr.enable = true;
+
   services.xserver = {
     enable = true;
     exportConfiguration = true;
@@ -58,6 +59,18 @@
           start = ''exec $HOME/.xsession'';
         }
       ];
+
+      defaultSession = "xsession";
+
+      lightdm = {
+        enable = true;
+        background = "${pkgs.mastpkgs.wallpaper}/jr-korpa-YXQew2KZjzY-unsplash.jpg";
+        greeters.mini = {
+          enable = true;
+          user = "josh";
+        };
+      };
+
     };
 
     desktopManager = {
