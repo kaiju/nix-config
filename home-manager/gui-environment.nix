@@ -107,6 +107,7 @@
     settings = {
       env = {
         "TERM" = "xterm-256color";
+        "WINIT_X11_SCALE_FACTOR" = lib.mkDefault "1";
       };
       window = {
         opacity = 1.0;
