@@ -38,6 +38,9 @@ nixpkgs.lib.nixosSystem {
       home-manager.useUserPackages = true;
     }
 
+    # Pull in our own custom config options
+    ../modules/mast-options.nix
+
     # Pull in our base config common to all systems
     ../modules/base.nix
 
