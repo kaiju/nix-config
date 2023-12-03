@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports = [
     ../modules/bluetooth.nix
@@ -18,6 +18,23 @@
     ../home-manager/rbw.nix
     ../home-manager/xorg.nix
   ];
+
+  mast.wallpaper = "${pkgs.mastpkgs.wallpaper}/thinkpad_x220.png";
+
+  # setup sxrc?
+  services.xserver.displayManager.sx.enable = true;
+  #services.xserver.displayManager.startx.enable = true;
+  #programs.regreet.enable = false;
+
+  services.xserver.displayManager.lightdm.enable = true;
+
+  services.greetd = {
+    enable = false;
+    settings.default_session = {
+      command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -s ${config.services.xserver.displayManager.sessionData.desktops}/share/xsessions";
+      #command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -s ${config.services.xserver.displayManager.sessionData.desktops} --cmd ${pkgs.zsh}/bin/zsh";
+    };
+  };
 
   # x220 wallpaper
   #services.xserver.displayManager.lightdm.background = "${pkgs.mastpkgs.wallpaper}/thinkpad_x220.png";
