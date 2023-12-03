@@ -31,27 +31,8 @@
     xkbOptions = "ctrl:nocaps";
 
     displayManager = {
-      lightdm.enable = lib.mkDefault true;
-      lightdm.background = config.mast.wallpaper;
-      lightdm.greeters.mini = {
-        enable = true;
-        user = "josh";
-        extraConfig = ''
-          [greeter]
-          show-password-label = false
-          password-alignment = left
-          [greeter-theme]
-          font = "IBM Plex Mono"
-          window-color = "#1A1B26"
-          border-color = "#1A1B26"
-          border-width = 0px
-          password-border-color = "#1A1B26"
-          password-background-color = "#1A1B26"
-          password-border-width = 0px
-          password-border-radius = 0
-        '';
-      };
       defaultSession = "default";
+
       session = [
         {
           manage = "desktop";
@@ -60,14 +41,28 @@
         }
       ];
 
-      defaultSession = "xsession";
-
       lightdm = {
-        enable = true;
-        background = "${pkgs.mastpkgs.wallpaper}/jr-korpa-YXQew2KZjzY-unsplash.jpg";
+        enable = lib.mkDefault true;
+        #background = config.mast.wallpaper;
         greeters.mini = {
           enable = true;
           user = "josh";
+          extraConfig = ''
+            [greeter]
+            show-password-label = false
+            password-alignment = left
+            [greeter-theme]
+            font = "Blex Mono Nerd Font"
+            background-image = "${config.mast.wallpaper}"
+            background-image-size = cover
+            window-color = "#1A1B26"
+            border-color = "#1A1B26"
+            border-width = 0px
+            password-border-color = "#1A1B26"
+            password-background-color = "#1A1B26"
+            password-border-width = 0px
+            password-border-radius = 0
+          '';
         };
       };
 

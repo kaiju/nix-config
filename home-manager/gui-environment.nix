@@ -42,8 +42,9 @@
 
   programs.rofi = {
     enable = true;
-    font = "IBM Plex Mono 10";
+    font = "Blex Mono Nerd Font 10";
     terminal = "${pkgs.alacritty}/bin/alacritty";
+    theme = "Monokai";
     extraConfig = {
       combi-modi = "drun,window,ssh";
     };

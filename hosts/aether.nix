@@ -19,6 +19,8 @@
     ../home-manager/xorg.nix
   ];
 
+  mast.wallpaper = "${pkgs.mastpkgs.wallpaper}/lenovo-1.jpg";
+
   # laptop specific i3 status configuration
   home-manager.users.josh.programs.i3status-rust = {
     bars.default.blocks = [
@@ -79,6 +81,11 @@
     size = 64;
     x11.enable = true;
   };
+
+  home-manager.users.josh.programs.alacritty.settings.env = {
+    "WINIT_X11_SCALE_FACTOR" = "2.3";
+  };
+
   # end
 
   networking = {
