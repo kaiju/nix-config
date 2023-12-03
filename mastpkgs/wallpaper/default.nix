@@ -6,5 +6,6 @@ pkgs.stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out
     cp ./*.jpg $out
+    cp ./*.png $out
   '';
 }
