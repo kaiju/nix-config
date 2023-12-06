@@ -18,7 +18,7 @@
     ansible
     packer
     shellcheck
-    #awscli2 # -- broken
+    awscli2
     google-cloud-sdk
     google-cloud-sql-proxy
     oci-cli
