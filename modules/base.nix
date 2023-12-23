@@ -8,6 +8,7 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w"
+    "electron-25.9.0"
   ];
 
   system.stateVersion = "22.05";
