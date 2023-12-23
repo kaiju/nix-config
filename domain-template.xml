@@ -1,0 +1,83 @@
+<domain type="kvm">
+
+  <name>${hostName}</name>
+  <memory unit="GiB">${memory}</memory>
+  <vcpu>${cpu}</vcpu>
+
+  <os>
+    <type arch="x86_64">hvm</type>
+    <boot dev="hd"/>
+  </os>
+
+  <cpu mode="host-model"/>
+
+  <memoryBacking>
+    <source type="memfd"/>
+    <access mode="shared"/>
+  </memoryBacking>
+
+  <devices>
+
+    <disk device="disk" type="file">
+      <driver cache="none" name="qemu" type="qcow2"/>
+      <source file="/vm-images/${hostName}.qcow2" index="2"/>
+      <backingStore/>
+      <target bus="virtio" dev="vda"/>
+      <alias name="virtio-disk0"/>
+    </disk>
+
+    <disk device="cdrom" type="file">
+      <driver name="qemu" type="raw"/>
+      <source index="1"/>
+      <target bus="sata" dev="sda"/>
+      <readonly/>
+      <alias name="sata0-0-0"/>
+      <address bus="0" controller="0" target="0" type="drive" unit="0"/>
+    </disk>
+
+    <controller index="0" type="sata">
+      <alias name="ide"/>
+    </controller>
+
+    <interface type="bridge">
+      <source bridge="mast-network"/>
+      <target dev="vnet0"/>
+      <model type="virtio"/>
+      <alias name="net0"/>
+    </interface>
+
+    <controller index="0" type="virtio-serial">
+      <alias name="virtio-serial0"/>
+    </controller>
+
+    <serial type="pty">
+      <source path="/dev/pts/0"/>
+      <target port="0" type="isa-serial">
+        <model name="isa-serial"/>
+      </target>
+      <alias name="serial0"/>
+    </serial>
+
+    <console tty="/dev/pts/0" type="pty">
+      <source path="/dev/pts/0"/>
+      <target port="0" type="serial"/>
+      <alias name="serial0"/>
+    </console>
+
+    <channel type="unix">
+      <target name="org.qemu.guest_agent.0" state="disconnected" type="virtio"/>
+      <alias name="channel0"/>
+      <address bus="0" controller="0" port="1" type="virtio-serial"/>
+    </channel>
+
+    <memballoon model="virtio">
+      <alias name="balloon0"/>
+    </memballoon>
+
+    <rng model="virtio">
+      <backend model="random">/dev/urandom</backend>
+      <alias name="rng0"/>
+    </rng>
+
+  </devices>
+</domain>

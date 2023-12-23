@@ -49,6 +49,7 @@
     usbutils
     nix-tree
     nfs-utils
+    cifs-utils
     hwinfo
     pciutils
   ];
