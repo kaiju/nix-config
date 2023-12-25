@@ -46,6 +46,7 @@
     jsonnet-bundler
     tanka
     dbmate
+    mastpkgs.mkfatimg
   ];
 
 }
