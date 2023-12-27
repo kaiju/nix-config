@@ -9,8 +9,8 @@ let
   mkfatimg = pkgs.fetchFromGitHub {
     owner = "kaiju";
     repo = "mkfatimg";
-    rev = "ebe86c819cf47296a31b765db8df629ad12b623e";
-    sha256 = "sha256-6lcBusordzaoilWJoseDbaxuU5Vv06jHTVRq6KU2ERo=";
+    rev = "9431e347e56f9eea53fd28fc60dbe50665a2705f";
+    sha256 = "sha256-hbQNORfgrJcY81FPKMd2ZH98CrVwnFurnC+tXmT1TjI=";
   };
 in {
   wallpaper = pkgs.callPackage ./wallpaper {};
