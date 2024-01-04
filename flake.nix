@@ -188,7 +188,7 @@
      * EXPERIMENTAL STUFF
      */
     build-vm = vmImage {
-      nixosConfiguration = self.nixosConfigurations.artemis;
+      nixosConfiguration = self.nixosConfigurations.ops;
     };
 
     devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.mkShell {
