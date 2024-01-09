@@ -37,6 +37,17 @@
           };
         }
         {
+          name = "mastodon";
+          metrics_override = { prefix = "nginx"; };
+          namespace_label = "vhost";
+          format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
+          source = {
+            files = [
+              "/var/log/nginx/mastodon-access.log"
+            ];
+          };
+        }
+        {
           name = "conduit";
           metrics_override = { prefix = "nginx"; };
           namespace_label = "vhost";
@@ -67,6 +78,9 @@
       "matrix.mast.zone" = {
         email = "josh@mast.zone";
       };
+      "odon.mast.zone" = {
+        email = "josh@mast.zone";
+      };
     };
   };
 
@@ -74,11 +88,48 @@
     enable = true;
     enableReload = true;
     statusPage = true;
+    recommendedProxySettings = true;
+    upstreams = {
+      mastodon-streaming = {
+        extraConfig = ''
+          least_conn;
+        '';
+        servers = {
+          "unix:/run/mastodon-streaming/streaming-1.socket" = {};
+        };
+      };
+    };
     virtualHosts = {
       "armitage.mast.zone" = {
         enableACME = true;
         default = true;
         forceSSL = true;
+      };
+      "odon.mast.zone" = {
+        enableACME = true;
+        forceSSL = true;
+        root = "${pkgs.mastodon}/public/";
+
+        locations."/system/".alias = "/var/lib/mastodon/public-system/";
+
+        locations."/" = {
+          tryFiles = "$uri @proxy";
+        };
+
+        locations."@proxy" = {
+          proxyPass = "http://unix:/run/mastodon-web/web.socket";
+          proxyWebsockets = true;
+        };
+
+        locations."/api/v1/streaming/" = {
+          proxyPass = "http://mastodon-streaming";
+          proxyWebsockets = true;
+        };
+
+        extraConfig = ''
+          access_log /var/log/nginx/mastodon-access.log combined;
+        '';
+
       };
       "whylb.mast.zone" = {
         enableACME = true;
@@ -120,8 +171,8 @@
 
   services.mastodon = {
     enable = true;
-    localDomain = "social.mast.zone";
-    configureNginx = true;
+    localDomain = "mast.zone";
+    configureNginx = false;
     mediaAutoRemove.enable = false;
     smtp = {
       authenticate = true;
@@ -132,15 +183,30 @@
       user = "postmaster@odon.mast.zone";
       passwordFile = "/var/lib/mastodon/secrets/smtp-password";
     };
-    streamingProcesses = 3;
+    streamingProcesses = 1;
+    extraConfig = {
+      "WEB_DOMAIN" = "odon.mast.zone";
+      "SINGLE_USER_MODE" = "true";
+    };
   };
+
+  
 
   services.maubot = {
     enable = true;
     plugins = with config.services.maubot.package.plugins; [
       rss
+      dice
+      reminder
+      sed
     ];
     settings = {
+      # maubot's management console isn't publically accessible so I'm just going to
+      # look the other way about publishing a throw-away credential here
+      admins = {
+        root = "";
+        admin = "admin";
+      };
       database = "sqlite:maubot.db";
       homeservers = {
         "matrix.mast.zone" = {
