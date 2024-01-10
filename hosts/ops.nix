@@ -18,12 +18,81 @@
         ];
       };
     };
+    firewall.allowedTCPPorts = [ 80 443 ];
   };
 
-  services.openssh.ports = [2222];
+  security.acme = {
+    defaults = {
+      email = "josh@mast.zone";
+      dnsProvider = "route53";
+      dnsResolver = "1.1.1.1:53";
+      environmentFile = "/run/credentials/aws-dns-manager-env";
+    };
+    acceptTerms = true;
+    certs = {
+      "ops.mast.haus" = {
+        group = "nginx";
+      };
+      "git.mast.haus" = {
+        group = "nginx";
+      };
+    };
+  };
+
+  services.nginx = {
+    enable = true;
+    enableReload = true;
+    statusPage = true;
+    recommendedProxySettings = true;
+    virtualHosts = {
+      "ops.mast.haus" = {
+        default = true;
+        forceSSL = true;
+        useACMEHost = "ops.mast.haus";
+        locations."/" = {
+          proxyPass = "http://localhost:3000";
+        };
+      };
+      "git.mast.haus" = {
+        forceSSL = true;
+        useACMEHost = "git.mast.haus";
+        locations."/" = {
+          proxyPass = "http://localhost:3000";
+        };
+      };
+    };
+  };
+
+  users.users.git = {
+    description = "Gitea Service";
+    home = config.services.gitea.stateDir;
+    useDefaultShell = true;
+    group = config.services.gitea.group;
+    isSystemUser = true;
+  };
 
   services.gitea = {
     enable = true;
+    user = "git";
+    settings = {
+      server = {
+        DOMAIN = "git.mast.haus"; 
+        ROOT_URL = "https://git.mast.haus/";
+      };
+      migrations = {
+        ALLOW_LOCALNETWORKS = "true";
+      };
+    };
   };
+
+  /*
+  services.gitea-actions-runner = {
+    instances.ops = {
+      enable = true;
+      name = "ops";
+
+    };
+  };
+  */
 
 }
