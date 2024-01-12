@@ -18,7 +18,7 @@
         ];
       };
     };
-    firewall.allowedTCPPorts = [ 80 443 ];
+    firewall.allowedTCPPorts = [ 80 443 9000 9001 ];
   };
 
   security.acme = {
@@ -35,6 +35,12 @@
       };
       "git.mast.haus" = {
         group = "nginx";
+      };
+      "s.mast.haus" = {
+        group = "nginx";
+        extraDomainNames = [
+          "*.s.mast.haus"
+        ];
       };
     };
   };
@@ -58,6 +64,21 @@
         useACMEHost = "git.mast.haus";
         locations."/" = {
           proxyPass = "http://localhost:3000";
+        };
+      };
+      "s.mast.haus" = {
+        forceSSL = true;
+        useACMEHost = "s.mast.haus";
+        locations."/" = {
+          proxyPass = "http://localhost:9001";
+          proxyWebsockets = true;
+        };
+      };
+      "*.s.mast.haus" = {
+        forceSSL = true;
+        useACMEHost = "s.mast.haus";
+        locations."/" = {
+          proxyPass = "http://localhost:9000";
         };
       };
     };
@@ -85,14 +106,25 @@
     };
   };
 
-  /*
+  virtualisation.docker.enable = true;
+
+  services.minio = {
+    enable = true;
+  };
+  systemd.services.minio.environment.MINIO_DOMAIN = "s.mast.haus";
+  systemd.services.minio.environment.MINIO_BROWSER_REDIRECT_URL = "https://s.mast.haus";
+  #systemd.services.minio.environment.MINIO_SERVER_URL = "https://s.mast.haus";
+
   services.gitea-actions-runner = {
     instances.ops = {
       enable = true;
-      name = "ops";
-
+      url = "https://git.mast.haus/";
+      name = "ops-runner";
+      token = "ZVU7Vv6pXtxePsjbSZ0hXudUksdT8kpBhQ3TDHB8";
+      labels = [
+        "ubuntu-latest:docker://node:18-bullseye"
+      ];
     };
   };
-  */
 
 }
