@@ -35,7 +35,16 @@
     black
     poetry
     mypy
+
+    # golang and tools
     go_1_21
+    gotools
+    golint
+    gocode
+    gopls
+    delve
+    go-tools
+
     pre-commit
     nodejs
     gcc
