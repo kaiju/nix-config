@@ -116,6 +116,10 @@ lua << EOF
         --  callback = vim.lsp.buf.formatting_sync,
         --})
 
+        lspconfig.nil_ls.setup({
+          capabilities = capabilities
+        })
+
 	lspconfig.gopls.setup({
 	  capabilities = capabilities
         })
@@ -145,6 +149,7 @@ EOF
     '';
     extraPackages = with pkgs; [
       gopls
+      nil
       yaml-language-server
       terraform-ls
     ]; # probably throw lsp servers in here?
