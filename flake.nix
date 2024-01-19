@@ -21,9 +21,9 @@
   outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager, agenix }@inputs:
   let
 
-    nixosSystem = import ./lib/nixosSystem.nix { inherit nixpkgs home-manager; };
-    homeConfig = import ./lib/homeConfig.nix { inherit nixpkgs home-manager; };
-    vmImage = import ./lib/vmImage.nix { inherit nixpkgs self; };
+    nixosSystem = import lib/nixosSystem.nix { inherit nixpkgs home-manager; };
+    homeConfig = import lib/homeConfig.nix { inherit nixpkgs home-manager; };
+    vmImage = import lib/vmImage.nix { inherit nixpkgs self; };
 
   in {
 
@@ -31,34 +31,34 @@
     nixosConfigurations.aether = nixosSystem {
       host = "aether";
       system = "x86_64-linux";
-      hardware = ./hardware/thinkpad_x1.nix;
+      hardware = nixos/targets/thinkpad_x1.nix;
       modules = [
         nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
-        ./modules/workstation.nix
-        ./modules/laptop.nix
-        ./modules/user-josh.nix
+        nixos/modules/workstation.nix
+        nixos/modules/laptop.nix
+        nixos/modules/user-josh.nix
       ];
     };
 
     nixosConfigurations.x220 = nixosSystem {
       host = "x220";
       system = "x86_64-linux";
-      hardware = ./hardware/thinkpad_x220.nix;
+      hardware = ./nixos/targets/thinkpad_x220.nix;
       modules = [
         nixos-hardware.nixosModules.lenovo-thinkpad-x220
-        ./modules/workstation.nix
-        ./modules/laptop.nix
-        ./modules/user-josh.nix
+        ./nixos/modules/workstation.nix
+        ./nixos/modules/laptop.nix
+        ./nixos/modules/user-josh.nix
       ];
     };
 
     # new linux workstation for futzing with ml
     nixosConfigurations.arcimedes = nixosSystem {
-    	host = "arcimedes";
-    	system = "x86_64-linux";
-    	hardware = ./hardware/efi-boot.nix;
+      host = "arcimedes";
+      system = "x86_64-linux";
+      hardware = ./nixos/targets/efi-boot.nix;
       modules = [
-        ./modules/user-josh.nix
+        ./nixos/modules/user-josh.nix
       ];
     };
 
@@ -66,10 +66,10 @@
     nixosConfigurations.armitage = nixosSystem {
       host = "armitage";
       system = "aarch64-linux";
-      hardware = ./hardware/oci.nix;
+      hardware = ./nixos/hardware/oci.nix;
       modules = [
-        ./modules/server.nix
-        ./modules/user-josh.nix
+        ./nixos/modules/server.nix
+        ./nixos/modules/user-josh.nix
       ];
     };
 
@@ -77,28 +77,28 @@
     nixosConfigurations.garage = nixosSystem {
       host = "garage";
       system = "x86_64-linux";
-      hardware = ./hardware/ugh.nix;
+      hardware = ./nixos/targets/ugh.nix;
     };
 
     # VPS
     nixosConfigurations.mastzone = nixosSystem {
       host = "mastzone";
       system = "x86_64-linux";
-      hardware = ./hardware/vps2day.nix;
+      hardware = ./nixos/targets/vps2day.nix;
     };
 
     # sigint -- radio intelligence
     nixosConfigurations.sigint = nixosSystem {
       host = "sigint";
       system = "x86_64-linux";
-      hardware = ./hardware/sigint.nix;
+      hardware = ./nixos/targets/sigint.nix;
     };
 
     # mess-around lab virtualisation machine, 16 core xeon, 192GB ram
     nixosConfigurations.kronos = nixosSystem {
       host = "kronos";
       system = "x86_64-linux";
-      hardware = ./hardware/efi-boot.nix;
+      hardware = ./nixos/targets/efi-boot.nix;
     };
 
     /*
@@ -109,26 +109,26 @@
     nixosConfigurations.shell = nixosSystem {
       host = "shell";
       system = "x86_64-linux";
-      hardware = ./hardware/qemu-guest.nix;
+      hardware = ./nixos/targets/qemu-guest.nix;
     };
 
     nixosConfigurations.torrent = nixosSystem {
       host = "torrent";
       system = "x86_64-linux";
-      hardware = ./hardware/qemu-guest.nix;
+      hardware = ./nixos/targets/qemu-guest.nix;
       modules = [
-        ./modules/server.nix
-        ./modules/user-josh.nix
+        ./nixos/modules/server.nix
+        ./nixos/modules/user-josh.nix
       ];
     };
 
     nixosConfigurations.ops = nixosSystem {
       host = "ops";
       system = "x86_64-linux";
-      hardware = ./hardware/qemu-guest.nix;
+      hardware = ./nixos/targets/qemu-guest.nix;
       modules = [
-        ./modules/server.nix
-        ./modules/user-josh.nix
+        ./nixos/modules/server.nix
+        ./nixos/modules/user-josh.nix
       ];
     };
 
@@ -167,16 +167,16 @@
             "$HOME/.rd/bin"
           ];
         }
-        home-manager/work.nix
-        home-manager/darwin.nix
-        home-manager/dev-tools.nix
+        hm/work.nix
+        hm/darwin.nix
+        hm/dev-tools.nix
       ];
     };
 
     homeConfigurations.wsl = homeConfig {
       system = "x86_64-linux";
       modules = [
-        home-manager/dev-tools.nix
+        hm/dev-tools.nix
       ];
     };
 

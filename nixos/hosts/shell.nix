@@ -39,8 +39,8 @@
   };
 
   home-manager.sharedModules = [
-    ../home-manager/shell-environment.nix
-    ../home-manager/neovim.nix
+    ../../hm/shell-environment.nix
+    ../../hm/neovim.nix
   ];
 
   # Josh

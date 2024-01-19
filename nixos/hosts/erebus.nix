@@ -7,9 +7,9 @@
     ../modules/xorg.nix
   ];
   home-manager.users.josh.imports = [
-    ../home-manager/dev-tools.nix
-    ../home-manager/xorg.nix
-    ../home-manager/gui-environment.nix
-    ../home-manager/gnupg.nix
+    ../../hm/dev-tools.nix
+    ../../hm/xorg.nix
+    ../../hm/gui-environment.nix
+    ../../hm/gnupg.nix
   ];
 }

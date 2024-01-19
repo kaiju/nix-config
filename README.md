@@ -9,12 +9,12 @@ some of the speedbumps I've hit along with what I've learned via comments.
 ## Project Layout
 
 - `flake.nix`: All system configurations are managed as Nix Flake outputs
-- `lib/`: Additional functions and evaluations used by the Nix Flake  
-- `mastpkgs/`: My own personal Nix packages used in my NixOS configurations
-- `hardware/`: NixOS modules providing configuration for various hardware targets (UEFI x86 PCs, qemu VMs, etc)
-- `modules/`: NixOS modules of common configuration patterns shared across multiple systems
-- `hosts/`: NixOS modules of host-specific configuration
-- `home-manager/`: Home Manager modules
+- `lib/`: Additional functions, evaluations, and imports
+- `mastpkgs/`: My own personal Nix packages used in my configurations
+- `nixos/targets`: NixOS hardware/platform target configs
+- `nixos/hosts`: Host-specific NixOS configuration
+- `nixos/modules`: Common NixOS configuration modules
+- `hm/`: Home Manager modules
 
 ## How system configuration is built 
 

@@ -42,12 +42,12 @@ nixpkgs.lib.nixosSystem {
     }
 
     # Pull in our own custom config options
-    ../modules/mast-options.nix
+    ../nixos/modules/mast-options.nix
 
     # Pull in our base config common to all systems
-    ../modules/base.nix
+    ../nixos/modules/base.nix
 
     # and finally, our host-specific configuration
-    ../hosts/${host}.nix
+    ../nixos/hosts/${host}.nix
   ];
 }

@@ -6,8 +6,8 @@ home-manager.lib.homeManagerConfiguration {
     {
       nixpkgs.overlays = import ./overlays.nix; # pull in overlays
     }
-    ../home-manager/josh.nix
-    ../home-manager/shell-environment.nix
-    ../home-manager/neovim.nix
+    ../hm/josh.nix
+    ../hm/shell-environment.nix
+    ../hm/neovim.nix
   ];
 }

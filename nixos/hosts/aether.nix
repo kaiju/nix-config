@@ -9,15 +9,15 @@
   ];
 
   home-manager.users.josh.imports = [
-    ../home-manager/dev-tools.nix
-    ../home-manager/obsidian.nix
-    ../home-manager/comms.nix
-    ../home-manager/sublime-text.nix
-    ../home-manager/visual-studio-code.nix
-    ../home-manager/gui-environment.nix
-    ../home-manager/gnupg.nix
-    ../home-manager/rbw.nix
-    ../home-manager/xorg.nix
+    ../../hm/dev-tools.nix
+    ../../hm/obsidian.nix
+    ../../hm/comms.nix
+    ../../hm/sublime-text.nix
+    ../../hm/visual-studio-code.nix
+    ../../hm/gui-environment.nix
+    ../../hm/gnupg.nix
+    ../../hm/rbw.nix
+    ../../hm/xorg.nix
   ];
 
   mast.wallpaper = "${pkgs.mastpkgs.wallpaper}/lenovo-1.jpg";

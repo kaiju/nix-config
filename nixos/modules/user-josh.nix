@@ -16,8 +16,8 @@
   home-manager.users.josh = {
 
     imports = [
-      ../home-manager/shell-environment.nix
-      ../home-manager/neovim.nix
+      ../../hm/shell-environment.nix
+      ../../hm/neovim.nix
     ];
 
     home.username = "josh";

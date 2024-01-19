@@ -5,8 +5,8 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   home-manager.users.josh.imports = [
-    ../home-manager/dev-tools.nix
-    ../home-manager/neovim.nix
+    ../../hm/dev-tools.nix
+    ../../hm/neovim.nix
   ];
 
   # host specific config
