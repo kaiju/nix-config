@@ -13,6 +13,7 @@
     ../home-manager/obsidian.nix
     ../home-manager/comms.nix
     ../home-manager/sublime-text.nix
+    ../home-manager/visual-studio-code.nix
     ../home-manager/gui-environment.nix
     ../home-manager/gnupg.nix
     ../home-manager/rbw.nix
@@ -20,6 +21,8 @@
   ];
 
   mast.wallpaper = "${pkgs.mastpkgs.wallpaper}/lenovo-1.jpg";
+
+  programs.udevil.enable = true;
 
   # laptop specific i3 status configuration
   home-manager.users.josh.programs.i3status-rust = {
