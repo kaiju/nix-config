@@ -22,6 +22,7 @@
   let
 
     nixosSystem = import ./lib/nixosSystem.nix { inherit nixpkgs home-manager; };
+    homeConfig = import ./lib/homeConfig.nix { inherit nixpkgs home-manager; };
     vmImage = import ./lib/vmImage.nix { inherit nixpkgs self; };
 
   in {
@@ -157,8 +158,8 @@
        file.
 
     */
-    homeConfigurations.macbook = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+    homeConfigurations.macbook = homeConfig {
+      system = "aarch64-darwin";
       modules = [
         {
           home.homeDirectory = nixpkgs.lib.mkOverride 10 "/Users/josh";
@@ -175,12 +176,13 @@
       ];
     };
 
-    homeConfigurations.wsl = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    homeConfigurations.wsl = homeConfig {
+      system = "x86_64-linux";
       modules = [
         home-manager/josh.nix
         home-manager/shell-environment.nix
         home-manager/neovim.nix
+        home-manager/dev-tools.nix
       ];
     };
 
