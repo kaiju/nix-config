@@ -19,6 +19,9 @@ nixpkgs.lib.nixosSystem {
     {
       # Set hostname
       networking.hostName = host;
+
+      # Pull in my overlays
+      nixpkgs.overlays = import ./overlays.nix;
     }
 
     # Target hardware configuration
@@ -43,9 +46,6 @@ nixpkgs.lib.nixosSystem {
 
     # Pull in our base config common to all systems
     ../modules/base.nix
-
-    # Add our nixpkgs overlays from overlays.nix
-    ../modules/overlays.nix
 
     # and finally, our host-specific configuration
     ../hosts/${host}.nix

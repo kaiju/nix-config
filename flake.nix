@@ -167,11 +167,8 @@
             "$HOME/.rd/bin"
           ];
         }
-        home-manager/josh.nix
         home-manager/work.nix
         home-manager/darwin.nix
-        home-manager/shell-environment.nix
-        home-manager/neovim.nix
         home-manager/dev-tools.nix
       ];
     };
@@ -179,9 +176,6 @@
     homeConfigurations.wsl = homeConfig {
       system = "x86_64-linux";
       modules = [
-        home-manager/josh.nix
-        home-manager/shell-environment.nix
-        home-manager/neovim.nix
         home-manager/dev-tools.nix
       ];
     };

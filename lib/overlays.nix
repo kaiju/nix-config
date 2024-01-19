@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-{
-  nixpkgs.overlays = [
+  [
     (final: prev: {
 
       mastpkgs = prev.callPackage ../mastpkgs {};
@@ -29,26 +27,5 @@
         };
       };
 
-      /*
-        Open Question:  why didn't this derivation actually build at first?
-
-        Originally this was written as:
-
-        ble-thermometer-scan = prev.callPackage prev.fetchFromGitHub { ... }
-
-        and the result would add the derivation files itself to the nix store,
-        referenced as `ble-thermometer-scan`, but not the actual built derivation.
-
-        I _think_ this was a syntactical issue of not passing some addtional attrset
-        arguments. Wrapping prev.fetchFromGitHub {} in parens ala:
-
-        ble-thermometer-scan = prev.callPackage (prev.fetchFromGitHub { ... }) {}
-
-        worked fine. In this case, we opted to assign fetchFromGitHub to a variable
-        and pass it to callPackage that way.
-      */
-
-    })
-
-  ];
-}
+  })
+]
