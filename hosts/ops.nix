@@ -42,6 +42,9 @@
           "*.s.mast.haus"
         ];
       };
+      "c.mast.haus" = {
+        group = "nginx";
+      };
     };
   };
 
@@ -64,6 +67,13 @@
         useACMEHost = "git.mast.haus";
         locations."/" = {
           proxyPass = "http://localhost:3000";
+        };
+      };
+      "c.mast.haus" = {
+        forceSSL = true;
+        useACMEHost = "c.mast.haus";
+        locations."/" = {
+          proxyPass = "http://localhost:5000";
         };
       };
       "s.mast.haus" = {
@@ -107,6 +117,12 @@
   };
 
   virtualisation.docker.enable = true;
+
+  services.dockerRegistry = {
+    enable = true;
+    enableGarbageCollect = true;
+    enableDelete = true;
+  };
 
   services.minio = {
     enable = true;
