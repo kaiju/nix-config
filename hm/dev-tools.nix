@@ -11,9 +11,12 @@
     tektoncd-cli
     jq
     yq
+
+    opentofu  # time to give this a shot
     terraform
     terraform-ls
     terraform-docs
+
     tilt
     ansible
     packer
