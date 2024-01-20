@@ -16,9 +16,9 @@ some of the speedbumps I've hit along with what I've learned via comments.
 - `nixos/modules`: Common NixOS configuration modules
 - `hm/`: Home Manager modules
 
-## How system configuration is built 
+## Building NixOS Systems
 
- You may already be aware that NixOS systems can be built from flakes by assigning the output of the `nixpkgs.lib.nixosSystem` function to a `nixosConfigurations.<name>` output:
+NixOS System configuration can be built from flakes by passing the `nixpkgs.lib.nixosSystem {}` function to a `nixosConfigurations.<name>` output:
 
 ```
 {
@@ -34,7 +34,16 @@ some of the speedbumps I've hit along with what I've learned via comments.
 }
 ```
 
- As my configuration grew and I added more systems, I quickly tired of the amount of attrset boilerplate I repeated for each system. I decided to abstract it in my own `nixosSystem` ([lib/nixosSystem.nix](lib/nixosSystem.nix)) function that applies a common configuration pattern across all systems. 
+As my configuration grew and I added more systems, I got tired of the amount of attrset boilerplate I repeated for each system. I decided to abstract it in my own `nixosSystem` ([lib/nixosSystem.nix](lib/nixosSystem.nix)) function that applies a common configuration pattern across all systems. 
 
- The `nixosSystem` function wraps `nixpkgs.lib.nixosSystem` and passes in NixOS modules common to all systems such as [Home Manager](https://github.com/nix-community/home-manager), the base configuration module, and nixpkgs overlays as well as appropriate modules from the `hardware/` and `hosts/` directories.
+The `nixosSystem` function wraps `nixpkgs.lib.nixosSystem` and passes in NixOS modules common to all systems such as [Home Manager](https://github.com/nix-community/home-manager), the base configuration module, and nixpkgs overlays as well as appropriate modules from the `nixos/targets/` and `nixos/hosts/` directories.
 
+I typically build system configurations on a single machine and deploy them to other hosts:
+
+`# nixos-rebuild switch --flake '.#<host>' --target-host <hostname> --use-remote-sudo`
+
+## Building Home Configuration
+
+[Home Manager](https://github.com/nix-community/home-manager) has support for building home configurations from `homeConfigurations` flake outputs. This is handy for deploying my home configuration on non-NixOS hosts like WSL & OSX.
+
+`# home-manager switch --flake '.#<profile>'`

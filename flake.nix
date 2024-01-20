@@ -136,27 +136,26 @@
     nixosConfigurations.k8s = nixosSystem {
       host = "k8s";
       system = "x86_64-linux";
-      hardware = ./hardware/qemu-guest.nix;
+      hardware = ./nixos/targets/qemu-guest.nix;
     };
 
     # testing/playground vm
     nixosConfigurations.artemis = nixosSystem {
       host = "artemis";
       system = "x86_64-linux";
-      hardware = ./hardware/qemu-guest.nix;
+      hardware = ./nixos/targets/qemu-guest.nix;
       modules = [
         ./modules/server.nix
         ./modules/user-josh.nix
       ];
     };
 
-    /* Surprise! It turns out you can also include Home Manager configurations as
-       flake outputs! https://nix-community.github.io/home-manager/index.html#sec-flakes-standalone
+    /*
+      Surprise! Turns out home-manager has flake support!
 
-       This is useful for providing my home configurations in non-NixOS contexts, like
-       my work laptop, WSL2, etc where previously I was setting up a separate ~/.config/nixpkgs/home.nix
-       file.
-
+      This is useful for providing my home configurations in non-NixOS contexts, like
+      my work laptop, WSL2, etc where previously I was setting up a separate ~/.config/nixpkgs/home.nix
+      file.
     */
     homeConfigurations.macbook = homeConfig {
       system = "aarch64-darwin";
