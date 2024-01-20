@@ -165,6 +165,9 @@
           home.sessionPath = [
             "$HOME/.rd/bin"
           ];
+          programs.ssh.matchBlocks."*".identityFile = [
+            "~/.ssh/josh@fulcradynamics.com.key"
+          ];
         }
         hm/work.nix
         hm/darwin.nix
