@@ -15,14 +15,11 @@
 
   home-manager.users.josh = {
 
-    imports = [
-      ../../hm/shell-environment.nix
-      ../../hm/neovim.nix
-    ];
-
-    home.username = "josh";
-    home.homeDirectory = "/home/josh";
     home.stateVersion = config.system.stateVersion;
+
+    imports = [
+      ../../hm/josh.nix
+    ];
 
     xdg = {
       enable = true;
@@ -43,29 +40,5 @@
       };
     };
 
-    programs.ssh = {
-      enable = true;
-      extraConfig = ''
-        IdentityFile ~/.ssh/josh@mast.zone.key
-      '';
-      matchBlocks = {
-        "mast.zone" = {
-          hostname = "mast.zone";
-          forwardAgent = true;
-        };
-        "straylight" = {
-          hostname = "straylight.mast.haus";
-          forwardAgent = true;
-        };
-        "daedalus" = {
-          hostname = "daedalus.mast.haus";
-          forwardAgent = true;
-        };
-        "sigint" = {
-          hostname = "sigint.mast.haus";
-          forwardAgent = true;
-        };
-      };
-    };
   };
 }
