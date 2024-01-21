@@ -1,5 +1,18 @@
 { config, pkgs, ... }:
 {
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true; 
+    nix-direnv.enable = true;
+    config = {
+      global = {
+        load_dotenv = true;
+        strict_env = true;
+      };
+    };
+  };
+
   home.packages = with pkgs; [
     age
     k9s
