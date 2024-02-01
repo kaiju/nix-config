@@ -66,7 +66,7 @@
     nixosConfigurations.armitage = nixosSystem {
       host = "armitage";
       system = "aarch64-linux";
-      hardware = ./nixos/hardware/oci.nix;
+      hardware = ./nixos/targets/oci.nix;
       modules = [
         ./nixos/modules/server.nix
         ./nixos/modules/user-josh.nix
