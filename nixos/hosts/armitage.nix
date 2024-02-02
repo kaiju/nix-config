@@ -1,5 +1,18 @@
 { pkgs, config, ... }:
-{
+let
+
+  /* This is half of the battle, shoehorning in setuptools into maubot's
+     python so mbc doesn't crash, next is getting the plugins to actually use this derivation */
+  fixedMaubot = pkgs.maubot.overrideAttrs (final: prev: {
+    propagatedBuildInputs = [ pkgs.python311.pkgs.setuptools ] ++ prev.propagatedBuildInputs;
+  });
+
+  /* Couldn't figure out how to directly override maubot.plugins so whatever. */
+  fixedMaubotPlugins = fixedMaubot.plugins.override {
+    maubot = fixedMaubot;
+  };
+
+in {
   networking = {
     defaultGateway = {
       address = "10.5.5.1";
@@ -190,11 +203,10 @@
     };
   };
 
-  
-
   services.maubot = {
     enable = true;
-    plugins = with config.services.maubot.package.plugins; [
+    package = fixedMaubot;
+    plugins = with fixedMaubotPlugins; [
       rss
       dice
       reminder
