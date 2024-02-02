@@ -22,7 +22,7 @@
     execWheelOnly = true;
     wheelNeedsPassword = false;
   };
-  security.pam.enableSSHAgentAuth = true;
+  security.pam.sshAgentAuth.enable = true;
 
   time.timeZone = "America/New_York";
 
