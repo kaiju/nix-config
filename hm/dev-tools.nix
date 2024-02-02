@@ -14,6 +14,7 @@
   };
 
   home.packages = with pkgs; [
+    act
     age
     k9s
     buildpack
