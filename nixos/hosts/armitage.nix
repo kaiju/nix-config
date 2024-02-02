@@ -1,4 +1,4 @@
-{ pkgs, config, modulesPath, ... }:
+{ pkgs, modulesPath, ... }:
 let
 
   wrapper = pkgs.callPackage "${modulesPath}/../../pkgs/tools/networking/maubot/wrapper.nix" {
