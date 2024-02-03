@@ -27,8 +27,10 @@
       };
     };
 
-    layout = "us";
-    xkbOptions = "ctrl:nocaps";
+    xkb = {
+      options = "ctrl:nocaps";
+      layout = "us";
+    };
 
     displayManager = {
       defaultSession = "default";
