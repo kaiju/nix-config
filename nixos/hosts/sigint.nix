@@ -31,11 +31,6 @@
 
   sound.enable = true;
 
-  virtualisation = {
-    docker.enable = true;
-    podman.enable = true;
-  };
-
   environment.systemPackages = with pkgs; [
     rtl_433
   ];
