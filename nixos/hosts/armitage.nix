@@ -147,6 +147,7 @@ in {
         };
 
         extraConfig = ''
+          client_max_body_size 20m;
           access_log /var/log/nginx/mastodon-access.log combined;
         '';
 
@@ -172,6 +173,7 @@ in {
       };
     };
   };
+  users.users.nginx.extraGroups = ["mastodon"];
 
   services.matrix-conduit = {
     enable = true;
