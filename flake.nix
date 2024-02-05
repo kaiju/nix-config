@@ -18,7 +18,7 @@
 
   };
 
-  outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager, agenix }@inputs:
+  outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager, agenix }:
   let
 
     nixosSystem = import lib/nixosSystem.nix { inherit nixpkgs home-manager; };
