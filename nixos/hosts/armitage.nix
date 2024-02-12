@@ -89,6 +89,9 @@ in {
       webroot = "/var/lib/acme/acme-challenge";
     };
     certs = {
+      "mast.zone" = {};
+      "josh.mast.zone" = {};
+      "kaiju.net" = {};
       "armitage.mast.zone" = {
         email = "josh@mast.zone";
       };
@@ -124,6 +127,21 @@ in {
         enableACME = true;
         default = true;
         forceSSL = true;
+      };
+      "mast.zone" = {
+        enableACME = true;
+        forceSSL = true;
+        root = "/opt/websites/mast.zone";
+      };
+      "josh.mast.zone" = {
+        enableACME = true;
+        forceSSL = true;
+        root = "/opt/websites/josh.mast.zone";
+      };
+      "kaiju.net" = {
+        enableACME = true;
+        forceSSL = true;
+        root = "/opt/websites/kaiju.net";
       };
       "odon.mast.zone" = {
         enableACME = true;
@@ -173,7 +191,7 @@ in {
       };
     };
   };
-  users.users.nginx.extraGroups = ["mastodon"];
+  users.users.nginx.extraGroups = ["mastodon" "mast"];
 
   services.matrix-conduit = {
     enable = true;
@@ -241,6 +259,7 @@ in {
     jekyll
     screen
     python310
+    weechat
   ];
 
   users.groups.whylb = {
