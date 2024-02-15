@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 {
 
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than +3";
+  };
+
   services = {
     openssh.enable = true;
     prometheus.exporters = {
