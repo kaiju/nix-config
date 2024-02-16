@@ -20,5 +20,6 @@
   ];
 
   networking.hostName = "garage";
+  mast.wallpaper = "${pkgs.mastpkgs.wallpaper}/lucas-k-wQLAGv4_OYs-unsplash.jpg";
 
 }
