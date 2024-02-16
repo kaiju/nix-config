@@ -2,6 +2,7 @@
 {
   imports = [
     ../modules/base.nix
+    ../modules/workstation.nix
     ../modules/xorg.nix
     ../modules/containers.nix
     ../modules/audio.nix
