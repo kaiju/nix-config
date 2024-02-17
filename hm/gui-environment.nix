@@ -61,6 +61,7 @@
         "security.ask_for_password" = 0;
         "dom.battery.enabled" = false;
         "extensions.pocket.enabled" = false;
+        "extensions.pocket.showHome" = false;
         "browser.shell.checkDefaultBrowser" = false;
         "apz.gtk.kinetic_scroll.enabled" = false;
         "gfx.webrender.all" = true;
@@ -74,6 +75,7 @@
         "layers.offmainthreadcomposition.enabled" = true;
         "layers.offmainthreadcomposition.async-animations" = true;
         "html5.offmainthread" = true;
+        "signon.rememberSignons" = false;
       };
     };
   };

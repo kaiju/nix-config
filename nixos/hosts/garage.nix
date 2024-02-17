@@ -13,6 +13,7 @@
     ../../hm/dev-tools.nix
     ../../hm/xorg.nix
     ../../hm/gui-environment.nix
+    ../../hm/comms.nix
     ../../hm/gnupg.nix
     ../../hm/rbw.nix
     ../../hm/neovim.nix
