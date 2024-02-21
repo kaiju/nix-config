@@ -36,7 +36,11 @@
     packer
     shellcheck
     awscli2
-    google-cloud-sdk
+    (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
+      cloud-run-proxy
+      terraform-tools
+      gke-gcloud-auth-plugin
+    ]))
     google-cloud-sql-proxy
     oci-cli
     postgresql_15
@@ -66,7 +70,7 @@
     gcc
     rustup
     magic-wormhole-rs
-    jsonnet
+    #jsonnet
     gojsontoyaml
     jsonnet-bundler
     tanka
