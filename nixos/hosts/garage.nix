@@ -10,6 +10,7 @@
   ];
 
   home-manager.users.josh.imports = [
+    ../../hm/obsidian.nix
     ../../hm/gaming.nix
     ../../hm/dev-tools.nix
     ../../hm/xorg.nix
