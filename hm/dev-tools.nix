@@ -16,6 +16,7 @@
   home.packages = with pkgs; [
     act
     age
+    k6
     k9s
     buildpack
     kubectl
