@@ -21,6 +21,7 @@
     inconsolata
     cantarell-fonts
     nerdfonts
+    commit-mono
 
     # Apps
     bitwarden
