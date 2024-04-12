@@ -15,6 +15,10 @@
 
   services.autorandr.enable = true;
 
+  services.displayManager = {
+    defaultSession = "default";
+  };
+
   services.xserver = {
     enable = true;
     exportConfiguration = true;
@@ -33,7 +37,6 @@
     };
 
     displayManager = {
-      defaultSession = "default";
 
       session = [
         {
