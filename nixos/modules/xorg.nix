@@ -19,17 +19,17 @@
     defaultSession = "default";
   };
 
+  services.libinput = {
+    enable = true;
+    touchpad = {
+      disableWhileTyping = true;
+      tapping = false;
+    };
+  };
+
   services.xserver = {
     enable = true;
     exportConfiguration = true;
-
-    libinput = {
-      enable = true;
-      touchpad = {
-        disableWhileTyping = true;
-        tapping = false;
-      };
-    };
 
     xkb = {
       options = "ctrl:nocaps";
