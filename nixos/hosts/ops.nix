@@ -30,21 +30,22 @@
     };
     acceptTerms = true;
     certs = {
-      "ops.mast.haus" = {
-        group = "nginx";
-      };
+
       "git.mast.haus" = {
         group = "nginx";
       };
+
       "s.mast.haus" = {
         group = "nginx";
         extraDomainNames = [
           "*.s.mast.haus"
         ];
       };
+
       "c.mast.haus" = {
         group = "nginx";
       };
+
     };
   };
 
@@ -54,14 +55,7 @@
     statusPage = true;
     recommendedProxySettings = true;
     virtualHosts = {
-      "ops.mast.haus" = {
-        default = true;
-        forceSSL = true;
-        useACMEHost = "ops.mast.haus";
-        locations."/" = {
-          proxyPass = "http://localhost:3000";
-        };
-      };
+
       "git.mast.haus" = {
         forceSSL = true;
         useACMEHost = "git.mast.haus";
@@ -69,6 +63,7 @@
           proxyPass = "http://localhost:3000";
         };
       };
+
       "c.mast.haus" = {
         forceSSL = true;
         useACMEHost = "c.mast.haus";
@@ -76,6 +71,7 @@
           proxyPass = "http://localhost:5000";
         };
       };
+
       "s.mast.haus" = {
         forceSSL = true;
         useACMEHost = "s.mast.haus";
@@ -84,6 +80,7 @@
           proxyWebsockets = true;
         };
       };
+
       "*.s.mast.haus" = {
         forceSSL = true;
         useACMEHost = "s.mast.haus";
@@ -91,6 +88,7 @@
           proxyPass = "http://localhost:9000";
         };
       };
+
     };
   };
 
