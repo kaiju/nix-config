@@ -180,7 +180,7 @@ in {
         forceSSL = true;
         enableACME = true;
         locations."/" = {
-          proxyPass = "http://localhost:6167";
+          proxyPass = "http://[::1]:6167";
           extraConfig = ''
             client_max_body_size 20m;
           '';
