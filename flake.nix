@@ -40,6 +40,16 @@
       ];
     };
 
+    nixosConfigurations.straylight = nixosSystem {
+      host = "straylight";
+      system = "x86_64-linux";
+      hardware = nixos/targets/straylight.nix;
+      modules = [
+	./nixos/modules/server.nix
+	./nixos/modules/user-josh.nix
+      ];
+    };
+
     nixosConfigurations.x220 = nixosSystem {
       host = "x220";
       system = "x86_64-linux";
