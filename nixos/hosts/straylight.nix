@@ -6,6 +6,22 @@
 
 {
 
+  services.prometheus.exporters = {
+    zfs = {
+      enable = true;
+      pools = [ "tank" ];
+      openFirewall = true;
+    };
+    smartctl = {
+      enable = true;
+      openFirewall = true;
+    };
+    ipmi = {
+      enable = true;
+      openFirewall = true;
+    };
+  };
+
   services.nfs.server = {
     enable = true;
   };
