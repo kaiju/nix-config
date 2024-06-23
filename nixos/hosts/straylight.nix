@@ -6,6 +6,8 @@
 
 {
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   services.prometheus.exporters = {
     zfs = {
       enable = true;
