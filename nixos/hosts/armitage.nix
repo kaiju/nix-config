@@ -213,7 +213,6 @@ in {
     enable = true;
     localDomain = "mast.zone";
     configureNginx = false;
-    mediaAutoRemove.enable = false;
     smtp = {
       authenticate = true;
       createLocally = false;
