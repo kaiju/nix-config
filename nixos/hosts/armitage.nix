@@ -1,25 +1,5 @@
 { pkgs, modulesPath, ... }:
-let
-
-  wrapper = pkgs.callPackage "${modulesPath}/../../pkgs/tools/networking/maubot/wrapper.nix" {
-    unwrapped = fixedMaubot;
-    python3 = pkgs.python311;
-  };
-  /* This is half of the battle, shoehorning in setuptools into maubot's
-     python so mbc doesn't crash, next is getting the plugins to actually use this derivation */
-  fixedMaubot = pkgs.maubot.overrideAttrs (final: prev: {
-    propagatedBuildInputs = [ pkgs.python311.pkgs.setuptools ] ++ prev.propagatedBuildInputs;
-    passthru = prev.passthru // {
-      withPlugins = plugins: wrapper { inherit plugins; };
-    };
-  });
-
-  /* Couldn't figure out how to directly override maubot.plugins so whatever. */
-  fixedMaubotPlugins = fixedMaubot.plugins.override {
-    maubot = fixedMaubot;
-  };
-
-in {
+{
   networking = {
     defaultGateway = {
       address = "10.5.5.1";
@@ -231,8 +211,8 @@ in {
 
   services.maubot = {
     enable = true;
-    package = fixedMaubot;
-    plugins = with fixedMaubotPlugins; [
+    package = pkgs.maubot;
+    plugins = with pkgs.maubot.plugins; [
       rss
       dice
       reminder
