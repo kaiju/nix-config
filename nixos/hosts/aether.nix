@@ -20,11 +20,16 @@
     ../../hm/xorg.nix
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   mast.wallpaper = "${pkgs.mastpkgs.wallpaper}/lenovo-1.jpg";
 
   programs.udevil.enable = true;
 
+  services.gnome.gnome-keyring.enable = true;
+
   # laptop specific i3 status configuration
+  home-manager.users.josh.services.gnome-keyring.enable = true;
   home-manager.users.josh.programs.i3status-rust = {
     bars.default.blocks = [
       {

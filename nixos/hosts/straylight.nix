@@ -1,10 +1,30 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { config, lib, pkgs, ... }:
+let
+  ipmiExporterConfig = pkgs.writeTextFile {
+    name = "ipmi-exporter-config.yml";
+    text = ''
+      ---
+      modules:
+        default:
+          collector_cmd:
+            bmc: ${pkgs.sudo}/bin/sudo 
+            ipmi: ${pkgs.sudo}/bin/sudo 
+            chassis: ${pkgs.sudo}/bin/sudo 
+            dcmi: ${pkgs.sudo}/bin/sudo 
+          custom_args:
+            bmc:
+              - bmc-info
+            ipmi:
+              - ipmi-sensors
+            chassis:
+              - ipmi-chassis
+            dcmi:
+              - ipmi-dcmi
+    '';
+  };
+in {
 
-{
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
@@ -21,8 +41,26 @@
     ipmi = {
       enable = true;
       openFirewall = true;
+      user = "root";
+      #configFile = ipmiExporterConfig; 
     };
   };
+
+  # allow ipmi-user to run ipmi tools
+  security.sudo.extraRules = [
+    {
+      users = [ "ipmi-exporter" ];
+      commands = [
+        { command = "${pkgs.freeipmi}/bin/ipmimonitoring"; options = [ "NOPASSWD" ]; }
+        { command = "${pkgs.freeipmi}/bin/ipmi-sensors"; options = [ "NOPASSWD" ]; }
+        { command = "${pkgs.freeipmi}/bin/ipmi-dcmi"; options = [ "NOPASSWD" ]; }
+        { command = "${pkgs.freeipmi}/bin/ipmi-raw"; options = [ "NOPASSWD" ]; }
+        { command = "${pkgs.freeipmi}/bin/bmc-info"; options = [ "NOPASSWD" ]; }
+        { command = "${pkgs.freeipmi}/bin/ipmi-chassis"; options = [ "NOPASSWD" ]; }
+        { command = "${pkgs.freeipmi}/bin/ipmi-sel"; options = [ "NOPASSWD" ]; }
+      ];
+    }
+  ];
 
   services.nfs.server = {
     enable = true;
@@ -85,7 +123,6 @@
     allowedBridges = [ "mast-network" "iot-network" ];
     qemu = {
       package = pkgs.qemu_kvm;
-      #runAsRoot = true;
       swtpm.enable = true;
       ovmf = {
         enable = true;
@@ -96,22 +133,17 @@
       };
     };
   };
+  
   # Prevent default libvirt network from getting created and autostarted
   # https://github.com/NixOS/nixpkgs/issues/73418#issuecomment-883701022
   systemd.services.libvirtd-config.script = lib.mkAfter ''
     rm /var/lib/libvirt/qemu/networks/default.xml
   '';
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     virtiofsd
+    freeipmi
   ];
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
 
 }
 
