@@ -5,5 +5,6 @@
     tdesktop
     zoom-us
     signal-desktop
+    nheko
   ];
 }

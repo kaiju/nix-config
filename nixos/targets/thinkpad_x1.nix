@@ -33,7 +33,7 @@
     cpuFreqGovernor = lib.mkDefault "powersave";
   };
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   hardware.brillo.enable = true;
 

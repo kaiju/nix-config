@@ -26,7 +26,9 @@
 
   programs.udevil.enable = true;
 
+  # ??
   services.gnome.gnome-keyring.enable = true;
+  #security.pam.services.login.enableGnomeKeyRing = true;
 
   # laptop specific i3 status configuration
   home-manager.users.josh.services.gnome-keyring.enable = true;
