@@ -77,6 +77,7 @@
     tanka
     dbmate
     mastpkgs.mkfatimg
+    duckdb
   ];
 
 }
