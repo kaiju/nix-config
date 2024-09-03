@@ -7,8 +7,9 @@
 {
 
   nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1w"
-    "electron-25.9.0"
+    "openssl-1.1.1w" # sublime text
+    #"electron-25.9.0"
+    "olm-3.2.16" # nheko
   ];
 
   system.stateVersion = "22.05";
