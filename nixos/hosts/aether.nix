@@ -18,6 +18,7 @@
     ../../hm/gnupg.nix
     ../../hm/rbw.nix
     ../../hm/xorg.nix
+    ../../hm/wayland.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -26,12 +27,12 @@
 
   programs.udevil.enable = true;
 
-  # ??
+  # is this needed??
   services.gnome.gnome-keyring.enable = true;
-  #security.pam.services.login.enableGnomeKeyRing = true;
+  security.pam.services.login.enableGnomeKeyring = true;
 
   # laptop specific i3 status configuration
-  home-manager.users.josh.services.gnome-keyring.enable = true;
+  #home-manager.users.josh.services.gnome-keyring.enable = true;
   home-manager.users.josh.programs.i3status-rust = {
     bars.default.blocks = [
       {
@@ -72,17 +73,19 @@
       EndSection
     '';
   };
-  environment.variables = {
-    GDK_SCALE = "2";
-    GDK_DPI_SCALE = "0.5";
-    QT_AUTO_SCREEN_SET_FACTOR = "0";
-    QT_SCALE_FACTOR = "2";
-    QT_FONT_DPI = "96";
-  };
+
+  home-manager.users.josh.xsession.profileExtra = ''
+    export GDK_SCALE=2
+    export GDK_DPI_SCALE=0.5
+    export QT_AUTO_SCREEN_SET_FACTOR=0
+    export QT_SCALE_FACTOR=2
+    export QT_FONT_DPI=96
+  '';
 
   home-manager.users.josh.xresources.properties = {
     "Xft.dpi" = "210";
     "*.dpi" = "210";
+    "*dpi" = "210";
   };
 
   home-manager.users.josh.home.pointerCursor = {

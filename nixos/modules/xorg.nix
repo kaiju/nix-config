@@ -46,8 +46,12 @@
         }
       ];
 
+      sx = {
+        enable = true;
+      };
+
       lightdm = {
-        enable = lib.mkDefault true;
+        enable = lib.mkDefault false;
         #background = config.mast.wallpaper;
         greeters.mini = {
           enable = true;

@@ -106,7 +106,6 @@
     scroll.bar.enable = false;
   };
 
-  # consider fucking with WINIT_X11_SCALE_FACTOR here for hidpi
   programs.alacritty = {
     enable = true;
     settings = {

@@ -129,7 +129,7 @@
 
   services = {
     picom = {
-      enable = true;
+      enable = false;
       vSync = true;
       shadow = true;
       # Not sure why this is throwing syntax error when giving negative signed ints
