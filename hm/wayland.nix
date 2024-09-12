@@ -14,6 +14,10 @@
   };
   */
 
+  programs.chromium.commandLineArgs = [
+    "--ozone-platform-hint=auto"
+  ];
+
   home.packages = with pkgs; [
     swaylock
     swayidle
@@ -206,26 +210,26 @@
           format = "{name}";
         };
         "network" = {
-          format-ethernet = "[ {ipaddr} ]";
-          format-wifi = "[ {essid} {ipaddr} ]"; 
+          format-ethernet = "{ipaddr}";
+          format-wifi = "{essid} {ipaddr}"; 
         };
         "load" = {
-          format = "[ {load1} ]";
+          format = "{load1}";
         };
         "memory" = {
-          format = "[ mem {percentage}% ]";
+          format = "mem {percentage}%";
         };
         "temperature" = {
           thermal-zone = 6;
-          format = "[ {temperatureC}°C ]";
+          format = "{temperatureC}°C";
         };
         "battery" = {
-          format = "[ bat {capacity}% ]";
+          format = "{icon} {capacity}%";
         };
         "pulseaudio" = {
-          format = "[ audio {volume}% ]";
-          format-bluetooth = "[ bt {volume}% ]";
-          format-muted = "[ muted ]";
+          format = "audio {volume}%";
+          format-bluetooth = "bt {volume}%";
+          format-muted = "muted";
         };
         "clock" = {
           format = "{:%I:%M%p}";
