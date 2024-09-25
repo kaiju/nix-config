@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, osConfig, ... }:
 
 {
 
@@ -18,30 +18,47 @@
     "--ozone-platform-hint=auto"
   ];
 
+  programs.foot = {
+    enable = true;
+    settings = {
+      main = {
+        font = "CommitMonoNerdFont:size=10";
+        term = "xterm-256color";
+        pad = "5x5";
+      };
+      mouse = {
+        hide-when-typing = "yes";
+      };
+      colors = {
+        alpha = "1.0";
+        background = osConfig.mast.colors.background;
+        foreground = osConfig.mast.colors.foreground;
+        regular0 = osConfig.mast.colors.black;
+        regular1 = osConfig.mast.colors.red;
+        regular2 = osConfig.mast.colors.green;
+        regular3 = osConfig.mast.colors.yellow;
+        regular4 = osConfig.mast.colors.blue;
+        regular5 = osConfig.mast.colors.magenta;
+        regular6 = osConfig.mast.colors.cyan;
+        regular7 = osConfig.mast.colors.white;
+        bright0 = osConfig.mast.colors.brightBlack;
+        bright1 = osConfig.mast.colors.brightRed;
+        bright2 = osConfig.mast.colors.brightGreen;
+        bright3 = osConfig.mast.colors.brightYellow;
+        bright4 = osConfig.mast.colors.brightBlue;
+        bright5 = osConfig.mast.colors.brightMagenta;
+        bright6 = osConfig.mast.colors.brightCyan;
+        bright7 = osConfig.mast.colors.brightWhite;
+      };
+    };
+  };
+
   home.packages = with pkgs; [
     swaylock
-    swayidle
     wl-clipboard
     imv
     swaybg
   ];
-
-  # electron apps
-  home.file."sway-session" = {
-    enable = true;
-    executable = true;
-    text = ''
-      #!${pkgs.bash}/bin/sh
-      export MOZ_ENABLE_WAYLAND=1
-      export XDG_SESSION_TYPE=wayland
-      export XDG_CURRENT_DESKTOP=sway
-      export QT_QPA_PLATFORM=wayland
-      export GDK_BACKEND=wayland
-      export ELECTRON_OZONE_PLATFORM_HINT=wayland
-
-      exec sway
-    '';
-  };
 
   programs.tofi = {
     enable = true;
@@ -61,9 +78,45 @@
       font = "CommitMono";
       font-size = 12;
       background-color = "#000C";
+      text-color = "#${osConfig.mast.colors.foreground}";
+      selection-color = "#${osConfig.mast.colors.yellow}";
       prompt-text = "> ";
       text-cursor-style = "underscore";
     };
+  };
+
+  systemd.user.services.wpaperd = {
+    Unit = {
+      Description = "Wallpaper daemon for Wayland";
+      ConditionEnvironment = "WAYLAND_DISPLAY";
+      PartOf = [ "graphical-session.target" ];
+    };
+    Install = { WantedBy = [ "graphical-session.target" ]; };
+    Service = {
+      Type = "simple";
+      Restart = "always";
+      ExecStart = "${pkgs.wpaperd}/bin/wpaperd";
+    };
+  };
+
+  programs.wpaperd = {
+    enable = true;
+    settings = {
+      default = {
+        path = osConfig.mast.wallpaper;
+      };
+    };
+  };
+
+  services.swayidle = {
+    enable = true;
+    timeouts = [
+      {
+        timeout = 300;
+        command = "swaymsg \"output * dpms off\"";
+        resumeCommand = "swaymsg \"output * dpms on\"";
+      }
+    ];
   };
 
   wayland.windowManager.sway = {
@@ -78,22 +131,72 @@
     '';
     wrapperFeatures.gtk = true;
     config = {
+      defaultWorkspace = "1";
       fonts = {
         names = [ "CommitMonoNerdFont" ];
         style = "Regular";
         size = 10.0;
       };
+      colors = {
+        background = "#ffffff";
+        focused = {
+          #background = "#285577";
+          #border = "#4c7899";
+          #childBorder = "#285577";
+          #indicator = "#2e9ef4";
+          #text = "#ffffff";
+          background = "#${osConfig.mast.colors.black}";
+          border = "#${osConfig.mast.colors.black}";
+          childBorder = "#${osConfig.mast.colors.black}";
+          indicator = "#${osConfig.mast.colors.black}";
+          text = "#${osConfig.mast.colors.foreground}";
+        };
+        focusedInactive = {
+          #background = "#222222";
+          #border = "#333333";
+          #childBorder = "#222222";
+          #indicator = "#292d2e";
+          #text = "#888888";
+          background = "#${osConfig.mast.colors.background}";
+          border = "#${osConfig.mast.colors.background}";
+          childBorder = "#${osConfig.mast.colors.background}";
+          indicator = "#${osConfig.mast.colors.background}";
+          text = "#${osConfig.mast.colors.white}";
+        };
+        unfocused = {
+          #background = "#222222";
+          #border = "#333333";
+          #childBorder = "#222222";
+          #indicator = "#292d2e";
+          #text = "#888888";
+          background = "#${osConfig.mast.colors.background}";
+          border = "#${osConfig.mast.colors.background}";
+          childBorder = "#${osConfig.mast.colors.background}";
+          indicator = "#${osConfig.mast.colors.background}";
+          text = "#${osConfig.mast.colors.white}";
+        };
+        urgent = {
+          #background = "#900000";
+          #border = "#2f343a";
+          #childBorder = "#900000";
+          #indicator = "#900000";
+          #text = "#ffffff";
+          background = "#${osConfig.mast.colors.background}";
+          border = "#${osConfig.mast.colors.background}";
+          childBorder = "#${osConfig.mast.colors.background}";
+          indicator = "#${osConfig.mast.colors.background}";
+          text = "#${osConfig.mast.colors.white}";
+        };
+      };
       modifier = "Mod4";
       menu = "${pkgs.tofi}/bin/tofi-drun";
-      terminal = "${pkgs.alacritty}/bin/alacritty";
+      #terminal = "${pkgs.alacritty}/bin/alacritty";
+      terminal = "${pkgs.foot}/bin/foot";
       gaps = {
         smartBorders = "on";
         smartGaps = true;
         inner = 7;
       };
-      startup = [
-        { command = "${pkgs.swayidle}/bin/swayidle -w timeout 300 'swaymsg \"output * dpms off\"' resume 'swaymsg \"output * dpms on\"'"; }
-      ];
 
       bars = [];
 
@@ -112,20 +215,20 @@
         };
       };
 
-      output = {
-        eDP-1 = {
-          scale = "1.6";
-        };
-      };
+      startup = [
+        {
+          command = "${pkgs.foot}/bin/foot -a scratch-terminal";
+        }
+      ];
+
     };
+
 
     extraConfig = ''
       for_window [class="^.*"] inhibit_idle fullscreen
       for_window [app_id="^.*"] inhibit_idle fullscreen
 
-      for_window [app_id="scratch-terminal"] floating enable, resize set height 25 ppt, border none 
-
-      bindsym Mod4+Shift+Return exec ${pkgs.alacritty}/bin/alacritty -o 'window.opacity=0.9' --class "scratch-terminal"
+      for_window [app_id="scratch-terminal"] floating enable, resize set width 75 ppt height 30 ppt, border pixel 5 
     '';
 
   };
@@ -142,25 +245,25 @@
         font-family: CommitMonoNerdFont;
         border-radius: 0;
         min-height: 0;
-        color: #ccc;
+        color: #${osConfig.mast.colors.foreground};
       }
       window#waybar {
-        background: #16191C;
-        color: #AAB2BF;
+        background: #${osConfig.mast.colors.background};
+        color: #${osConfig.mast.colors.foreground};
       }
       #workspaces button {
         padding: 3px 5px;
         margin: 0px;
       }
       #workspaces button.focused {
-        background-color: #333;
-        color: #fff;
+        background-color: #${osConfig.mast.colors.black};
+        color: #${osConfig.mast.colors.white};
       }
       #clock {
         padding: 3px 5px;
         margin: 0px 4px;
-        color: #ffffff;
-        background-color: #333;
+        color: #${osConfig.mast.colors.white};
+        background-color: #${osConfig.mast.colors.black};
       }
       #tray {
         padding: 3px 4px;
@@ -183,9 +286,9 @@
       #mode,
       #idle_inhibitor,
       #mpd {
-        padding: 3px 4px;
+        color: #${osConfig.mast.colors.white};
+        padding: 3px 5px;
         margin: 0px 4px;
-        color: #ffffff;
       }
     '';
     settings = [
@@ -198,7 +301,7 @@
         ];
         modules-right = [
           "tray"
-          "network"
+          #"network"
           "load"
           "memory"
           "temperature"
@@ -214,22 +317,23 @@
           format-wifi = "{essid} {ipaddr}"; 
         };
         "load" = {
-          format = "{load1}";
+          format = "{load1:4}";
         };
         "memory" = {
-          format = "mem {percentage}%";
+          format = " {percentage}%";
         };
         "temperature" = {
           thermal-zone = 6;
-          format = "{temperatureC}°C";
+          format = " {temperatureC}°C";
         };
         "battery" = {
-          format = "{icon} {capacity}%";
+          format = "{icon}  {capacity}%";
+          format-icons = ["" "" "" "" ""];
         };
         "pulseaudio" = {
-          format = "audio {volume}%";
-          format-bluetooth = "bt {volume}%";
-          format-muted = "muted";
+          format = "  {volume}%";
+          format-bluetooth = " {volume}%";
+          format-muted = "";
         };
         "clock" = {
           format = "{:%I:%M%p}";

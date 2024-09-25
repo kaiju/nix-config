@@ -74,6 +74,12 @@
     '';
   };
 
+  home-manager.users.josh.wayland.windowManager.sway.config.output = {
+    eDP-1 = {
+      scale = "1.6";
+    };
+  };
+
   home-manager.users.josh.xsession.profileExtra = ''
     export GDK_SCALE=2
     export GDK_DPI_SCALE=0.5
