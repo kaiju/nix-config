@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, osConfig, ... }:
 
 {
 
@@ -28,17 +28,78 @@
     vlc
   ];
 
+  #services.gnome-keyring.enable = true;
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
+
   gtk = {
     enable = true;
     font = {
       name = "Cantarell";
       size = 10;
     };
+    theme = {
+      package = pkgs.gnome-themes-extra;
+      name = "Adwaita";
+    };
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+    };
+    /*
+    gtk2.extraConfig = ''
+    '';
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+    */
   };
 
   qt = {
     enable = true;
     platformTheme.name = "gtk";
+  };
+
+  xdg = {
+
+    portal = {
+      enable = true;
+      config.common.default = ["gtk" "wlr"];
+      xdgOpenUsePortal = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+    };
+
+    mime.enable = true;
+
+    mimeApps = {
+      enable = true;
+      associations.added = {
+        "image/jpeg" = "firefox.desktop";
+        "image/jpg" = "firefox.desktop";
+        "image/gif" = "firefox.desktop";
+        "image/png" = "firefox.desktop";
+        "image/webp" = "firefox.desktop";
+        "application/pdf" = "firefox.desktop";
+      };
+      associations.removed = {
+        "image/jpeg" = "chromium-browser.desktop";
+        "image/jpg" = "feh.desktop";
+        "image/gif" = "chromium-browser.desktop";
+        "image/png" = "chromium-browser.desktop";
+        "image/webp" = "chromium-browser.desktop";
+        "application/pdf" = "chromium-browser.desktop";
+      };
+    };
+
   };
 
   programs.rofi = {
