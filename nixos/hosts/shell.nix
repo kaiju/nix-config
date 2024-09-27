@@ -27,7 +27,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    youtube-dl
+    yt-dlp
     beets
   ];
 
@@ -120,11 +120,6 @@
   services.samba-wsdd = {
     enable = true;
     hostname = "FILES";
-  };
-
-  services.plex = {
-    enable = true;
-    openFirewall = true;
   };
 
 }
