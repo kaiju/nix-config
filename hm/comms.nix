@@ -6,5 +6,6 @@
     zoom-us
     signal-desktop
     nheko
+    slack
   ];
 }
