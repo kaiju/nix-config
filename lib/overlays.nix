@@ -27,5 +27,9 @@
         };
       };
 
+      ollama = prev.ollama.overrideAttrs {
+        version = "0.3.12";
+      };
+
   })
 ]

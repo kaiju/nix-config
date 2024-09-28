@@ -14,8 +14,8 @@
 
   networking.hostName = "arcimedes";
 
-  hardware.opengl.enable = true;
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver
     intel-media-sdk
     intel-compute-runtime
@@ -29,6 +29,7 @@
     intel-gpu-tools
     libva-utils
     hwinfo
+    ollama
   ];
 
   services.openssh.enable = true;
