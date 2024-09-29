@@ -1,6 +1,7 @@
 { config, lib, pkgs, modulesPath, ... }:
 {
   # hardware
+  
   boot.initrd.availableKernelModules = [ "vmd" "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
@@ -12,19 +13,35 @@
   # host specific config
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # force use of xe driver instead of i915
+  # this breaks jellyfin ffmpeg currently sine it passes i915 in -init_hw_device
+  /*
+  boot.kernelParams = [
+    "i915.force_probe=!56a0"
+    "xe.force_probe=56a0"
+  ];
+  */
+
   networking.hostName = "arcimedes";
 
   hardware.graphics.enable = true;
   hardware.graphics.extraPackages = with pkgs; [
-    intel-media-driver
-    intel-media-sdk
-    intel-compute-runtime
-    vaapiIntel
-    vaapiVdpau
-    libvdpau-va-gl
+    vpl-gpu-rt
+    intel-media-driver # neccessary for jellyfin
+    intel-compute-runtime # needed to make gpu show up in clinfo
+    intel-ocl # needed to make cpu show up in clinfo
+
+    # probably don't need to be here
+    #vaapiIntel
+    #vaapiVdpau
+    #libvdpau-va-gl
+    #intel-media-sdk
+    #intel-gpu-tools
+
   ];
 
   environment.systemPackages = with pkgs; [
+    clinfo
     intel-media-sdk
     intel-gpu-tools
     libva-utils
