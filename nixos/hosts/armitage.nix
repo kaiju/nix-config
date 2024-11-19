@@ -70,20 +70,14 @@
     };
     certs = {
       "mast.zone" = {};
-      "josh.mast.zone" = {};
+      "josh.mast.zone" = {
+        extraDomainNames = ["hire.josh.mast.zone"];
+      };
       "kaiju.net" = {};
-      "armitage.mast.zone" = {
-        email = "josh@mast.zone";
-      };
-      "whylb.mast.zone" = {
-        email = "josh@mast.zone";
-      };
-      "matrix.mast.zone" = {
-        email = "josh@mast.zone";
-      };
-      "odon.mast.zone" = {
-        email = "josh@mast.zone";
-      };
+      "armitage.mast.zone" = {};
+      "whylb.mast.zone" = {};
+      "matrix.mast.zone" = {};
+      "odon.mast.zone" = {};
     };
   };
 
@@ -117,6 +111,11 @@
         enableACME = true;
         forceSSL = true;
         root = "/opt/websites/josh.mast.zone";
+      };
+      "hire.josh.mast.zone" = {
+        useACMEHost = "josh.mast.zone";
+        forceSSL = true;
+        root = "/opt/websites/josh.mast.zone/hire";
       };
       "kaiju.net" = {
         enableACME = true;
