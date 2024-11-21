@@ -139,6 +139,7 @@ in {
   '';
 
   environment.systemPackages = with pkgs; [
+    smartmontools
     virtiofsd
     freeipmi
   ];
