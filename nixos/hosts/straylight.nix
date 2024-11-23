@@ -139,6 +139,9 @@ in {
   '';
 
   environment.systemPackages = with pkgs; [
+    cloud-hypervisor
+    firecracker
+    firectl
     btop
     dmidecode
     smartmontools
