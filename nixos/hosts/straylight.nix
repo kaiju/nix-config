@@ -139,6 +139,8 @@ in {
   '';
 
   environment.systemPackages = with pkgs; [
+    btop
+    dmidecode
     smartmontools
     virtiofsd
     freeipmi
