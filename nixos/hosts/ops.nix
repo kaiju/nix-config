@@ -18,7 +18,7 @@
         ];
       };
     };
-    firewall.allowedTCPPorts = [ 80 443 3100 9000 9001 ];
+    firewall.allowedTCPPorts = [ 80 443 3333 3100 9000 9001 ];
   };
 
   security.acme = {
@@ -53,6 +53,24 @@
     };
   };
 
+  services.grafana = {
+    enable = true;
+    settings = {
+      server = {
+        http_port = 3333;
+        http_addr = "0.0.0.0";
+      };
+      "auth.anonymous" = {
+          enabled = true;
+          org_role = "Admin";
+      };
+    };
+    provision = {
+      # datasources.path = "";
+      # dashboards.path = "";
+    };
+  };
+
   services.nginx = {
     enable = true;
     enableReload = true;
@@ -60,6 +78,13 @@
     recommendedProxySettings = true;
     virtualHosts = {
 
+      "grafana.mast.haus" = {
+        #forceSSL = true;
+        # useACMEHost = "grafana.mast.haus";
+        locations."/" = {
+          proxyPass = "http://localhost:3333";
+        };
+      };
       "git.mast.haus" = {
         forceSSL = true;
         useACMEHost = "git.mast.haus";
