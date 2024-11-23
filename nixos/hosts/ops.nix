@@ -26,7 +26,11 @@
       email = "josh@mast.zone";
       dnsProvider = "route53";
       dnsResolver = "1.1.1.1:53";
-      environmentFile = "/run/credentials/aws-dns-manager-env";
+      #environmentFile = "/run/secrets/aws-dns-manager-env";
+      credentialFiles = {
+        AWS_SHARED_CREDENTIALS_FILE = "/run/secrets/dns-manager-aws-credentials";
+        AWS_DEFAULT_REGION_FILE = "/run/secrets/dns-manager-aws-default-region";
+      };
     };
     acceptTerms = true;
     certs = {
