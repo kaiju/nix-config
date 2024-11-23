@@ -110,11 +110,11 @@ in {
   boot.zfs.extraPools = [ "tank" ];
 
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+
   networking = {
     useDHCP = false;
     hostName = "straylight";
     hostId = "625f9838";
-    networkmanager.enable = true;
     defaultGateway = {
       address = "192.168.8.1";
       interface = "mast-network";
@@ -123,8 +123,6 @@ in {
       "192.168.8.1"
     ];
 
-    interfaces.enp2s0f0.useDHCP = false;
-        
     vlans = {
       mast-vlan = {
         id = 10;
