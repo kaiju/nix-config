@@ -18,7 +18,7 @@
         ];
       };
     };
-    firewall.allowedTCPPorts = [ 80 443 9000 9001 ];
+    firewall.allowedTCPPorts = [ 80 443 3100 9000 9001 ];
   };
 
   security.acme = {
@@ -102,6 +102,130 @@
     useDefaultShell = true;
     group = config.services.gitea.group;
     isSystemUser = true;
+  };
+
+  services.promtail = {
+    enable = true;
+    configuration = {
+      server = {
+        http_listen_port = 9080;
+        grpc_listen_port = 0;
+      };
+      positions = {
+        filename = "/tmp/positions.yaml";
+      };
+      client = {
+        url = "http://ops.mast.haus:3100/api/prom/push";
+      };
+      scrape_configs = [
+        {
+          job_name = "journal";
+          journal = {
+            labels = {
+              job = "systemd-journal";
+            };
+          };
+          relabel_configs = [
+            {
+              source_labels = ["__journal__hostname"];
+              target_label = "host";
+            }
+            {
+              source_labels = ["__journal__systemd_unit"];
+              target_label = "unit";
+            }
+            {
+              source_labels = ["__journal__transport"];
+              target_label = "transport";
+            }
+          ];
+        }
+      ];
+    };
+  };
+
+  services.loki = {
+    enable = true;
+    configuration = {
+      auth_enabled = false;
+      server = {
+        http_listen_address = "0.0.0.0";
+        http_listen_port = 3100;
+        grpc_listen_port = 9096;
+        log_level = "info";
+        grpc_server_max_concurrent_streams = 1000;
+      };
+      compactor = {
+        retention_enabled = true;
+        delete_request_store = "filesystem";
+        working_directory = "/var/lib/loki/retention";
+        compaction_interval = "10m";
+        retention_delete_delay = "2h";
+        retention_delete_worker_count = 150;
+
+      };
+      limits_config = {
+        retention_period = "720h";
+      };
+      common = {
+        instance_addr = "127.0.0.1";
+        path_prefix = "/var/lib/loki";
+        storage = {
+          filesystem = {
+            chunks_directory = "/var/lib/loki/chunks";
+            rules_directory = "/var/lib/loki/rules";
+          };
+        };
+        replication_factor= 1;
+        ring = {
+          kvstore = {
+            store = "inmemory";
+          };
+        };
+      };
+      query_range = {
+        results_cache = {
+          cache = {
+            embedded_cache = {
+              enabled = true;
+              max_size_mb = 100;
+            };
+          };
+        };
+      };
+      schema_config = {
+        configs = [
+          {
+            from = "2020-10-24";
+            store = "tsdb";
+            object_store = "filesystem";
+            schema = "v13";
+            index = {
+              prefix = "index_";
+              period = "24h";
+            };
+          }
+        ];
+      };
+      pattern_ingester = {
+        enabled = true;
+        metric_aggregation = {
+          enabled = true;
+          loki_address = "localhost:3100";
+        };
+      };
+      ruler = {
+        alertmanager_url = "http://localhost:9093"; # haha this wont work
+      };
+      frontend = {
+        encoding = "protobuf";
+      };
+      storage_config = {
+        filesystem = {
+          directory = "/var/lib/loki/data";
+        };
+      };
+    };
   };
 
   services.gitea = {
