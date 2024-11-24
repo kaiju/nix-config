@@ -53,6 +53,7 @@
     };
   };
 
+  /*
   services.grafana = {
     enable = true;
     settings = {
@@ -70,6 +71,7 @@
       # dashboards.path = "";
     };
   };
+  */
 
   services.nginx = {
     enable = true;
