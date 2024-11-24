@@ -193,6 +193,7 @@
       };
       limits_config = {
         retention_period = "720h";
+        max_label_names_per_series = 25;
       };
       common = {
         instance_addr = "127.0.0.1";
