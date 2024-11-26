@@ -237,10 +237,10 @@
     enable = true;
     systemd.enable = true;
     style = ''
-      window.eDP-1 {
+      window {
         font-size: 11pt;
       }
-      window.eDP-1 * {
+      window * {
         border: none;
         font-family: CommitMonoNerdFont;
         border-radius: 0;
@@ -336,7 +336,7 @@
           format-muted = "";
         };
         "clock" = {
-          format = "{:%I:%M%p}";
+          format = "{:%F %I:%M%p}";
         };
       }
     ];
