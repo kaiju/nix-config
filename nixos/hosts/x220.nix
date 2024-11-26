@@ -17,16 +17,11 @@
     ../../hm/gnupg.nix
     ../../hm/rbw.nix
     ../../hm/xorg.nix
+    ../../hm/wayland.nix
   ];
 
   mast.wallpaper = "${pkgs.mastpkgs.wallpaper}/thinkpad_x220.png";
 
-  # setup sxrc?
-  services.xserver.displayManager.sx.enable = true;
-  #services.xserver.displayManager.startx.enable = true;
-  #programs.regreet.enable = false;
-
-  services.xserver.displayManager.lightdm.enable = true;
 
   services.greetd = {
     enable = false;
@@ -35,10 +30,6 @@
       #command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -s ${config.services.xserver.displayManager.sessionData.desktops} --cmd ${pkgs.zsh}/bin/zsh";
     };
   };
-
-  # x220 wallpaper
-  #services.xserver.displayManager.lightdm.background = "${pkgs.mastpkgs.wallpaper}/thinkpad_x220.png";
-  #home-manager.users.josh.xsession
 
   # laptop specific i3 status configuration
   home-manager.users.josh.programs.i3status-rust = {
