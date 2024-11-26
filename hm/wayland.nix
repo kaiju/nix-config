@@ -317,7 +317,7 @@
           format-wifi = "{essid} {ipaddr}"; 
         };
         "load" = {
-          format = "{load1:4}";
+          format = "[ {load1:4} ]";
         };
         "memory" = {
           format = " {percentage}%";
