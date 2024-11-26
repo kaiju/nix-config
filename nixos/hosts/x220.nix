@@ -22,11 +22,11 @@
 
   mast.wallpaper = "${pkgs.mastpkgs.wallpaper}/thinkpad_x220.png";
 
-
   services.greetd = {
-    enable = false;
+    enable = true;
     settings.default_session = {
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -s ${config.services.xserver.displayManager.sessionData.desktops}/share/xsessions";
+      command = "${pkgs.cage}/bin/cage -d -- ${pkgs.foot}/bin/foot ${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c ${pkgs.sway}/bin/sway";
+      #command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -s ${config.services.xserver.displayManager.sessionData.desktops}/share/xsessions";
       #command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -s ${config.services.xserver.displayManager.sessionData.desktops} --cmd ${pkgs.zsh}/bin/zsh";
     };
   };
