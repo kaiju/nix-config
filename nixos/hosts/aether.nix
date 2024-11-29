@@ -27,6 +27,14 @@
 
   programs.udevil.enable = true;
 
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      # this loads the wrong sway :) we want the one from home-manager, oh well, just rely on path instead
+      command = "${pkgs.cage}/bin/cage -s -d -- ${pkgs.foot}/bin/foot -f monospace:size=25 ${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c sway";
+    };
+  };
+
   # hmm xdg tweaking
   environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
 

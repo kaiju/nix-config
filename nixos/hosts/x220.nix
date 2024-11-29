@@ -25,9 +25,7 @@
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.cage}/bin/cage -d -- ${pkgs.foot}/bin/foot ${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c ${pkgs.sway}/bin/sway";
-      #command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -s ${config.services.xserver.displayManager.sessionData.desktops}/share/xsessions";
-      #command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -s ${config.services.xserver.displayManager.sessionData.desktops} --cmd ${pkgs.zsh}/bin/zsh";
+      command = "${pkgs.cage}/bin/cage -s -d -- ${pkgs.foot}/bin/foot ${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c ${pkgs.sway}/bin/sway";
     };
   };
 
