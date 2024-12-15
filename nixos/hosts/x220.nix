@@ -25,7 +25,7 @@
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.cage}/bin/cage -s -d -- ${pkgs.foot}/bin/foot ${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c ${pkgs.sway}/bin/sway";
+      command = "${pkgs.cage}/bin/cage -s -d -- ${pkgs.foot}/bin/foot ${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c sway";
     };
   };
 
