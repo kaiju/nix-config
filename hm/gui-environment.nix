@@ -20,7 +20,11 @@
     noto-fonts-emoji
     inconsolata
     cantarell-fonts
-    nerdfonts
+
+    #nerdfonts
+    nerd-fonts.commit-mono
+    nerd-fonts.blex-mono
+    nerd-fonts.iosevka
     commit-mono
 
     # Apps
