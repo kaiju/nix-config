@@ -106,6 +106,15 @@
         enableACME = true;
         forceSSL = true;
         root = "/opt/websites/mast.zone";
+
+        locations."/.well-known/matrix/" = {
+          proxyPass = "http://[::1]:6167";
+          extraConfig =  ''
+            add_header Access-Control-Allow-Methods 'GET, POST, PUT, DELETE, OPTIONS';
+            add_header Access-Control-Allow-Headers 'X-Requested-With, Content-Type, Authorization';
+          '';
+        };
+
       };
       "josh.mast.zone" = {
         enableACME = true;
@@ -184,6 +193,8 @@
         trusted_servers = [
           "matrix.org"
         ];
+        well_known_client = "https://matrix.mast.zone";
+        well_known_server = "matrix.mast.zone:443";
       };
     };
   };
