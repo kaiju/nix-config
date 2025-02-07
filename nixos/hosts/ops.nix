@@ -26,11 +26,10 @@
       email = "josh@mast.zone";
       dnsProvider = "route53";
       dnsResolver = "1.1.1.1:53";
-      #environmentFile = "/run/secrets/aws-dns-manager-env";
       credentialFiles = {
         AWS_SHARED_CREDENTIALS_FILE = "/run/secrets/dns-manager-aws-credentials";
-        AWS_DEFAULT_REGION_FILE = "/run/secrets/dns-manager-aws-default-region";
       };
+      environmentFile = "/run/secrets/dns-manager-aws-environment";
     };
     acceptTerms = true;
     certs = {
@@ -238,7 +237,6 @@
       pattern_ingester = {
         enabled = true;
         metric_aggregation = {
-          enabled = true;
           loki_address = "localhost:3100";
         };
       };
