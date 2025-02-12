@@ -312,4 +312,18 @@
   };
   */
 
+  programs.mpv = {
+    enable = true;
+    scripts = with pkgs.mpvScripts; [
+      #youtube-upnext
+      youtube-chat
+      uosc
+      quality-menu
+    ];
+    config = {
+      osd-font = "CommitMono Nerd Font";
+      osd-font-size = 16;
+    };
+  };
+
 }

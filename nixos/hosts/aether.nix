@@ -27,6 +27,8 @@
 
   programs.udevil.enable = true;
 
+  services.gvfs.enable = true;
+
   services.greetd = {
     enable = true;
     settings.default_session = {
@@ -37,6 +39,8 @@
 
   # hmm xdg tweaking
   environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
+
+  programs.xwayland.enable = true;
 
   # is this needed??
   services.gnome.gnome-keyring.enable = true;
@@ -138,5 +142,9 @@
     xorg.xdpyinfo
     qt5.qtwayland # :(
   ];
+
+  programs.steam = {
+    enable = true;
+  };
 
 }

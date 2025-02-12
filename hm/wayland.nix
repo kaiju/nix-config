@@ -121,6 +121,7 @@
 
   wayland.windowManager.sway = {
     enable = true;
+    xwayland = true;
     extraSessionCommands = ''
       export MOZ_ENABLE_WAYLAND=1
       export XDG_SESSION_TYPE=wayland
