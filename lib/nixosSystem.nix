@@ -28,7 +28,7 @@ nixpkgs.lib.nixosSystem {
     hardware
 
     # Add home-manager w/ our default configuration settings
-    home-manager.nixosModule {
+    home-manager.nixosModules.home-manager {
 
       /* This makes home-manager use the same nixpkgs instance used by the
          rest of our NixOS configuration. This is particularly helpful since
