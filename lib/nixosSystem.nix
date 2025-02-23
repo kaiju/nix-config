@@ -1,7 +1,7 @@
 /* This function returns a function that will create nixpkgs.lib.nixosSystem configurations in a common
    pattern */
 { nixpkgs, home-manager }:
-{ host, system, hardware, modules ? [] }:
+{ host, system, hardware ? {}, modules ? [] }:
 nixpkgs.lib.nixosSystem {
   inherit system;
 

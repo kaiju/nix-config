@@ -3,6 +3,7 @@
 
     nixpkgs.url = "nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -18,7 +19,7 @@
 
   };
 
-  outputs = { self, nixpkgs, flake-utils, nixos-hardware, home-manager, agenix }:
+  outputs = { self, nixpkgs, flake-utils, nixos-hardware, nixos-wsl, home-manager, agenix }:
   let
 
     nixosSystem = import lib/nixosSystem.nix { inherit nixpkgs home-manager; };
@@ -37,6 +38,22 @@
         nixos/modules/workstation.nix
         nixos/modules/laptop.nix
         nixos/modules/user-josh.nix
+      ];
+    };
+
+    # Desktop, WSL
+    nixosConfigurations.erebus = nixosSystem {
+      host = "erebus";
+      system = "x86_64-linux";
+      #hardware = nixos/targets/wsl.nix;
+      modules = [
+        nixos-wsl.nixosModules.default
+	{
+	  wsl = {
+	    enable = true;
+	    defaultUser = "josh";
+	  };
+	}
       ];
     };
 
