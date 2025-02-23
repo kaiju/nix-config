@@ -12,7 +12,7 @@
     ];
     */
 
-    userSettings = {
+    profiles.default.userSettings = {
     };
 
   };
