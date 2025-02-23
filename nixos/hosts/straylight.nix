@@ -26,6 +26,15 @@ in {
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  services.zfs = {
+    autoScrub = {
+      enable = true;
+    };
+    autoSnapshot = {
+      enable = true;
+    };
+  };
+
   services.promtail = {
     enable = true;
     configuration = {
