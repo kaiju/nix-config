@@ -85,21 +85,7 @@
     };
   };
 
-  systemd.user.services.wpaperd = {
-    Unit = {
-      Description = "Wallpaper daemon for Wayland";
-      ConditionEnvironment = "WAYLAND_DISPLAY";
-      PartOf = [ "graphical-session.target" ];
-    };
-    Install = { WantedBy = [ "graphical-session.target" ]; };
-    Service = {
-      Type = "simple";
-      Restart = "always";
-      ExecStart = "${pkgs.wpaperd}/bin/wpaperd";
-    };
-  };
-
-  programs.wpaperd = {
+  services.wpaperd = {
     enable = true;
     settings = {
       default = {
