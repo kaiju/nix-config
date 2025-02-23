@@ -14,28 +14,21 @@
   };
 
   home.packages = with pkgs; [
-    act
-    age
-    k6
-    k9s
-    buildpack
+    age # encryption tool
+    k9s 
     kubectl
-    kubernetes-helm
-    kustomize
-    kubebuilder
-    tektoncd-cli
     jq
     yq
 
-    opentofu  # time to give this a shot
-    terraform
-    terraform-ls
-    terraform-docs
+    #opentofu  # time to give this a shot
+    #terraform
+    terraform-ls # terraform language server (go in nvim?)
+    #terraform-docs
 
-    tilt
-    ansible
-    packer
+    #tilt # should probably go in project
     shellcheck
+
+    # cloud tools
     awscli2
     (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
       cloud-run-proxy
@@ -44,7 +37,10 @@
     ]))
     google-cloud-sql-proxy
     oci-cli
+
     postgresql_15
+
+    # python tools
     (python311.withPackages (p: with p; [
       pip
       keyring
@@ -67,15 +63,13 @@
     go-tools
 
     pre-commit
-    nodejs
-    gcc
-    rustup
+
+    #nodejs # in project
+    #gcc # in project
+    #rustup # in project
+
     magic-wormhole-rs
-    #jsonnet
-    gojsontoyaml
-    jsonnet-bundler
-    tanka
-    dbmate
+    #dbmate # in project
     mastpkgs.mkfatimg
     duckdb
   ];
