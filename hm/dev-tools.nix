@@ -15,17 +15,8 @@
 
   home.packages = with pkgs; [
     age # encryption tool
-    k9s 
-    kubectl
     jq
     yq
-
-    #opentofu  # time to give this a shot
-    #terraform
-    terraform-ls # terraform language server (go in nvim?)
-    #terraform-docs
-
-    #tilt # should probably go in project
     shellcheck
 
     # cloud tools
@@ -39,37 +30,20 @@
     oci-cli
 
     postgresql_15
-
-    # python tools
-    (python311.withPackages (p: with p; [
-      pip
-      keyring
-      #keyrings-google-artifactregistry-auth # -- broken
-      flake8
-      twine
-      wheel
-    ]))
-    pylint
-    black
-    poetry
-    mypy
+    
+    #nodejs # can't figure out how to get sublime lsp-pyright to find the node runtime in the direnv, so here we go
+    #terraform-ls # terraform language server
 
     # golang and tools
-    go_1_22
-    gotools
-    golint
-    gopls
-    delve
-    go-tools
+    #go_1_22
+    #gotools
+    #golint
+    #gopls
+    #delve
+    #go-tools
 
-    pre-commit
-
-    #nodejs # in project
-    #gcc # in project
-    #rustup # in project
-
+    #pre-commit
     magic-wormhole-rs
-    #dbmate # in project
     mastpkgs.mkfatimg
     duckdb
   ];
