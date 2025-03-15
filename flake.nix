@@ -45,7 +45,6 @@
     nixosConfigurations.erebus = nixosSystem {
       host = "erebus";
       system = "x86_64-linux";
-      #hardware = nixos/targets/wsl.nix;
       modules = [
         nixos-wsl.nixosModules.default
 	{

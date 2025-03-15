@@ -54,6 +54,8 @@
     cifs-utils
     hwinfo
     pciutils
+    iperf
+    pv
   ];
 
   programs.zsh.enable = true;

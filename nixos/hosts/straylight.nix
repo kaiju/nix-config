@@ -113,7 +113,7 @@ in {
     enable = true;
   };
   networking.firewall = {
-    allowedTCPPorts = [ 2049 ];
+    allowedTCPPorts = [ 2049 3333 ];
   };
   boot.initrd.supportedFilesystems = [ "zfs" ];
   boot.zfs.extraPools = [ "tank" ];
