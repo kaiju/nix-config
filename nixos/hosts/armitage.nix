@@ -37,17 +37,6 @@
           };
         }
         {
-          name = "mastodon";
-          metrics_override = { prefix = "nginx"; };
-          namespace_label = "vhost";
-          format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
-          source = {
-            files = [
-              "/var/log/nginx/mastodon-access.log"
-            ];
-          };
-        }
-        {
           name = "conduit";
           metrics_override = { prefix = "nginx"; };
           namespace_label = "vhost";
@@ -77,7 +66,7 @@
       "armitage.mast.zone" = {};
       "whylb.mast.zone" = {};
       "matrix.mast.zone" = {};
-      "odon.mast.zone" = {};
+      "gts.mast.zone" = {};
     };
   };
 
@@ -86,16 +75,6 @@
     enableReload = true;
     statusPage = true;
     recommendedProxySettings = true;
-    upstreams = {
-      mastodon-streaming = {
-        extraConfig = ''
-          least_conn;
-        '';
-        servers = {
-          "unix:/run/mastodon-streaming/streaming-1.socket" = {};
-        };
-      };
-    };
     virtualHosts = {
       "armitage.mast.zone" = {
         enableACME = true;
@@ -115,6 +94,24 @@
           '';
         };
 
+        locations."/.well-known/webfinger" = {
+          extraConfig = ''
+            rewrite ^.*$ https://gts.mast.zone/.well-known/webfinger permanent;
+          '';
+        };
+
+        locations."/.well-known/host-meta" = {
+          extraConfig = ''
+            rewrite ^.*$ https://gts.mast.zone/.well-known/host-meta permanent;
+          '';
+        };
+
+        locations."/.well-known/nodeinfo" = {
+          extraConfig = ''
+            rewrite ^.*$ https://gts.mast.zone/.well-known/nodeinfo permanent;
+          '';
+        };
+
       };
       "josh.mast.zone" = {
         enableACME = true;
@@ -131,32 +128,15 @@
         forceSSL = true;
         root = "/opt/websites/kaiju.net";
       };
-      "odon.mast.zone" = {
+      "gts.mast.zone" = {
         enableACME = true;
         forceSSL = true;
-        root = "${pkgs.mastodon}/public/";
-
-        locations."/system/".alias = "/var/lib/mastodon/public-system/";
-
         locations."/" = {
-          tryFiles = "$uri @proxy";
+          proxyPass = "http://127.0.0.1:8090";
+          extraConfig = ''
+            client_max_body_size 40m;
+          '';
         };
-
-        locations."@proxy" = {
-          proxyPass = "http://unix:/run/mastodon-web/web.socket";
-          proxyWebsockets = true;
-        };
-
-        locations."/api/v1/streaming/" = {
-          proxyPass = "http://mastodon-streaming";
-          proxyWebsockets = true;
-        };
-
-        extraConfig = ''
-          client_max_body_size 20m;
-          access_log /var/log/nginx/mastodon-access.log combined;
-        '';
-
       };
       "whylb.mast.zone" = {
         enableACME = true;
@@ -179,7 +159,20 @@
       };
     };
   };
-  users.users.nginx.extraGroups = ["mastodon" "mast"];
+  users.users.nginx.extraGroups = ["mast"];
+
+  services.gotosocial = {
+    enable = true;
+    settings = {
+      host = "gts.mast.zone";
+      account-domain = "mast.zone";
+      bind-address = "127.0.0.1";
+      port = 8090;
+      db-type = "sqlite";
+      db-address = "/var/lib/gotosocial/database.sqlite";
+      storage-local-base-path = "/var/lib/gotosocial/storage";
+    };
+  };
 
   services.matrix-conduit = {
     enable = true;
@@ -196,26 +189,6 @@
         well_known_client = "https://matrix.mast.zone";
         well_known_server = "matrix.mast.zone:443";
       };
-    };
-  };
-
-  services.mastodon = {
-    enable = true;
-    localDomain = "mast.zone";
-    configureNginx = false;
-    smtp = {
-      authenticate = true;
-      createLocally = false;
-      fromAddress = "notifications@odon.mast.zone";
-      host = "smtp.mailgun.org";
-      port = 587;
-      user = "postmaster@odon.mast.zone";
-      passwordFile = "/var/lib/mastodon/secrets/smtp-password";
-    };
-    streamingProcesses = 1;
-    extraConfig = {
-      "WEB_DOMAIN" = "odon.mast.zone";
-      "SINGLE_USER_MODE" = "true";
     };
   };
 
