@@ -141,6 +141,9 @@
     usbutils
     xorg.xdpyinfo
     qt5.qtwayland # :(
+
+    retroarch
+    scummvm
   ];
 
   programs.steam = {
