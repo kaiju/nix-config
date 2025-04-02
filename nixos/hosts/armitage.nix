@@ -47,6 +47,17 @@
             ];
           };
         }
+        {
+          name = "gts";
+          metrics_override = { prefix = "nginx"; };
+          namespace_label = "vhost";
+          format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
+          source = {
+            files = [
+              "/var/log/nginx/gts-access.log"
+            ];
+          };
+        }
       ];
     };
   };
@@ -135,6 +146,7 @@
           proxyPass = "http://127.0.0.1:8090";
           extraConfig = ''
             client_max_body_size 40m;
+            access_log /var/log/nginx/gts-access.log combined;
           '';
         };
       };
