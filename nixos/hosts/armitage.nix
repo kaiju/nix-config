@@ -149,6 +149,9 @@
             access_log /var/log/nginx/gts-access.log combined;
           '';
         };
+        locations."/metrics" = {
+          return = 404;
+        };
       };
       "whylb.mast.zone" = {
         enableACME = true;
@@ -176,6 +179,7 @@
   services.gotosocial = {
     enable = true;
     settings = {
+      metrics-enabled = true;
       host = "gts.mast.zone";
       account-domain = "mast.zone";
       bind-address = "127.0.0.1";
