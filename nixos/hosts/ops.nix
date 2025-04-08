@@ -130,44 +130,43 @@
     isSystemUser = true;
   };
 
-  services.promtail = {
+  services.alloy = {
     enable = true;
-    configuration = {
-      server = {
-        http_listen_port = 9080;
-        grpc_listen_port = 0;
-      };
-      positions = {
-        filename = "/tmp/positions.yaml";
-      };
-      client = {
-        url = "http://ops.mast.haus:3100/api/prom/push";
-      };
-      scrape_configs = [
-        {
-          job_name = "journal";
-          journal = {
-            labels = {
-              job = "systemd-journal";
-            };
-          };
-          relabel_configs = [
-            {
-              source_labels = ["__journal__hostname"];
-              target_label = "host";
-            }
-            {
-              source_labels = ["__journal__systemd_unit"];
-              target_label = "unit";
-            }
-            {
-              source_labels = ["__journal__transport"];
-              target_label = "transport";
-            }
-          ];
+  };
+
+  environment.etc."alloy/config.alloy" = {
+    text = ''
+      loki.relabel "journal" {
+        forward_to = []
+
+        rule {
+          source_labels = ["__journal__hostname"]
+          target_label = "host"
         }
-      ];
-    };
+
+        rule {
+          source_labels = ["__journal__systemd_unit"]
+          target_label = "unit"
+        }
+
+        rule {
+          source_labels = ["__journal__transport"]
+          target_label = "transport"
+        }
+
+      }
+
+      loki.source.journal "read" {
+        forward_to = [loki.write.default.receiver]
+        relabel_rules = loki.relabel.journal.rules
+      }
+
+      loki.write "default" {
+        endpoint {
+          url = "http://ops.mast.haus:3100/api/prom/push"
+        }
+      }
+    '';
   };
 
   services.loki = {
