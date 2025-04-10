@@ -1,6 +1,13 @@
 { config, pkgs, ... }:
 {
 
+  fileSystems.data = {
+    enable = true;
+    label = "data";
+    mountPoint = "/data";
+    fsType = "ext4";
+  };
+
   networking = {
     hostName = "ops";
     useDHCP = false;
@@ -27,9 +34,9 @@
       dnsProvider = "route53";
       dnsResolver = "1.1.1.1:53";
       credentialFiles = {
-        AWS_SHARED_CREDENTIALS_FILE = "/run/secrets/dns-manager-aws-credentials";
+        AWS_SHARED_CREDENTIALS_FILE = "/var/lib/acme/dns-manager-aws-credentials";
       };
-      environmentFile = "/run/secrets/dns-manager-aws-environment";
+      environmentFile = "/var/lib/acme/dns-manager-aws-environment";
     };
     acceptTerms = true;
     certs = {
@@ -130,6 +137,7 @@
     isSystemUser = true;
   };
 
+  # -- observability
   services.alloy = {
     enable = true;
   };
@@ -167,6 +175,12 @@
         }
       }
     '';
+  };
+
+  # services
+
+  services.prometheus = {
+    enable = true;
   };
 
   services.loki = {
