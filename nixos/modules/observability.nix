@@ -9,10 +9,18 @@
   environment.etc."alloy/config.alloy" = {
     text = ''
 
-      prometheus.exporter.unix "node" { }
+      prometheus.exporter.unix "node" {
+        //enable_collectors = ["perf","sysctl","systemd"]
+
+        cpu {
+          guest = true
+          info = true
+        }
+      }
 
       prometheus.scrape "node" {
         targets = prometheus.exporter.unix.node.targets
+        scrape_interval = "15s"
         forward_to = [prometheus.remote_write.ops.receiver]
       }
 
