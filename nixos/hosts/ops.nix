@@ -1,10 +1,6 @@
 { config, ... }:
 {
 
-  imports = [
-    ../modules/observability.nix
-  ];
-
   networking = {
     hostName = "ops";
     useDHCP = false;

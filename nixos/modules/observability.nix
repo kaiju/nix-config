@@ -10,7 +10,7 @@
     text = ''
 
       prometheus.exporter.unix "node" {
-        //enable_collectors = ["perf","sysctl","systemd"]
+        enable_collectors = ["systemd"]
 
         cpu {
           guest = true

@@ -1,10 +1,6 @@
 { pkgs, modulesPath, ... }:
 {
 
-  imports = [
-    ../modules/observability.nix
-  ];
-
   networking = {
     defaultGateway = {
       address = "10.5.5.1";

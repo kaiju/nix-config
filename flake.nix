@@ -62,6 +62,7 @@
       hardware = nixos/targets/straylight.nix;
       modules = [
 	./nixos/modules/server.nix
+        ./nixos/modules/observability.nix
 	./nixos/modules/user-josh.nix
       ];
     };
@@ -95,6 +96,7 @@
       hardware = ./nixos/targets/oci.nix;
       modules = [
         ./nixos/modules/server.nix
+        ./nixos/modules/observability.nix
         ./nixos/modules/user-josh.nix
       ];
     };
@@ -104,13 +106,6 @@
       host = "garage";
       system = "x86_64-linux";
       hardware = ./nixos/targets/ugh.nix;
-    };
-
-    # VPS
-    nixosConfigurations.mastzone = nixosSystem {
-      host = "mastzone";
-      system = "x86_64-linux";
-      hardware = ./nixos/targets/vps2day.nix;
     };
 
     # sigint -- radio intelligence
@@ -144,6 +139,7 @@
       hardware = ./nixos/targets/qemu-guest.nix;
       modules = [
         ./nixos/modules/server.nix
+        ./nixos/modules/observability.nix
         ./nixos/modules/user-josh.nix
       ];
     };
@@ -154,6 +150,7 @@
       hardware = ./nixos/targets/qemu-guest.nix;
       modules = [
         ./nixos/modules/server.nix
+        ./nixos/modules/observability.nix
         ./nixos/modules/user-josh.nix
       ];
     };
@@ -171,8 +168,9 @@
       system = "x86_64-linux";
       hardware = ./nixos/targets/qemu-guest.nix;
       modules = [
-        ./modules/server.nix
-        ./modules/user-josh.nix
+        ./nixos/modules/server.nix
+        ./nixos/modules/observability.nix
+        ./nixos/modules/user-josh.nix
       ];
     };
 

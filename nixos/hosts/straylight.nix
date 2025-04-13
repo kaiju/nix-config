@@ -24,10 +24,6 @@ let
   };
 in {
 
-  imports = [
-    ../modules/observability.nix
-  ];
-
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   services.zfs = {
