@@ -142,7 +142,11 @@
     xorg.xdpyinfo
     qt5.qtwayland # :(
 
-    retroarch
+    (retroarch.withCores (cores: with cores; [
+      bsnes
+      mesen
+    ]))
+
     scummvm
   ];
 
