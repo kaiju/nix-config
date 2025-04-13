@@ -71,29 +71,33 @@
   services.samba = {
     enable = true;
     openFirewall = true;
-    extraConfig = ''
-      min protocol = SMB2
-
-      ea support = yes
-      vfs objects = fruit streams_xattr
-      fruit:metadata = stream
-      fruit:model = MacSamba
-      fruit:veto_appledouble = no
-      fruit:posix_rename = yes
-      fruit:zero_file_id = yes
-      fruit:wipe_intentionally_left_blank_rfork = yes
-      fruit:delete_empty_adfiles = yes
-
-      [homes]
-        comment = User shares 
-        browseable = no
-        create mask = 0700
-        directory mask = 0700
-        valid users = %S
-        path = /shares/%S
-        read only = no
-        force group = mast
-    '';
+    settings = {
+      global = {
+        "invalid users" = [ "root" ];
+        "passwd program" = "/run/wrapper/bin/passwd %s";
+        "security" = "user";
+        "min protocol" = "SMB2";
+        "ea support" = "yes";
+        "vfs objects" = [ "fruit" "streams_xattr" ];
+        "fruit:metadata" = "stream";
+        "fruit:model" = "MacSamba";
+        "fruit:veto_appledouble" = "no";
+        "fruit:posix_rename" = "yes";
+        "fruit:zero_file_id" = "yes";
+        "fruit:wipe_intentionally_left_blank_rfork" = "yes";
+        "fruit:delete_empty_adfiles" = "yes";
+      };
+      homes = {
+        "comment" = "User shares";
+        "browseable" = "no";
+        "create mask" = "0700";
+        "directory mask" = "0700";
+        "valid users" = "%S";
+        "path" = "/shares/%S";
+        "read only" = "no";
+        "force group" = "mast";
+      };
+    };
     shares = {
       shared = {
         comment = "Shared files";
