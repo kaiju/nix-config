@@ -1,5 +1,9 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 {
+
+  imports = [
+    ../modules/observability.nix
+  ];
 
   networking = {
     hostName = "ops";
@@ -18,7 +22,7 @@
         ];
       };
     };
-    firewall.allowedTCPPorts = [ 80 443 3333 3100 9000 9001 ];
+    firewall.allowedTCPPorts = [ 80 443 3333 3100 9000 9001 9090 ];
   };
 
   security.acme = {
@@ -130,51 +134,12 @@
     isSystemUser = true;
   };
 
-  # -- observability
-  services.alloy = {
-    enable = true;
-  };
-
-  environment.etc."alloy/config.alloy" = {
-    text = ''
-      loki.relabel "journal" {
-        forward_to = []
-
-        rule {
-          source_labels = ["__journal__hostname"]
-          target_label = "host"
-        }
-
-        rule {
-          source_labels = ["__journal__systemd_unit"]
-          target_label = "unit"
-        }
-
-        rule {
-          source_labels = ["__journal__transport"]
-          target_label = "transport"
-        }
-
-      }
-
-      loki.source.journal "read" {
-        forward_to = [loki.write.default.receiver]
-        relabel_rules = loki.relabel.journal.rules
-      }
-
-      loki.write "default" {
-        endpoint {
-          url = "http://ops.mast.haus:3100/api/prom/push"
-        }
-      }
-    '';
-  };
-
   # services
 
   services.prometheus = {
     enable = true;
     retentionTime = "365d";
+    extraFlags = [ "--web.enable-remote-write-receiver" ]; 
   };
 
   services.loki = {

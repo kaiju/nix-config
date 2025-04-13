@@ -1,10 +1,18 @@
 { pkgs, modulesPath, ... }:
 {
+
+  imports = [
+    ../modules/observability.nix
+  ];
+
   networking = {
     defaultGateway = {
       address = "10.5.5.1";
       interface = "enp0s6";
     };
+    extraHosts = ''
+      192.168.8.4 ops.mast.haus
+    '';
     enableIPv6 = true;
     nameservers = [
       "169.254.169.254"
@@ -13,9 +21,26 @@
       useDHCP = true;
     };
 
+    wireguard = {
+      enable = true;
+      interfaces.wg0 = {
+        generatePrivateKeyFile = true;
+        privateKeyFile = "/etc/wireguard/private_key";
+        ips = [ "192.168.12.20/32" ];
+        peers = [
+          {
+            allowedIPs = [ "192.168.0.0/16" ];
+            publicKey = "Xkdgk9fWNWtF5pe9Q7hHLyLaqPRr6zN9rgl71iwYvkc=";
+            endpoint = "masthaus.duckdns.org:51900";
+          }
+        ];
+      };
+    };
+
     firewall.allowedTCPPorts = [ 80 443 ];
   };
 
+  # allowed for our resident luddite
   services.openssh.settings.PasswordAuthentication = true;
   services.openssh.settings.PermitRootLogin = "no";
 

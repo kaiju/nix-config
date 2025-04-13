@@ -24,6 +24,10 @@ let
   };
 in {
 
+  imports = [
+    ../modules/observability.nix
+  ];
+
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   services.zfs = {
@@ -32,46 +36,6 @@ in {
     };
     autoSnapshot = {
       enable = true;
-    };
-  };
-
-  services.promtail = {
-    enable = true;
-    configuration = {
-      server = {
-        http_listen_port = 9080;
-        grpc_listen_port = 0;
-      };
-      positions = {
-        filename = "/tmp/positions.yaml";
-      };
-      client = {
-        url = "http://ops.mast.haus:3100/api/prom/push";
-      };
-      scrape_configs = [
-        {
-          job_name = "journal";
-          journal = {
-            labels = {
-              job = "systemd-journal";
-            };
-          };
-          relabel_configs = [
-            {
-              source_labels = ["__journal__hostname"];
-              target_label = "host";
-            }
-            {
-              source_labels = ["__journal__systemd_unit"];
-              target_label = "unit";
-            }
-            {
-              source_labels = ["__journal__transport"];
-              target_label = "transport";
-            }
-          ];
-        }
-      ];
     };
   };
 
