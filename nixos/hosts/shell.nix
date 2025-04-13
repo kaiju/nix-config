@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../modules/server.nix
     ../modules/user-josh.nix
     ../modules/user-sky.nix
   ];

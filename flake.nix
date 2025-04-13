@@ -113,6 +113,10 @@
       host = "sigint";
       system = "x86_64-linux";
       hardware = ./nixos/targets/sigint.nix;
+      modules = [
+        ./nixos/modules/server.nix
+        ./nixos/modules/observability.nix
+      ];
     };
 
     # mess-around lab virtualisation machine, 16 core xeon, 192GB ram
@@ -131,6 +135,10 @@
       host = "shell";
       system = "x86_64-linux";
       hardware = ./nixos/targets/qemu-guest.nix;
+      modules = [
+        ./nixos/modules/server.nix
+        ./nixos/modules/observability.nix
+      ];
     };
 
     nixosConfigurations.torrent = nixosSystem {
@@ -160,6 +168,10 @@
       host = "k8s";
       system = "x86_64-linux";
       hardware = ./nixos/targets/qemu-guest.nix;
+      modules = [
+        ./nixos/modules/server.nix
+        ./nixos/modules/observability.nix
+      ];
     };
 
     # testing/playground vm

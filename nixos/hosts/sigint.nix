@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../modules/server.nix
     ../modules/bluetooth.nix
     ../modules/sdr.nix
     ../modules/user-josh.nix
