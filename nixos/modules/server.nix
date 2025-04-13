@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 {
 
   nix.gc = {
@@ -12,7 +12,7 @@
       enable = true;
       settings = {
         PermitRootLogin = "no";
-        PasswordAuthentication = false;
+        PasswordAuthentication = lib.mkDefault false;
       };
     };
     prometheus.exporters = {
