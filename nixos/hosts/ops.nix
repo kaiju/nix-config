@@ -1,13 +1,6 @@
 { config, pkgs, ... }:
 {
 
-  fileSystems.data = {
-    enable = true;
-    label = "data";
-    mountPoint = "/data";
-    fsType = "ext4";
-  };
-
   networking = {
     hostName = "ops";
     useDHCP = false;
@@ -181,6 +174,7 @@
 
   services.prometheus = {
     enable = true;
+    retentionTime = "365d";
   };
 
   services.loki = {
