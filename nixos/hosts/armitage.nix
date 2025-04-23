@@ -79,6 +79,28 @@
             ];
           };
         }
+        {
+          name = "josh";
+          metrics_override = { prefix = "nginx"; };
+          namespace_label = "vhost";
+          format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
+          source = {
+            files = [
+              "/var/log/nginx/josh-access.log"
+            ];
+          };
+        }
+        {
+          name = "hire";
+          metrics_override = { prefix = "nginx"; };
+          namespace_label = "vhost";
+          format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
+          source = {
+            files = [
+              "/var/log/nginx/hire-access.log"
+            ];
+          };
+        }
       ];
     };
   };
@@ -149,11 +171,17 @@
         enableACME = true;
         forceSSL = true;
         root = "/opt/websites/josh.mast.zone";
+        extraConfig = ''
+          access_log /var/log/nginx/josh-access.log combined;
+        '';
       };
       "hire.josh.mast.zone" = {
         useACMEHost = "josh.mast.zone";
         forceSSL = true;
         root = "/opt/websites/josh.mast.zone/hire";
+        extraConfig = ''
+          access_log /var/log/nginx/hire-access.log combined;
+        '';
       };
       "kaiju.net" = {
         enableACME = true;
