@@ -105,6 +105,24 @@
     };
   };
 
+  systemd.services.alloy.serviceConfig.SupplementaryGroups = [
+    "nginx"
+  ];
+  environment.etc."alloy/nginx.alloy" = {
+    text = ''
+
+      local.file_match "access_logs" {
+        path_targets = [{"__path__" = "/var/log/nginx/*.log", "host" = "armitage", "service_name" = "nginx"}]
+      }
+
+      loki.source.file "nginx" {
+        targets = local.file_match.access_logs.targets
+        forward_to = [loki.write.default.receiver]
+      }
+
+    '';
+  };
+
   security.acme = {
     acceptTerms = true;
     defaults = {
