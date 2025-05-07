@@ -333,12 +333,14 @@
   # notification daemon for Wayland
   services.mako = {
     enable = true;
-    font = "CommitMonoNerdFont";
-    backgroundColor = "#000000CC";
-    borderSize = 0;
-    defaultTimeout = 5000;
-    margin = "0";
-    padding = "10";
+    settings = {
+      defaultTimeout = 5000;
+      borderSize = 0;
+      font = "CommitMonoNerdFont";
+      backgroundColor = "#000000CC";
+      margin = "0";
+      padding = "10";
+    };
   };
 
   services.wlsunset = {

@@ -67,7 +67,7 @@
       ls = "${pkgs.eza}/bin/eza -gF";
     };
 
-    initExtra = ''
+    initContent = ''
 
       # FUCK you
       setopt no_prompt_cr
