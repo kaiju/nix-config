@@ -145,6 +145,7 @@
     (retroarch.withCores (cores: with cores; [
       bsnes
       mesen
+      beetle-lynx
     ]))
 
     scummvm
