@@ -13,11 +13,6 @@
       cmp-buffer
       cmp-path
       cmp-cmdline
-      cmp-nvim-lsp
-
-      # probably more cmp plugins here
-      luasnip
-      cmp_luasnip
 
       telescope-nvim
 
@@ -28,130 +23,117 @@
 
       tokyonight-nvim
     ];
-    extraConfig = ''
-      set autoindent
-      set autoread
-      set backspace=indent,eol,start
-      set expandtab
-      set number
-      set termguicolors
-      set shiftwidth=2
-      set smarttab
-      set completeopt=menu,menuone,noselect
-      set cursorline
-      colorscheme tokyonight
+    extraLuaConfig = ''
+      -- options
+      vim.o.autoindent = true
+      vim.o.autoread = true
+      vim.o.backspace = "indent,eol,start"
+      vim.o.expandtab = true
+      vim.o.number = true
+      vim.o.termguicolors = true
+      vim.o.shiftwidth = 2
+      vim.o.smarttab = true
+      vim.o.completeopt = "menu,menuone,noselect"
+      vim.o.cursorline = true
+      vim.o.winborder = "solid"
 
-lua << EOF
-        require('lualine').setup({
-          options = {
-            theme = 'tokyonight'
+      
+      -- color scheme
+      vim.cmd.colorscheme("tokyonight")
+      require('lualine').setup({
+        options = {
+          theme = 'tokyonight'
+        },
+      })
+
+      local cmp = require('cmp')
+      cmp.setup({
+        sources = {
+          { name = "buffer" }
+        }
+      })
+      cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" }
+        }
+      })
+      cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = "path" }
+        }, {
+          { name = "cmdline" }
+        })
+      })
+
+      -- nvim tree
+      local nvimtree = require('nvim-tree')
+      nvimtree.setup({
+        renderer = {
+          indent_markers = {
+            enable = true,
           },
-        })
+          highlight_opened_files = "all",
+        },
+      })
 
-        local luasnip = require('luasnip')
+      require('nvim-web-devicons').setup()
+      
+      -- lsp setup
+      vim.lsp.enable({'ruff', 'pyright'})
+      vim.lsp.config('pyright', {
+        settings = {
+          -- we could write a bunch of code to set python.pythonPath to venv/ if it exists
+          pyright = {
+            disableOrganizeImports = true
+          }
+        }
+      })
+      vim.lsp.enable({'terraformls'})
+      vim.lsp.enable({'nil_ls'})
+      vim.lsp.enable({'gopls'})
+      vim.lsp.enable({'yamlls'})
 
-        -- nvim tree
-	local nvimtree = require('nvim-tree')
-	nvimtree.setup({
-          renderer = {
-            indent_markers = {
-              enable = true,
-            },
-            highlight_opened_files = "all",
-          },
-        })
+      vim.diagnostic.config({
+        virtual_text = {
+          source = "if_many",
+          prefix = "",
+          suffix = " ",
+          spacing = 2,
+        }
+      })
 
-        require('nvim-web-devicons').setup()
-        
-        -- cmp autocomplete
-	local cmp = require('cmp')
-	cmp.setup({
-	  snippet = {
-	    expand = function(args)
-	      luasnip.lsp_expand(args.body)
-	    end,
-	  },
-	  mapping = {
-	    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-	    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c'}),
-	    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-	    ['<C-y>'] = cmp.config.disable,
-	    ['<C-e>'] = cmp.mapping({
-	      i = cmp.mapping.abort(),
-	      c = cmp.mapping.close(),
-	    }),
-	    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-	  },
-	  sources = cmp.config.sources({
-	    { name = 'nvim_lsp' },
-	    { name = 'luasnip' },
-	  }, {
-	    { name = 'buffer' },
-	  })
-        })
+      -- TODO-
+      --       pyright venv
+      --       diagnostics signs
+      --       organize imports on save:
+      --       vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
 
-	cmp.setup.cmdline('/', {
-	  sources = {
-	    { name = 'buffer' }
-	  }
-	})
+      -- set up LSP magic on server attach
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(ev)
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-	cmp.setup.cmdline(':', {
-	  sources = cmp.config.sources({
-	    { name = 'path' }
-	  }, {
-	    { name = 'cmdline' }
-	  })
-	})
+          -- autocompletion
+          if client:supports_method('textDocument/completion') then
+            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+          end
 
-        -- lsp setup
-        local lspconfig = require('lspconfig')
-	local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+          -- lsp format on save
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = ev.buf,
+            callback = function()
+              vim.lsp.buf.format { async = false, id = ev.data.client_id }
+            end,
+          })
 
-        lspconfig.terraformls.setup({
-          capabilities = capabilities,
-        })
-        --vim.api.nvim_create_autocmd({"BufWritePre"}, {
-        --  pattern = {"*.tf", "*.tfvars"},
-        --  callback = vim.lsp.buf.formatting_sync,
-        --})
+        end,
+      })
 
-        lspconfig.nil_ls.setup({
-          capabilities = capabilities
-        })
-
-	lspconfig.gopls.setup({
-	  capabilities = capabilities
-        })
-
-        lspconfig.yamlls.setup({
-          capabilities = capabilities,
-          settings = {
-            yaml = {
-              format = {
-                enable = true,
-              },
-              validate = true,
-              hover = true,
-              completion = true,
-              schemaStore = {
-                enable = true,
-                url = "https://www.schemastore.org/api/json/catalog.json",
-              },
-            },
-          },
-        })
-
-        -- lualine
-	require('lualine').setup()
-
-EOF
     '';
     extraPackages = with pkgs; [
-      gopls
       nil
-      yaml-language-server
-      terraform-ls
     ]; # probably throw lsp servers in here?
   };
 }
