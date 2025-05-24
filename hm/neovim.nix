@@ -7,6 +7,7 @@
     plugins = with pkgs.vimPlugins; [
       lualine-nvim
       nvim-lspconfig
+      bufferline-nvim
 
       nvim-cmp
       cmp-nvim-lua
@@ -45,6 +46,9 @@
           theme = 'tokyonight'
         },
       })
+
+      local bufferline = require('bufferline')
+      bufferline.setup{}
 
       local cmp = require('cmp')
       cmp.setup({
