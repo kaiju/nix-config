@@ -7,8 +7,7 @@
     plugins = with pkgs.vimPlugins; [
       lualine-nvim
       nvim-lspconfig
-      bufferline-nvim
-
+      barbar-nvim
       nvim-cmp
       cmp-nvim-lua
       cmp-buffer
@@ -64,20 +63,16 @@
       })
 
       require('nvim-web-devicons').setup()
-      
-      --- bufferline
-      local bufferline = require('bufferline')
-      bufferline.setup({
-        options = {
-          offsets = {
-            filetype = "NvimTree",
-            text = "File Explorer",
-            highlight = "Directory",
-            seperator = true
-          }
+
+      -- buffer bar
+      local barbar = require('barbar')
+      barbar.setup({
+        auto_hide = 1,
+        sidebar_filetypes = {
+          NvimTree = true
         }
       })
-
+      
       -- TODO- buffer delete on :q?
       vim.keymap.set('n', '<C-Tab>', '<cmd>bnext<cr>')
       vim.keymap.set('n', '<C-Shift-Tab>', '<cmd>blast<cr>')
