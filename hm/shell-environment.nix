@@ -90,6 +90,8 @@
 
       export PATH="$PATH:$HOME/.local/bin"
 
+      export VISUAL=nvim
+
     '';
   };
 
