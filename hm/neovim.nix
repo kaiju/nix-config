@@ -20,6 +20,8 @@
       nvim-tree-lua
       nvim-web-devicons
 
+      gitsigns-nvim
+
       vim-terraform
 
       tokyonight-nvim
@@ -38,7 +40,6 @@
       vim.o.cursorline = true
       vim.o.winborder = "solid"
 
-      
       -- color scheme
       vim.cmd.colorscheme("tokyonight")
       require('lualine').setup({
@@ -47,8 +48,47 @@
         },
       })
 
+      -- gitsigns
+      local gitsigns = require('gitsigns')
+      gitsigns.setup()
+
+      -- nvim tree
+      local nvimtree = require('nvim-tree')
+      nvimtree.setup({
+        renderer = {
+          indent_markers = {
+            enable = true,
+          },
+          highlight_opened_files = "all",
+        },
+      })
+
+      require('nvim-web-devicons').setup()
+      
+      --- bufferline
       local bufferline = require('bufferline')
-      bufferline.setup{}
+      bufferline.setup({
+        options = {
+          offsets = {
+            filetype = "NvimTree",
+            text = "File Explorer",
+            highlight = "Directory",
+            seperator = true
+          }
+        }
+      })
+
+      -- TODO- buffer delete on :q?
+      vim.keymap.set('n', '<C-Tab>', '<cmd>bnext<cr>')
+      vim.keymap.set('n', '<C-Shift-Tab>', '<cmd>blast<cr>')
+
+      -- telescope
+      local telescope = require('telescope')
+      telescope.setup({
+        defaults = {
+          theme = "dropdown"
+        }
+      })
 
       local cmp = require('cmp')
       cmp.setup({
@@ -71,19 +111,6 @@
         })
       })
 
-      -- nvim tree
-      local nvimtree = require('nvim-tree')
-      nvimtree.setup({
-        renderer = {
-          indent_markers = {
-            enable = true,
-          },
-          highlight_opened_files = "all",
-        },
-      })
-
-      require('nvim-web-devicons').setup()
-      
       -- lsp setup
       vim.lsp.enable({'ruff', 'pyright'})
       vim.lsp.config('pyright', {
