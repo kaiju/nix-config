@@ -28,8 +28,6 @@
     };
   };
 
-  sound.enable = true;
-
   environment.systemPackages = with pkgs; [
     rtl_433
   ];
