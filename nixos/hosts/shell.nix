@@ -3,6 +3,7 @@
   imports = [
     ../modules/user-josh.nix
     ../modules/user-sky.nix
+    ../modules/user-nicholas.nix
   ];
 
   networking = {
