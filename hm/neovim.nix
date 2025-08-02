@@ -34,6 +34,7 @@
       vim.o.number = true
       vim.o.termguicolors = true
       vim.o.shiftwidth = 2
+      vim.o.tabstop = 2
       vim.o.smarttab = true
       vim.o.completeopt = "menu,menuone,noselect"
       vim.o.cursorline = true
@@ -72,7 +73,7 @@
           NvimTree = true
         }
       })
-      
+
       -- TODO- buffer delete on :q?
       vim.keymap.set('n', '<C-Tab>', '<cmd>bnext<cr>')
       vim.keymap.set('n', '<C-Shift-Tab>', '<cmd>blast<cr>')
