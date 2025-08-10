@@ -1,4 +1,10 @@
-{ config, pkgs, lib, osConfig, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}:
 
 {
 
@@ -54,14 +60,14 @@
       name = "Adwaita";
     };
     /*
-    gtk2.extraConfig = ''
-    '';
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
+      gtk2.extraConfig = ''
+      '';
+      gtk3.extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+      };
+      gtk4.extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+      };
     */
   };
 
@@ -75,7 +81,10 @@
 
     portal = {
       enable = true;
-      config.common.default = ["gtk" "wlr"];
+      config.common.default = [
+        "gtk"
+        "wlr"
+      ];
       xdgOpenUsePortal = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
@@ -130,12 +139,18 @@
   };
 
   programs.chromium.enable = true;
+
+  programs.floorp = {
+    enable = true;
+  };
+
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-wayland;
     profiles.default = {
       isDefault = true;
       settings = {
+        "browser.ml.enable" = false;
         "browser.compactmode.show" = true;
         "security.ask_for_password" = 0;
         "dom.battery.enabled" = false;
@@ -281,35 +296,35 @@
   '';
 
   /*
-  xresources.properties = {
-    "*foreground" = "#c5c8c6";
-    "*background" = "#1d1f21";
-    "*cursorColor" = "#c5c8c6";
-    # black
-    "*color0" = "#1d1f21";
-    "*color8" = "#666666";
-    # red
-    "*color1" = "#cc6666";
-    "*color9" = "#d54e53";
-    # green
-    "*color2" = "#b5bd68";
-    "*color10" = "#b9ca4a";
-    # yellow
-    "*color3" = "#f0c674";
-    "*color11" = "#e7c547";
-    # blue
-    "*color4" = "#81a2be";
-    "*color12" = "#7aa6da";
-    # magenta
-    "*color5" = "#b294bb";
-    "*color13" = "#c397d8";
-    # cyan
-    "*color6" = "#8abeb7";
-    "*color14" = "#70c0b1";
-    # white
-    "*color7" = "#c5c8c6";
-    "*color15" = "#eaeaea";
-  };
+    xresources.properties = {
+      "*foreground" = "#c5c8c6";
+      "*background" = "#1d1f21";
+      "*cursorColor" = "#c5c8c6";
+      # black
+      "*color0" = "#1d1f21";
+      "*color8" = "#666666";
+      # red
+      "*color1" = "#cc6666";
+      "*color9" = "#d54e53";
+      # green
+      "*color2" = "#b5bd68";
+      "*color10" = "#b9ca4a";
+      # yellow
+      "*color3" = "#f0c674";
+      "*color11" = "#e7c547";
+      # blue
+      "*color4" = "#81a2be";
+      "*color12" = "#7aa6da";
+      # magenta
+      "*color5" = "#b294bb";
+      "*color13" = "#c397d8";
+      # cyan
+      "*color6" = "#8abeb7";
+      "*color14" = "#70c0b1";
+      # white
+      "*color7" = "#c5c8c6";
+      "*color15" = "#eaeaea";
+    };
   */
 
   programs.mpv = {
