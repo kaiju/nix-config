@@ -33,7 +33,10 @@
       };
     };
 
-    firewall.allowedTCPPorts = [ 80 443 ];
+    firewall.allowedTCPPorts = [
+      80
+      443
+    ];
   };
 
   # allowed for our resident luddite
@@ -48,7 +51,9 @@
       namespaces = [
         {
           name = "default";
-          metrics_override = { prefix = "nginx"; };
+          metrics_override = {
+            prefix = "nginx";
+          };
           namespace_label = "vhost";
           format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
           source = {
@@ -59,7 +64,9 @@
         }
         {
           name = "conduit";
-          metrics_override = { prefix = "nginx"; };
+          metrics_override = {
+            prefix = "nginx";
+          };
           namespace_label = "vhost";
           format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
           source = {
@@ -70,7 +77,9 @@
         }
         {
           name = "gts";
-          metrics_override = { prefix = "nginx"; };
+          metrics_override = {
+            prefix = "nginx";
+          };
           namespace_label = "vhost";
           format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
           source = {
@@ -81,7 +90,9 @@
         }
         {
           name = "josh";
-          metrics_override = { prefix = "nginx"; };
+          metrics_override = {
+            prefix = "nginx";
+          };
           namespace_label = "vhost";
           format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
           source = {
@@ -92,7 +103,9 @@
         }
         {
           name = "hire";
-          metrics_override = { prefix = "nginx"; };
+          metrics_override = {
+            prefix = "nginx";
+          };
           namespace_label = "vhost";
           format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
           source = {
@@ -130,15 +143,16 @@
       webroot = "/var/lib/acme/acme-challenge";
     };
     certs = {
-      "mast.zone" = {};
+      "mast.zone" = { };
       "josh.mast.zone" = {
-        extraDomainNames = ["hire.josh.mast.zone"];
+        extraDomainNames = [ "hire.josh.mast.zone" ];
       };
-      "kaiju.net" = {};
-      "armitage.mast.zone" = {};
-      "whylb.mast.zone" = {};
-      "matrix.mast.zone" = {};
-      "gts.mast.zone" = {};
+      "kaiju.net" = { };
+      "armitage.mast.zone" = { };
+      "whylb.mast.zone" = { };
+      "matrix.mast.zone" = { };
+      "gts.mast.zone" = { };
+      "mast.consulting" = { };
     };
   };
 
@@ -160,7 +174,7 @@
 
         locations."/.well-known/matrix/" = {
           proxyPass = "http://[::1]:6167";
-          extraConfig =  ''
+          extraConfig = ''
             add_header Access-Control-Allow-Methods 'GET, POST, PUT, DELETE, OPTIONS';
             add_header Access-Control-Allow-Headers 'X-Requested-With, Content-Type, Authorization';
           '';
@@ -191,6 +205,14 @@
         root = "/opt/websites/josh.mast.zone";
         extraConfig = ''
           access_log /var/log/nginx/josh-access.log combined;
+        '';
+      };
+      "mast.consulting" = {
+        useACMEHost = "mast.consulting";
+        forceSSL = true;
+        root = "/opt/websites/josh.mast.zone/hire";
+        extraConfig = ''
+          access_log /var/log/nginx/hire-access.log combined;
         '';
       };
       "hire.josh.mast.zone" = {
@@ -241,7 +263,10 @@
       };
     };
   };
-  users.users.nginx.extraGroups = ["mast"];
+  users.users.nginx.extraGroups = [
+    "acme"
+    "mast"
+  ];
 
   services.gotosocial = {
     enable = true;
@@ -315,7 +340,10 @@
 
   users.users.kobek = {
     isNormalUser = true;
-    extraGroups = [ "users" "whylb" ];
+    extraGroups = [
+      "users"
+      "whylb"
+    ];
     shell = pkgs.bash;
   };
 
