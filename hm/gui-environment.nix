@@ -341,4 +341,14 @@
     };
   };
 
+  programs.kitty = {
+    enable = true;
+    enableGitIntegration = true;
+    font = {
+      name = "CommitMonoNerdFont";
+      size = 10;
+    };
+    shellIntegration.enableZshIntegration = true;
+  };
+
 }
