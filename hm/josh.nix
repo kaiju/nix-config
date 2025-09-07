@@ -18,12 +18,19 @@
 
   programs.ssh = {
     enable = true;
-
+    enableDefaultConfig = false;
     matchBlocks = {
       "*" = {
         identityFile = [
           "~/.ssh/josh@mast.zone.key"
         ];
+        forwardAgent = false;
+        addKeysToAgent = "no";
+        compression = false;
+        serverAliveInterval = 0;
+        serverAliveCountMax = 3;
+        hashKnownHosts = false;
+        userKnownHostsFile = "~/.ssh/known_hosts";
       };
       "mast.zone" = {
         hostname = "mast.zone";
