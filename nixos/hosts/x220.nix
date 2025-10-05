@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     ../modules/bluetooth.nix
@@ -25,7 +30,7 @@
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.cage}/bin/cage -s -d -- ${pkgs.foot}/bin/foot ${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c sway";
+      command = "${pkgs.cage}/bin/cage -s -d -- ${pkgs.foot}/bin/foot ${pkgs.tuigreet}/bin/tuigreet -t -r -c sway";
     };
   };
 
