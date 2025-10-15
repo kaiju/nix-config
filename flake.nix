@@ -238,42 +238,6 @@
         ];
 
       };
-      /*
-        Surprise! Turns out home-manager has flake support!
-
-        This is useful for providing my home configurations in non-NixOS contexts, like
-        my work laptop, WSL2, etc where previously I was setting up a separate ~/.config/nixpkgs/home.nix
-        file.
-      */
-      homeConfigurations.macbook = homeConfig {
-        system = "aarch64-darwin";
-        modules = [
-          {
-            home.homeDirectory = nixpkgs.lib.mkOverride 10 "/Users/josh";
-            home.sessionPath = [
-              "$HOME/.rd/bin"
-            ];
-            programs.ssh.matchBlocks."*".identityFile = [
-              "~/.ssh/josh@fulcradynamics.com.key"
-            ];
-          }
-          hm/work.nix
-          hm/darwin.nix
-          hm/dev-tools.nix
-        ];
-      };
-
-      homeConfigurations.wsl = homeConfig {
-        system = "x86_64-linux";
-        modules = [
-          hm/dev-tools.nix
-        ];
-      };
-
-      # EXPERIMENTAL STUFF
-      build-vm = vmImage {
-        nixosConfiguration = self.nixosConfigurations.ops;
-      };
 
       devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.mkShell {
         packages = with nixpkgs.legacyPackages.x86_64-linux; [
