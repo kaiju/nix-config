@@ -1,8 +1,22 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 {
   # hardware
-  
-  boot.initrd.availableKernelModules = [ "vmd" "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+
+  boot.initrd.availableKernelModules = [
+    "vmd"
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   home-manager.users.josh.imports = [
@@ -16,10 +30,10 @@
   # force use of xe driver instead of i915
   # this breaks jellyfin ffmpeg currently sine it passes i915 in -init_hw_device
   /*
-  boot.kernelParams = [
-    "i915.force_probe=!56a0"
-    "xe.force_probe=56a0"
-  ];
+    boot.kernelParams = [
+      "i915.force_probe=!56a0"
+      "xe.force_probe=56a0"
+    ];
   */
 
   networking.hostName = "arcimedes";
@@ -42,11 +56,11 @@
 
   environment.systemPackages = with pkgs; [
     clinfo
-    intel-media-sdk
+    #intel-media-sdk
     intel-gpu-tools
     libva-utils
     hwinfo
-    ollama
+    #ollama
   ];
 
   services.openssh.enable = true;
@@ -65,6 +79,9 @@
     enable = true;
     openFirewall = true;
   };
-  users.users.jellyfin.extraGroups = [ "render" "video" ];
+  users.users.jellyfin.extraGroups = [
+    "render"
+    "video"
+  ];
 
 }
