@@ -147,28 +147,29 @@
     enable = true;
     retentionTime = "365d";
     extraFlags = [ "--web.enable-remote-write-receiver" ];
+    # TODO- metric relabelling
     scrapeConfigs = [
       {
-        job_name = "ipmi";
+        job_name = "ipmi-exporter";
         static_configs = [
           {
-            targets = [ "192.168.8.3:9290" ];
+            targets = [ "straylight.mast.haus:9290" ];
           }
         ];
       }
       {
-        job_name = "smart";
+        job_name = "smartctl-exporter";
         static_configs = [
           {
-            targets = [ "192.168.8.3:9633" ];
+            targets = [ "straylight.mast.haus:9633" ];
           }
         ];
       }
       {
-        job_name = "zfs";
+        job_name = "zfs-exporter";
         static_configs = [
           {
-            targets = [ "192.168.8.3:9134" ];
+            targets = [ "straylight.mast.haus:9134" ];
           }
         ];
       }
