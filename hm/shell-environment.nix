@@ -49,9 +49,11 @@
 
   programs.git = {
     enable = true;
-    userEmail = "josh@mast.zone";
-    userName = "Josh";
-    extraConfig = {
+    settings = {
+      user = {
+        email = "josh@mast.zone";
+        name = "Josh";
+      };
       init = {
         defaultBranch = "main";
       };
