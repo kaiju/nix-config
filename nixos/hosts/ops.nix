@@ -147,6 +147,32 @@
     enable = true;
     retentionTime = "365d";
     extraFlags = [ "--web.enable-remote-write-receiver" ];
+    scrapeConfigs = [
+      {
+        job_name = "ipmi";
+        static_configs = [
+          {
+            targets = [ "192.168.8.3:9290" ];
+          }
+        ];
+      }
+      {
+        job_name = "smart";
+        static_configs = [
+          {
+            targets = [ "192.168.8.3:9633" ];
+          }
+        ];
+      }
+      {
+        job_name = "zfs";
+        static_configs = [
+          {
+            targets = [ "192.168.8.3:9134" ];
+          }
+        ];
+      }
+    ];
   };
 
   services.loki = {

@@ -4,30 +4,6 @@
   pkgs,
   ...
 }:
-let
-  ipmiExporterConfig = pkgs.writeTextFile {
-    name = "ipmi-exporter-config.yml";
-    text = ''
-      ---
-      modules:
-        default:
-          collector_cmd:
-            bmc: ${pkgs.sudo}/bin/sudo 
-            ipmi: ${pkgs.sudo}/bin/sudo 
-            chassis: ${pkgs.sudo}/bin/sudo 
-            dcmi: ${pkgs.sudo}/bin/sudo 
-          custom_args:
-            bmc:
-              - bmc-info
-            ipmi:
-              - ipmi-sensors
-            chassis:
-              - ipmi-chassis
-            dcmi:
-              - ipmi-dcmi
-    '';
-  };
-in
 {
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -55,46 +31,19 @@ in
       enable = true;
       openFirewall = true;
       user = "root";
-      #configFile = ipmiExporterConfig;
+      group = "root";
     };
   };
 
-  # allow ipmi-user to run ipmi tools
-  security.sudo.extraRules = [
-    {
-      users = [ "ipmi-exporter" ];
-      commands = [
-        {
-          command = "${pkgs.freeipmi}/bin/ipmimonitoring";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.freeipmi}/bin/ipmi-sensors";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.freeipmi}/bin/ipmi-dcmi";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.freeipmi}/bin/ipmi-raw";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.freeipmi}/bin/bmc-info";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.freeipmi}/bin/ipmi-chassis";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.freeipmi}/bin/ipmi-sel";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
+  systemd.services = {
+    "prometheus-ipmi-exporter" = {
+      serviceConfig = {
+        # allow root to use ipmi tools
+        PrivateDevices = false;
+        DeviceAllow = lib.mkForce true;
+      };
+    };
+  };
 
   services.nfs.server = {
     enable = true;
