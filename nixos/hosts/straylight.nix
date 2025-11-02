@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   ipmiExporterConfig = pkgs.writeTextFile {
     name = "ipmi-exporter-config.yml";
@@ -22,7 +27,8 @@ let
               - ipmi-dcmi
     '';
   };
-in {
+in
+{
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
@@ -49,7 +55,7 @@ in {
       enable = true;
       openFirewall = true;
       user = "root";
-      #configFile = ipmiExporterConfig; 
+      #configFile = ipmiExporterConfig;
     };
   };
 
@@ -58,13 +64,34 @@ in {
     {
       users = [ "ipmi-exporter" ];
       commands = [
-        { command = "${pkgs.freeipmi}/bin/ipmimonitoring"; options = [ "NOPASSWD" ]; }
-        { command = "${pkgs.freeipmi}/bin/ipmi-sensors"; options = [ "NOPASSWD" ]; }
-        { command = "${pkgs.freeipmi}/bin/ipmi-dcmi"; options = [ "NOPASSWD" ]; }
-        { command = "${pkgs.freeipmi}/bin/ipmi-raw"; options = [ "NOPASSWD" ]; }
-        { command = "${pkgs.freeipmi}/bin/bmc-info"; options = [ "NOPASSWD" ]; }
-        { command = "${pkgs.freeipmi}/bin/ipmi-chassis"; options = [ "NOPASSWD" ]; }
-        { command = "${pkgs.freeipmi}/bin/ipmi-sel"; options = [ "NOPASSWD" ]; }
+        {
+          command = "${pkgs.freeipmi}/bin/ipmimonitoring";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "${pkgs.freeipmi}/bin/ipmi-sensors";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "${pkgs.freeipmi}/bin/ipmi-dcmi";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "${pkgs.freeipmi}/bin/ipmi-raw";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "${pkgs.freeipmi}/bin/bmc-info";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "${pkgs.freeipmi}/bin/ipmi-chassis";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "${pkgs.freeipmi}/bin/ipmi-sel";
+          options = [ "NOPASSWD" ];
+        }
       ];
     }
   ];
@@ -73,7 +100,10 @@ in {
     enable = true;
   };
   networking.firewall = {
-    allowedTCPPorts = [ 2049 3333 ];
+    allowedTCPPorts = [
+      2049
+      3333
+    ];
   };
   boot.initrd.supportedFilesystems = [ "zfs" ];
   boot.zfs.extraPools = [ "tank" ];
@@ -105,7 +135,7 @@ in {
 
     bridges = {
       mast-network = {
-        interfaces = ["mast-vlan"];
+        interfaces = [ "mast-vlan" ];
       };
     };
 
@@ -113,7 +143,10 @@ in {
       mast-network = {
         useDHCP = false;
         ipv4.addresses = [
-          { address = "192.168.8.3"; prefixLength = 22; }
+          {
+            address = "192.168.8.3";
+            prefixLength = 22;
+          }
         ];
       };
     };
@@ -127,20 +160,16 @@ in {
   security.polkit.enable = true;
   virtualisation.libvirtd = {
     enable = true;
-    allowedBridges = [ "mast-network" "iot-network" ];
+    allowedBridges = [
+      "mast-network"
+      "iot-network"
+    ];
     qemu = {
       package = pkgs.qemu_kvm;
       swtpm.enable = true;
-      ovmf = {
-        enable = true;
-        packages = [(pkgs.OVMF.override {
-          secureBoot = true;
-          tpmSupport = true;
-        }).fd];
-      };
     };
   };
-  
+
   # Prevent default libvirt network from getting created and autostarted
   # https://github.com/NixOS/nixpkgs/issues/73418#issuecomment-883701022
   systemd.services.libvirtd-config.script = lib.mkAfter ''
@@ -159,4 +188,3 @@ in {
   ];
 
 }
-
