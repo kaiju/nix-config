@@ -1,17 +1,23 @@
-{ config, pkgs, lib, osConfig, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}:
 
 {
 
   # not here in future
   /*
-  fonts.fontconfig = {
-    enable = true;
-    defaultFonts = {
-      monospace = ["IBM Plex Mono"];
-      sansSerif = ["DejaVu Sans"];
-      serif = ["DejaVu Serif"];
+    fonts.fontconfig = {
+      enable = true;
+      defaultFonts = {
+        monospace = ["IBM Plex Mono"];
+        sansSerif = ["DejaVu Sans"];
+        serif = ["DejaVu Serif"];
+      };
     };
-  };
   */
 
   programs.chromium.commandLineArgs = [
@@ -185,7 +191,7 @@
         inner = 7;
       };
 
-      bars = [];
+      bars = [ ];
 
       keybindings = lib.mkOptionDefault {
         "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'";
@@ -195,7 +201,7 @@
         "XF86MonBrightnessUp" = "exec ${pkgs.brillo}/bin/brillo -A 5";
         "XF86MonBrightnessDown" = "exec ${pkgs.brillo}/bin/brillo -U 5";
       };
-      
+
       input = {
         #"1:1:AT_Translated_Set_2_keyboard" = {
         "type:keyboard" = {
@@ -210,7 +216,6 @@
       ];
 
     };
-
 
     extraConfig = ''
       for_window [class="^.*"] inhibit_idle fullscreen
@@ -302,7 +307,7 @@
         };
         "network" = {
           format-ethernet = "{ipaddr}";
-          format-wifi = "{essid} {ipaddr}"; 
+          format-wifi = "{essid} {ipaddr}";
         };
         "load" = {
           format = "[ {load1:4} ]";
@@ -316,7 +321,13 @@
         };
         "battery" = {
           format = "{icon}  {capacity}%";
-          format-icons = ["" "" "" "" ""];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
         };
         "pulseaudio" = {
           format = "  {volume}%";

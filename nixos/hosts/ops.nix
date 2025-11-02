@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 {
 
   networking = {
@@ -14,11 +14,22 @@
     interfaces = {
       eth0 = {
         ipv4.addresses = [
-          { address = "192.168.8.4"; prefixLength = 22; }
+          {
+            address = "192.168.8.4";
+            prefixLength = 22;
+          }
         ];
       };
     };
-    firewall.allowedTCPPorts = [ 80 443 3333 3100 9000 9001 9090 ];
+    firewall.allowedTCPPorts = [
+      80
+      443
+      3333
+      3100
+      9000
+      9001
+      9090
+    ];
   };
 
   security.acme = {
@@ -53,23 +64,23 @@
   };
 
   /*
-  services.grafana = {
-    enable = true;
-    settings = {
-      server = {
-        http_port = 3333;
-        http_addr = "0.0.0.0";
+    services.grafana = {
+      enable = true;
+      settings = {
+        server = {
+          http_port = 3333;
+          http_addr = "0.0.0.0";
+        };
+        "auth.anonymous" = {
+            enabled = true;
+            org_role = "Admin";
+        };
       };
-      "auth.anonymous" = {
-          enabled = true;
-          org_role = "Admin";
+      provision = {
+        # datasources.path = "";
+        # dashboards.path = "";
       };
     };
-    provision = {
-      # datasources.path = "";
-      # dashboards.path = "";
-    };
-  };
   */
 
   services.nginx = {
@@ -135,7 +146,7 @@
   services.prometheus = {
     enable = true;
     retentionTime = "365d";
-    extraFlags = [ "--web.enable-remote-write-receiver" ]; 
+    extraFlags = [ "--web.enable-remote-write-receiver" ];
   };
 
   services.loki = {
@@ -171,7 +182,7 @@
             rules_directory = "/var/lib/loki/rules";
           };
         };
-        replication_factor= 1;
+        replication_factor = 1;
         ring = {
           kvstore = {
             store = "inmemory";
@@ -227,7 +238,7 @@
     user = "git";
     settings = {
       server = {
-        DOMAIN = "git.mast.haus"; 
+        DOMAIN = "git.mast.haus";
         ROOT_URL = "https://git.mast.haus/";
       };
       migrations = {
@@ -242,6 +253,39 @@
     enable = true;
     enableGarbageCollect = true;
     enableDelete = true;
+  };
+
+  services.garage = {
+    enable = true;
+    package = pkgs.garage_2;
+    settings = {
+      replication_factor = 1;
+      rpc_secret = "1c080a02dec0f0992c1f39b9497558458f9b36e5050a025077af6c55e81b0b85";
+      rpc_bind_addr = "[::]:3901";
+
+      s3_api = {
+        api_bind_addr = "[::]:3900";
+        s3_region = "garage";
+        root_domain = ".s3.garage";
+      };
+
+      s3_web = {
+        bind_addr = "[::]:3902";
+        root_domain = ".web.garage";
+        index = "index.html";
+      };
+
+      k2v_api = {
+        api_bind_addr = "[::]:3904";
+      };
+
+      admin = {
+        api_bind_addr = "[::]:3903";
+        admin_token = "UyiGgcHYMpCeMcAfln8f05oeOypFSJbwQSj3B0JVjJA=";
+        metrics_token = "tqrlUwLmtJ2lxP43tmcpl6SDH7/ZzVwJUnnIXyazZtU=";
+      };
+
+    };
   };
 
   services.minio = {
