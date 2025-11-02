@@ -45,6 +45,10 @@
     acceptTerms = true;
     certs = {
 
+      "new-grafana.mast.haus" = {
+        group = "nginx";
+      };
+
       "git.mast.haus" = {
         group = "nginx";
       };
@@ -63,25 +67,36 @@
     };
   };
 
-  /*
-    services.grafana = {
-      enable = true;
-      settings = {
-        server = {
-          http_port = 3333;
-          http_addr = "0.0.0.0";
-        };
-        "auth.anonymous" = {
-            enabled = true;
-            org_role = "Admin";
-        };
+  services.grafana = {
+    enable = true;
+    settings = {
+      server = {
+        http_port = 3333;
+        http_addr = "0.0.0.0";
       };
-      provision = {
-        # datasources.path = "";
-        # dashboards.path = "";
+      "auth.anonymous" = {
+        enabled = true;
+        org_role = "Admin";
       };
     };
-  */
+    provision = {
+      enable = true;
+      datasources = {
+        settings.datasources = [
+          {
+            name = "Prometheus";
+            type = "prometheus";
+            url = "http://ops.mast.haus:9090";
+          }
+          {
+            name = "Loki";
+            type = "loki";
+            url = "http://ops.mast.haus:3100";
+          }
+        ];
+      };
+    };
+  };
 
   services.nginx = {
     enable = true;
@@ -90,9 +105,9 @@
     recommendedProxySettings = true;
     virtualHosts = {
 
-      "grafana.mast.haus" = {
-        #forceSSL = true;
-        # useACMEHost = "grafana.mast.haus";
+      "new-grafana.mast.haus" = {
+        forceSSL = true;
+        useACMEHost = "new-grafana.mast.haus";
         locations."/" = {
           proxyPass = "http://localhost:3333";
         };
