@@ -1,5 +1,14 @@
-{ lib, config, pkgs, ... }:
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
+
+  imports = [
+    ./observability.nix
+  ];
 
   nix.gc = {
     automatic = true;
@@ -13,12 +22,6 @@
       settings = {
         PermitRootLogin = "no";
         PasswordAuthentication = lib.mkDefault false;
-      };
-    };
-    prometheus.exporters = {
-      node = {
-        enable = true;
-        openFirewall = true;
       };
     };
   };

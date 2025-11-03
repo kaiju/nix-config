@@ -75,7 +75,6 @@
         hardware = nixos/targets/straylight.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/observability.nix
           ./nixos/modules/user-josh.nix
         ];
       };
@@ -109,7 +108,6 @@
         hardware = ./nixos/targets/oci.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/observability.nix
           ./nixos/modules/user-josh.nix
         ];
       };
@@ -128,7 +126,6 @@
         hardware = ./nixos/targets/sigint.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/observability.nix
         ];
       };
 
@@ -148,7 +145,6 @@
         hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/observability.nix
         ];
       };
 
@@ -158,7 +154,6 @@
         hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/observability.nix
           ./nixos/modules/user-josh.nix
         ];
       };
@@ -169,7 +164,6 @@
         hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/observability.nix
           ./nixos/modules/user-josh.nix
         ];
       };
@@ -181,7 +175,6 @@
         hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/observability.nix
         ];
       };
 
@@ -192,7 +185,6 @@
         hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/observability.nix
           ./nixos/modules/user-josh.nix
         ];
       };
