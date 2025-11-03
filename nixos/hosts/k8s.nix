@@ -27,11 +27,18 @@
     interfaces = {
       eth0.useDHCP = false;
       eth0.ipv4.addresses = [
-        { address = "192.168.8.5"; prefixLength = 22; }
+        {
+          address = "192.168.8.5";
+          prefixLength = 22;
+        }
       ];
     };
     hostName = "k8s";
-    firewall.allowedTCPPorts = [ 80 443 2222 ];
+    firewall.allowedTCPPorts = [
+      80
+      443
+      2222
+    ];
     firewall.trustedInterfaces = [
       "eth0"
       "cni0"
@@ -47,7 +54,7 @@
 
   services.k3s = {
     enable = true;
-    extraFlags = "--disable=traefik --service-node-port-range=1025-32767";
+    extraFlags = "--cluster-init --disable=traefik --service-node-port-range=1025-32767";
   };
 
 }

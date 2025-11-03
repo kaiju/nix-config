@@ -86,11 +86,13 @@
           {
             name = "Prometheus";
             type = "prometheus";
+            uid = "prometheus";
             url = "http://ops.mast.haus:9090";
           }
           {
             name = "Loki";
             type = "loki";
+            uid = "loki";
             url = "http://ops.mast.haus:3100";
           }
         ];
@@ -164,6 +166,27 @@
     extraFlags = [ "--web.enable-remote-write-receiver" ];
     # TODO- metric relabelling
     scrapeConfigs = [
+      {
+        job_name = "nginx-exporter";
+        static_configs = [
+          {
+            targets = [
+              "armitage.mast.zone:9117"
+            ];
+          }
+        ];
+      }
+      {
+        job_name = "node-exporter";
+        static_configs = [
+          {
+            targets = [
+              "router.mast.haus:9100"
+              "sigint.mast.haus:9100"
+            ];
+          }
+        ];
+      }
       {
         job_name = "ipmi-exporter";
         static_configs = [
