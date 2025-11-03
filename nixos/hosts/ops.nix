@@ -165,16 +165,6 @@
     # TODO- metric relabelling
     scrapeConfigs = [
       {
-        job_name = "nginx-exporter";
-        static_configs = [
-          {
-            targets = [
-              "armitage.mast.zone:9117" # we can ship this via alloy
-            ];
-          }
-        ];
-      }
-      {
         job_name = "node-exporter";
         static_configs = [
           {

@@ -124,6 +124,11 @@
   environment.etc."alloy/nginx.alloy" = {
     text = ''
 
+      prometheus.scrape "nginxlog_exporter" {
+        targets = [{"__address__" = "127.0.0.1:9117", "instance" = "armitage"}]
+        forward_to = [prometheus.remote_write.ops.receiver]
+      }
+
       local.file_match "access_logs" {
         path_targets = [{"__path__" = "/var/log/nginx/*.log", "host" = "armitage", "service_name" = "nginx"}]
       }
