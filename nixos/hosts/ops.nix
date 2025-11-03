@@ -86,13 +86,11 @@
           {
             name = "Prometheus";
             type = "prometheus";
-            uid = "prometheus";
             url = "http://ops.mast.haus:9090";
           }
           {
             name = "Loki";
             type = "loki";
-            uid = "loki";
             url = "http://ops.mast.haus:3100";
           }
         ];
@@ -171,7 +169,7 @@
         static_configs = [
           {
             targets = [
-              "armitage.mast.zone:9117"
+              "armitage.mast.zone:9117" # we can ship this via alloy
             ];
           }
         ];
@@ -182,32 +180,8 @@
           {
             targets = [
               "router.mast.haus:9100"
-              "sigint.mast.haus:9100"
+              "sigint.mast.haus:9100" # TODO- get sigint under observability.nix
             ];
-          }
-        ];
-      }
-      {
-        job_name = "ipmi-exporter";
-        static_configs = [
-          {
-            targets = [ "straylight.mast.haus:9290" ];
-          }
-        ];
-      }
-      {
-        job_name = "smartctl-exporter";
-        static_configs = [
-          {
-            targets = [ "straylight.mast.haus:9633" ];
-          }
-        ];
-      }
-      {
-        job_name = "zfs-exporter";
-        static_configs = [
-          {
-            targets = [ "straylight.mast.haus:9134" ];
           }
         ];
       }

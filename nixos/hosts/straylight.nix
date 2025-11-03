@@ -45,6 +45,33 @@
     };
   };
 
+  environment.etc."alloy/ipmi.alloy" = {
+    text = ''
+      prometheus.scrape "ipmi_exporter" {
+          targets = [{"__address__" = "127.0.0.1:9290", "instance" = "straylight"}]
+          forward_to = [prometheus.remote_write.ops.receiver]
+      }
+    '';
+  };
+
+  environment.etc."alloy/zfs.alloy" = {
+    text = ''
+      prometheus.scrape "zfs_exporter" {
+          targets = [{"__address__" = "127.0.0.1:9134", "instance" = "straylight"}]
+          forward_to = [prometheus.remote_write.ops.receiver]
+      }
+    '';
+  };
+
+  environment.etc."alloy/smartctl.alloy" = {
+    text = ''
+      prometheus.scrape "smartctl_exporter" {
+          targets = [{"__address__" = "127.0.0.1:9633", "instance" = "straylight"}]
+          forward_to = [prometheus.remote_write.ops.receiver]
+      }
+    '';
+  };
+
   services.nfs.server = {
     enable = true;
   };
