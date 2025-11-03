@@ -333,7 +333,6 @@
   environment.systemPackages = with pkgs; [
     jekyll
     screen
-    python312
     weechat
   ];
 
