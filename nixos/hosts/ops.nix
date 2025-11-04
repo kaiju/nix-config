@@ -170,7 +170,6 @@
           {
             targets = [
               "router.mast.haus:9100"
-              "sigint.mast.haus:9100" # TODO- get sigint under observability.nix
             ];
           }
         ];
