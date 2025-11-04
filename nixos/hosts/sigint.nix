@@ -22,7 +22,10 @@
       enp2s0 = {
         useDHCP = false;
         ipv4.addresses = [
-          { address = "192.168.8.10"; prefixLength = 21; }
+          {
+            address = "192.168.8.10";
+            prefixLength = 21;
+          }
         ];
       };
     };
@@ -43,15 +46,15 @@
     };
   };
 
-  # TODO -- why is this broken since I switched up how I pull ble-thermometer-scan in?
-  # It's not building the actual package :(
-  # I'm doing the imports wrong somehow :(
   systemd.services.ble-thermometer-scan = {
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" "bluetooth.target" ];
+    after = [
+      "network.target"
+      "bluetooth.target"
+    ];
     description = "BLE Thermometer Scanner";
     path = [
-    	pkgs.bluez
+      pkgs.bluez
     ];
     serviceConfig = {
       Type = "simple";
