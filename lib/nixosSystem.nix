@@ -1,7 +1,18 @@
-/* This function returns a function that will create nixpkgs.lib.nixosSystem configurations in a common
-   pattern */
-{ nixpkgs, home-manager }:
-{ host, system, hardware ? {}, modules ? [] }:
+/*
+  This function returns a function that will create nixpkgs.lib.nixosSystem configurations in a common
+  pattern
+*/
+{
+  nixpkgs,
+  home-manager,
+  configVersion ? "unknown",
+}:
+{
+  host,
+  system,
+  hardware ? { },
+  modules ? [ ],
+}:
 nixpkgs.lib.nixosSystem {
   inherit system;
 
@@ -13,8 +24,10 @@ nixpkgs.lib.nixosSystem {
     implicit behavior!
   */
 
-  /* Pull in our common modules, along with any additional modules specified via
-     the `modules` attribute */
+  /*
+    Pull in our common modules, along with any additional modules specified via
+    the `modules` attribute
+  */
   modules = modules ++ [
     {
       # Set hostname
@@ -22,20 +35,28 @@ nixpkgs.lib.nixosSystem {
 
       # Pull in my overlays
       nixpkgs.overlays = import ./overlays.nix;
+
+      # Write system config version
+      system.extraSystemBuilderCmds = ''
+        echo "${configVersion}" > $out/nixos-system-config-version
+      '';
     }
 
     # Target hardware configuration
     hardware
 
     # Add home-manager w/ our default configuration settings
-    home-manager.nixosModules.home-manager {
+    home-manager.nixosModules.home-manager
+    {
 
-      /* This makes home-manager use the same nixpkgs instance used by the
-         rest of our NixOS configuration. This is particularly helpful since
-         we build our home configuration via the NixOS module and apply it
-         along with the rest of the system via nixos-rebuild. This also prevents
-         some confusion since we only have to apply overlays to a single nixpkgs
-         instance. */
+      /*
+        This makes home-manager use the same nixpkgs instance used by the
+        rest of our NixOS configuration. This is particularly helpful since
+        we build our home configuration via the NixOS module and apply it
+        along with the rest of the system via nixos-rebuild. This also prevents
+        some confusion since we only have to apply overlays to a single nixpkgs
+        instance.
+      */
       home-manager.useGlobalPkgs = true;
 
       home-manager.useUserPackages = true;

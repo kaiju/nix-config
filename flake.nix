@@ -34,9 +34,8 @@
     }:
     let
 
-      nixosSystem = import lib/nixosSystem.nix { inherit nixpkgs home-manager; };
-      homeConfig = import lib/homeConfig.nix { inherit nixpkgs home-manager; };
-      vmImage = import lib/vmImage.nix { inherit nixpkgs self; };
+      configVersion = self.rev or "dirty";
+      nixosSystem = import lib/nixosSystem.nix { inherit nixpkgs home-manager configVersion; };
 
     in
     {
