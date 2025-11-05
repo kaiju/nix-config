@@ -45,7 +45,7 @@
     acceptTerms = true;
     certs = {
 
-      "new-grafana.mast.haus" = {
+      "grafana.mast.haus" = {
         group = "nginx";
       };
 
@@ -105,9 +105,9 @@
     recommendedProxySettings = true;
     virtualHosts = {
 
-      "new-grafana.mast.haus" = {
+      "grafana.mast.haus" = {
         forceSSL = true;
-        useACMEHost = "new-grafana.mast.haus";
+        useACMEHost = "grafana.mast.haus";
         locations."/" = {
           proxyPass = "http://localhost:3333";
         };
