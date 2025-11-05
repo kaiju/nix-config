@@ -52,9 +52,23 @@
     mountPoint = "/var/lib/rancher/k3s/storage";
   };
 
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql;
+    ensureDatabases = [ "postgres" ];
+    authentication = ''
+      local all postgres peer map=superuser_map
+    '';
+    identMap = ''
+      superuser_map root postgres
+      superuser_map postgres postgres
+      superuser_map josh postgres
+    '';
+  };
+
   services.k3s = {
     enable = true;
-    extraFlags = "--cluster-init --disable=traefik --service-node-port-range=1025-32767";
+    extraFlags = "--datastore-endpoint=postgresql://postgres:@/k8s --disable=traefik --service-node-port-range=1025-32767";
   };
 
 }
