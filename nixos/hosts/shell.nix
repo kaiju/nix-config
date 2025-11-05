@@ -19,7 +19,10 @@
       eth0 = {
         useDHCP = false;
         ipv4.addresses = [
-          { address = "192.168.8.15"; prefixLength = 22; }
+          {
+            address = "192.168.8.15";
+            prefixLength = 22;
+          }
         ];
       };
     };
@@ -64,7 +67,6 @@
     ];
   };
 
-
   # Neccessary for samba-wsdd
   networking.firewall.allowedTCPPorts = [ 5357 ];
   networking.firewall.allowedUDPPorts = [ 3702 ];
@@ -73,13 +75,17 @@
     enable = true;
     openFirewall = true;
     settings = {
+
       global = {
         "invalid users" = [ "root" ];
         "passwd program" = "/run/wrapper/bin/passwd %s";
         "security" = "user";
         "min protocol" = "SMB2";
         "ea support" = "yes";
-        "vfs objects" = [ "fruit" "streams_xattr" ];
+        "vfs objects" = [
+          "fruit"
+          "streams_xattr"
+        ];
         "fruit:metadata" = "stream";
         "fruit:model" = "MacSamba";
         "fruit:veto_appledouble" = "no";
@@ -98,8 +104,7 @@
         "read only" = "no";
         "force group" = "mast";
       };
-    };
-    shares = {
+
       shared = {
         comment = "Shared files";
         browseable = "yes";
@@ -118,6 +123,7 @@
         "read list" = "guest nobody";
         "create mask" = 0655;
       };
+
     };
   };
 
