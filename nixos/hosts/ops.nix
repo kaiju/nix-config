@@ -171,6 +171,9 @@
             targets = [
               "router.mast.haus:9100"
             ];
+            labels = {
+              "instance" = "router";
+            };
           }
         ];
       }
