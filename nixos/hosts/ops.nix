@@ -166,6 +166,7 @@
     scrapeConfigs = [
       {
         job_name = "node-exporter";
+        scrape_interval = "15s";
         static_configs = [
           {
             targets = [
