@@ -299,11 +299,16 @@
         trusted_servers = [
           "matrix.org"
         ];
-        well_known_client = "https://matrix.mast.zone";
-        well_known_server = "matrix.mast.zone:443";
+        well_known = {
+          client = "https://matrix.mast.zone";
+          server = "matrix.mast.zone:443";
+        };
       };
     };
   };
+
+  #systemd.services.conduit.environment.well_known_client = "https://matrix.mast.zone";
+  #systemd.services.conduit.environment.well_known_server = "matrix.mast.zone:443";
 
   services.maubot = {
     enable = true;
