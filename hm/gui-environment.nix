@@ -146,7 +146,6 @@
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-wayland;
     profiles.default = {
       isDefault = true;
       settings = {
