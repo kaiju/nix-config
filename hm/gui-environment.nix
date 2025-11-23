@@ -20,7 +20,7 @@
     ibm-plex
     font-awesome
     dejavu_fonts
-    ubuntu_font_family
+    ubuntu-classic
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
