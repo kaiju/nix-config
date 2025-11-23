@@ -34,7 +34,7 @@
     commit-mono
 
     # Apps
-    bitwarden
+    bitwarden-desktop
     vlc
   ];
 
