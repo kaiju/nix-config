@@ -1,4 +1,10 @@
-{ config, pkgs, lib, osConfig, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}:
 {
 
   dconf.settings = {
@@ -9,7 +15,7 @@
     };
   };
 
-  home.packages = with pkgs; [ 
+  home.packages = with pkgs; [
     feh
   ];
 
@@ -22,7 +28,6 @@
 
     windowManager.i3 = {
       enable = true;
-      package = pkgs.i3-gaps;
       config = {
 
         bars = [
