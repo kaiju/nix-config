@@ -37,7 +37,7 @@ nixpkgs.lib.nixosSystem {
       nixpkgs.overlays = import ./overlays.nix;
 
       # Write system config version
-      system.extraSystemBuilderCmds = ''
+      system.systemBuilderCommands = ''
         echo "${configVersion}" > $out/nixos-system-config-version
       '';
     }
