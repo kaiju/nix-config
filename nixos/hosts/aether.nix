@@ -92,6 +92,10 @@
     '';
   };
 
+  home-manager.users.josh.wayland.windowManager.hyprland.settings = {
+    monitor = "eDP-1, 2560x1440@60, 0x0, 1.6";
+  };
+
   home-manager.users.josh.wayland.windowManager.sway.config.output = {
     eDP-1 = {
       scale = "1.6";
