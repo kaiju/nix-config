@@ -5,7 +5,7 @@
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
-      lualine-nvim
+      #lualine-nvim
       nvim-lspconfig
       barbar-nvim
       nvim-cmp
@@ -42,11 +42,11 @@
 
       -- color scheme
       vim.cmd.colorscheme("tokyonight")
-      require('lualine').setup({
-        options = {
-          theme = 'tokyonight'
-        },
-      })
+      --require('lualine').setup({
+      --  options = {
+      --    theme = 'tokyonight'
+      --  },
+      --})
 
       -- gitsigns
       local gitsigns = require('gitsigns')
