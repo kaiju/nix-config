@@ -139,6 +139,12 @@
         rule {
             source_labels = ["filename"]
             target_label = "vhost"
+            regex = `^\/var\/log\/nginx\/access\.log$`
+            replacement = "default"
+        }
+        rule {
+            source_labels = ["filename"]
+            target_label = "vhost"
             regex = `^\/var\/log\/nginx\/(.*)-access\.log$`
         }
       }
