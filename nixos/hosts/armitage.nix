@@ -127,6 +127,7 @@
       prometheus.scrape "nginxlog_exporter" {
         targets = [{"__address__" = "127.0.0.1:9117", "instance" = "armitage"}]
         forward_to = [prometheus.remote_write.ops.receiver]
+        scrape_interval = "15s"
       }
 
       local.file_match "access_logs" {
