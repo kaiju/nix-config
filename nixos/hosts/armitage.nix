@@ -134,9 +134,18 @@
         path_targets = [{"__path__" = "/var/log/nginx/*.log", "host" = "armitage", "service_name" = "nginx"}]
       }
 
+      loki.relabel "vhost" {
+        forward_to = [loki.write.default.receiver]
+        rule {
+            source_labels = ["filename"]
+            target_label = "vhost"
+            regex = `^\/var\/log\/nginx\/(.*)-access\.log$`
+        }
+      }
+
       loki.source.file "nginx" {
         targets = local.file_match.access_logs.targets
-        forward_to = [loki.write.default.receiver]
+        forward_to = [loki.relabel.vhost.receiver]
       }
 
     '';
