@@ -8,18 +8,6 @@
 
 {
 
-  # not here in future
-  /*
-    fonts.fontconfig = {
-      enable = true;
-      defaultFonts = {
-        monospace = ["IBM Plex Mono"];
-        sansSerif = ["DejaVu Sans"];
-        serif = ["DejaVu Serif"];
-      };
-    };
-  */
-
   programs.chromium.commandLineArgs = [
     "--ozone-platform-hint=auto"
   ];
@@ -189,6 +177,8 @@
     enable = true;
     xwayland = true;
     extraSessionCommands = ''
+      export WLR_SCENE_DISABLED_DIRECT_SCANOUT=1
+      export WLR_RENDER_NO_EXPLICIT_SYNC=1
       export MOZ_ENABLE_WAYLAND=1
       export XDG_SESSION_TYPE=wayland
       export XDG_CURRENT_DESKTOP=sway
@@ -207,11 +197,6 @@
       colors = {
         background = "#ffffff";
         focused = {
-          #background = "#285577";
-          #border = "#4c7899";
-          #childBorder = "#285577";
-          #indicator = "#2e9ef4";
-          #text = "#ffffff";
           background = "#${osConfig.mast.colors.black}";
           border = "#${osConfig.mast.colors.black}";
           childBorder = "#${osConfig.mast.colors.black}";
@@ -219,11 +204,6 @@
           text = "#${osConfig.mast.colors.foreground}";
         };
         focusedInactive = {
-          #background = "#222222";
-          #border = "#333333";
-          #childBorder = "#222222";
-          #indicator = "#292d2e";
-          #text = "#888888";
           background = "#${osConfig.mast.colors.background}";
           border = "#${osConfig.mast.colors.background}";
           childBorder = "#${osConfig.mast.colors.background}";
@@ -231,11 +211,6 @@
           text = "#${osConfig.mast.colors.white}";
         };
         unfocused = {
-          #background = "#222222";
-          #border = "#333333";
-          #childBorder = "#222222";
-          #indicator = "#292d2e";
-          #text = "#888888";
           background = "#${osConfig.mast.colors.background}";
           border = "#${osConfig.mast.colors.background}";
           childBorder = "#${osConfig.mast.colors.background}";
@@ -243,11 +218,6 @@
           text = "#${osConfig.mast.colors.white}";
         };
         urgent = {
-          #background = "#900000";
-          #border = "#2f343a";
-          #childBorder = "#900000";
-          #indicator = "#900000";
-          #text = "#ffffff";
           background = "#${osConfig.mast.colors.background}";
           border = "#${osConfig.mast.colors.background}";
           childBorder = "#${osConfig.mast.colors.background}";
@@ -257,7 +227,6 @@
       };
       modifier = "Mod4";
       menu = "${pkgs.tofi}/bin/tofi-drun";
-      #terminal = "${pkgs.alacritty}/bin/alacritty";
       terminal = "${pkgs.foot}/bin/foot";
       gaps = {
         smartBorders = "on";
