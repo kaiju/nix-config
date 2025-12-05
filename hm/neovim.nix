@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.neovim = {
     enable = true;
@@ -75,8 +75,6 @@
         }
       })
 
-      -- TODO- buffer delete on :q?
-      --      buffer ordering
       vim.keymap.set('n', '<C-Tab>', '<cmd>bnext<cr>')
       vim.keymap.set('n', '<C-S-Tab>', '<cmd>bprev<cr>')
 
@@ -110,10 +108,9 @@
       })
 
       -- lsp setup
-      vim.lsp.enable({'ruff', 'pyright'})
+      vim.lsp.enable({'ruff', 'ty'})
       vim.lsp.config('pyright', {
         settings = {
-          -- we could write a bunch of code to set python.pythonPath to venv/ if it exists
           pyright = {
             disableOrganizeImports = true
           }
@@ -134,7 +131,6 @@
       })
 
       -- TODO-
-      --       pyright venv
       --       diagnostics signs
       --       organize imports on save:
       --       vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
