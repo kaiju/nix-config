@@ -33,8 +33,8 @@
       vim.o.expandtab = true
       vim.o.number = true
       vim.o.termguicolors = true
-      vim.o.shiftwidth = 4 
-      vim.o.tabstop = 4 
+      vim.o.shiftwidth = 4
+      vim.o.tabstop = 4
       vim.o.smarttab = true
       vim.o.completeopt = "menu,menuone,noselect"
       vim.o.cursorline = true
@@ -69,14 +69,16 @@
       local barbar = require('barbar')
       barbar.setup({
         auto_hide = 1,
+        insert_at_end = true,
         sidebar_filetypes = {
           NvimTree = true
         }
       })
 
       -- TODO- buffer delete on :q?
+      --      buffer ordering
       vim.keymap.set('n', '<C-Tab>', '<cmd>bnext<cr>')
-      vim.keymap.set('n', '<C-Shift-Tab>', '<cmd>blast<cr>')
+      vim.keymap.set('n', '<C-S-Tab>', '<cmd>bprev<cr>')
 
       -- telescope
       local telescope = require('telescope')
