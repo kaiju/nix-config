@@ -2,7 +2,7 @@
 {
   imports = [
     ../modules/workstation.nix
-    ../modules/user-josh.nix
+    ../modules/users/josh.nix
     ../modules/containers.nix
   ];
   home-manager.users.josh.imports = [

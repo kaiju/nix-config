@@ -3,7 +3,7 @@
   imports = [
     ../modules/bluetooth.nix
     ../modules/sdr.nix
-    ../modules/user-josh.nix
+    ../modules/users/josh.nix
   ];
 
   networking = {

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../modules/user-josh.nix
+    ../modules/users/josh.nix
   ];
 
   boot.kernel.sysctl = {

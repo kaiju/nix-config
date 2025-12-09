@@ -49,7 +49,7 @@
           nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
           nixos/modules/workstation.nix
           nixos/modules/laptop.nix
-          nixos/modules/user-josh.nix
+          nixos/modules/users/josh.nix
         ];
       };
 
@@ -74,7 +74,7 @@
         hardware = nixos/targets/straylight.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/user-josh.nix
+          ./nixos/modules/users/josh.nix
         ];
       };
 
@@ -86,7 +86,7 @@
           nixos-hardware.nixosModules.lenovo-thinkpad-x220
           ./nixos/modules/workstation.nix
           ./nixos/modules/laptop.nix
-          ./nixos/modules/user-josh.nix
+          ./nixos/modules/users/josh.nix
         ];
       };
 
@@ -96,7 +96,7 @@
         system = "x86_64-linux";
         hardware = ./nixos/targets/efi-boot.nix;
         modules = [
-          ./nixos/modules/user-josh.nix
+          ./nixos/modules/users/josh.nix
         ];
       };
 
@@ -107,7 +107,7 @@
         hardware = ./nixos/targets/oci.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/user-josh.nix
+          ./nixos/modules/users/josh.nix
         ];
       };
 
@@ -153,7 +153,7 @@
         hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/user-josh.nix
+          ./nixos/modules/users/josh.nix
         ];
       };
 
@@ -163,7 +163,7 @@
         hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/user-josh.nix
+          ./nixos/modules/users/josh.nix
         ];
       };
 
@@ -184,7 +184,7 @@
         hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
           ./nixos/modules/server.nix
-          ./nixos/modules/user-josh.nix
+          ./nixos/modules/users/josh.nix
         ];
       };
 

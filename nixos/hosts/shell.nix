@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../modules/user-josh.nix
-    ../modules/user-sky.nix
-    ../modules/user-nicholas.nix
+    ../modules/users/josh.nix
+    ../modules/users/sky.nix
+    ../modules/users/nicholas.nix
   ];
 
   networking = {

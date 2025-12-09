@@ -6,7 +6,7 @@
     ../modules/xorg.nix
     ../modules/containers.nix
     ../modules/audio.nix
-    ../modules/user-josh.nix
+    ../modules/users/josh.nix
   ];
 
   home-manager.users.josh.imports = [
@@ -28,7 +28,10 @@
   mast.wallpaper = "${pkgs.mastpkgs.wallpaper}/lucas-k-wQLAGv4_OYs-unsplash.jpg";
 
   # most of this should probably be moved to gui or whatever
-  environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
+  environment.pathsToLink = [
+    "/share/xdg-desktop-portal"
+    "/share/applications"
+  ];
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
 

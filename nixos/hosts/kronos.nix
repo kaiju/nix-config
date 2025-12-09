@@ -1,10 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     ../modules/server.nix
-    ../modules/user-josh.nix
+    ../modules/users/josh.nix
   ];
-  
+
   # ZFS configuration
   boot.initrd.supportedFilesystems = [ "zfs" ];
   boot.zfs.extraPools = [ "tank" ];
@@ -37,11 +42,21 @@
     };
 
     interfaces.internalbr0 = {
-      ipv4.addresses = [ { address = "10.10.10.1"; prefixLength = 24; }];
+      ipv4.addresses = [
+        {
+          address = "10.10.10.1";
+          prefixLength = 24;
+        }
+      ];
     };
 
     interfaces.br0 = {
-      ipv4.addresses = [ { address = "192.168.8.44"; prefixLength = 22; }];
+      ipv4.addresses = [
+        {
+          address = "192.168.8.44";
+          prefixLength = 22;
+        }
+      ];
     };
 
     bridges = {
@@ -53,9 +68,12 @@
 
   # Libvirt
   security.polkit.enable = true; # can't virsh as libvirtd group user w/o this
-  virtualisation.libvirtd = { 
-    enable = true; 
-    allowedBridges = [ "internalbr0" "br0" ];
+  virtualisation.libvirtd = {
+    enable = true;
+    allowedBridges = [
+      "internalbr0"
+      "br0"
+    ];
     qemu.ovmf.enable = true;
   };
   # Prevent default libvirt network from getting created and autostarted
