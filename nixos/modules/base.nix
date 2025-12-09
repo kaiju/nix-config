@@ -3,12 +3,11 @@
 
   This profile is common and applied to all NixOS configurations
 */
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
 
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w" # sublime text
-    #"electron-25.9.0"
     "olm-3.2.16" # nheko
   ];
 

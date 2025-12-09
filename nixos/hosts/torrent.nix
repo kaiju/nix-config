@@ -1,9 +1,10 @@
-{ config, pkgs, ... }:
+{ ... }:
 let
   mullvadEndpoint = "146.70.168.130";
   mullvadPublicKey = "4Lg7yQlukAMp6EX+2Ap+q4O+QIV/OEZyybtFJmN9umw=";
   mullvadIP = "10.65.92.66/32";
-in {
+in
+{
 
   networking = {
     hostName = "torrent";
@@ -23,7 +24,7 @@ in {
         ];
         routes = [
           {
-            address = mullvadEndpoint; 
+            address = mullvadEndpoint;
             prefixLength = 32;
             via = "192.168.8.1";
           }
@@ -41,9 +42,9 @@ in {
         peers = [
           {
             name = "mullvad";
-            allowedIPs = ["0.0.0.0/0"];
+            allowedIPs = [ "0.0.0.0/0" ];
             endpoint = mullvadEndpoint + ":51820";
-            publicKey = mullvadPublicKey; 
+            publicKey = mullvadPublicKey;
           }
         ];
       };
