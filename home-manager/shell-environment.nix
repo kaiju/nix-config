@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
 
@@ -50,10 +50,6 @@
   programs.git = {
     enable = true;
     settings = {
-      user = {
-        email = "josh@mast.zone";
-        name = "Josh";
-      };
       init = {
         defaultBranch = "main";
       };

@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   osConfig,
@@ -264,7 +263,7 @@
       for_window [class="^.*"] inhibit_idle fullscreen
       for_window [app_id="^.*"] inhibit_idle fullscreen
 
-      for_window [app_id="scratch-terminal"] floating enable, resize set width 75 ppt height 30 ppt, border pixel 5 
+      for_window [app_id="scratch-terminal"] floating enable, resize set width 75 ppt height 30 ppt, border pixel 5
     '';
 
   };

@@ -6,8 +6,8 @@
 {
 
   imports = [
-    ./shell-environment.nix
-    ./neovim.nix
+    ../../shell-environment.nix
+    ../../neovim.nix
   ];
 
   home.username = "josh";
@@ -49,6 +49,11 @@
         forwardAgent = true;
       };
     };
+  };
+
+  programs.git.settings.user = {
+    email = "josh@mast.zone";
+    name = "josh";
   };
 
   # Make sure I have all my utils

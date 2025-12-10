@@ -13,13 +13,14 @@
     ../../hm/obsidian.nix
     ../../hm/comms.nix
     ../../hm/sublime-text.nix
-    ../../hm/zed-editor.nix
     ../../hm/visual-studio-code.nix
     ../../hm/gui-environment.nix
     ../../hm/gnupg.nix
     ../../hm/rbw.nix
     ../../hm/xorg.nix
     ../../hm/wayland.nix
+
+    ../../home-manager/zed-editor.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;

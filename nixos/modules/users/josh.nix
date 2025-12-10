@@ -27,7 +27,7 @@
     home.stateVersion = config.system.stateVersion;
 
     imports = [
-      ../../hm/josh.nix
+      ../../../home-manager/users/josh/config.nix
     ];
 
   };
