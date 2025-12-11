@@ -19,7 +19,7 @@
 
   home-manager.users.josh.imports = [
     ../../hm/dev-tools.nix
-    ../../hm/neovim.nix
+    ../../home-manager/neovim.nix
   ];
 
   # host specific config
