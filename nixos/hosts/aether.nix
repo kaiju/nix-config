@@ -18,8 +18,8 @@
     ../../hm/gnupg.nix
     ../../hm/rbw.nix
     ../../hm/xorg.nix
-    ../../hm/wayland.nix
 
+    ../../home-manager/wayland.nix
     ../../home-manager/zed-editor.nix
   ];
 
