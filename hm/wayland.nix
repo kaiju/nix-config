@@ -182,7 +182,7 @@
       export XDG_SESSION_TYPE=wayland
       export XDG_CURRENT_DESKTOP=sway
       export QT_QPA_PLATFORM=wayland
-      export GDK_BACKEND=wayland
+      export GDK_BACKEND=wayland,x11
       export ELECTRON_OZONE_PLATFORM_HINT=wayland
     '';
     wrapperFeatures.gtk = true;
@@ -273,7 +273,7 @@
     systemd.enable = true;
     style = ''
       window {
-        font-size: 11pt;
+        font-size: 10pt;
       }
       window * {
         border: none;
@@ -291,13 +291,14 @@
         margin: 0px;
       }
       #workspaces button.focused {
+        padding: 3px 10px;
         background-color: #${osConfig.mast.colors.black};
-        color: #${osConfig.mast.colors.white};
+        color: #d0d0d0;
       }
       #clock {
-        padding: 3px 5px;
-        margin: 0px 4px;
-        color: #${osConfig.mast.colors.white};
+        padding: 3px 15px;
+        margin: 0px;
+        color: #d0d0d0;
         background-color: #${osConfig.mast.colors.black};
       }
       #tray {
@@ -306,7 +307,14 @@
         color: #fff;
       }
       #tray * {
-        margin: 0px 5px;
+        padding: 3px 15px;
+        margin: 0px;
+      }
+      #mode {
+        padding: 3px 15px;
+        margin: 0px;
+        background-color: #${osConfig.mast.colors.black};
+        color: #ffffff;
       }
       #battery,
       #cpu,
@@ -318,12 +326,14 @@
       #network,
       #pulseaudio,
       #custom-media,
-      #mode,
       #idle_inhibitor,
       #mpd {
         color: #${osConfig.mast.colors.white};
-        padding: 3px 5px;
-        margin: 0px 4px;
+        padding: 3px 15px;
+        margin: 0px;
+        border-style: solid;
+        border-width: 0px 0px 0px 1px;
+        border-color: #${osConfig.mast.colors.black};
       }
     '';
     settings = [
@@ -338,6 +348,7 @@
           "tray"
           #"network"
           "load"
+          "cpu"
           "memory"
           "temperature"
           "battery"
@@ -352,17 +363,20 @@
           format-wifi = "{essid} {ipaddr}";
         };
         "load" = {
-          format = "[ {load1:4} ]";
+          format = " {load1:5}";
+        };
+        "cpu" = {
+          format = " {usage:3}%";
         };
         "memory" = {
-          format = " {percentage}%";
+          format = " {percentage:3}%";
         };
         "temperature" = {
           thermal-zone = 6;
           format = " {temperatureC}°C";
         };
         "battery" = {
-          format = "{icon}  {capacity}%";
+          format = "{icon} {capacity:3}%";
           format-icons = [
             ""
             ""
@@ -372,9 +386,9 @@
           ];
         };
         "pulseaudio" = {
-          format = "  {volume}%";
-          format-bluetooth = " {volume}%";
-          format-muted = "";
+          format = "  {volume:3}%";
+          format-bluetooth = " {volume:3}%";
+          format-muted = "  MUTE";
         };
         "clock" = {
           format = "{:%F %I:%M%p}";
