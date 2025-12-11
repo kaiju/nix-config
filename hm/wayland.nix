@@ -272,47 +272,40 @@
     enable = true;
     systemd.enable = true;
     style = ''
-      window {
-        font-size: 10pt;
-      }
       window * {
         border: none;
         font-family: CommitMonoNerdFont;
         border-radius: 0;
         min-height: 0;
-        color: #${osConfig.mast.colors.foreground};
       }
       window#waybar {
+        font-size: 10pt;
         background: #${osConfig.mast.colors.background};
         color: #${osConfig.mast.colors.foreground};
       }
-      #workspaces button {
-        padding: 3px 5px;
+      label.module {
         margin: 0px;
+        padding: 5px 15px;
+      }
+      #workspaces button {
+        padding: 5px 5px;
       }
       #workspaces button.focused {
-        padding: 3px 10px;
+        padding: 5px 10px;
         background-color: #${osConfig.mast.colors.black};
         color: #d0d0d0;
       }
+      box#tray {
+        padding: 5px 15px;
+      }
       #clock {
-        padding: 3px 15px;
-        margin: 0px;
         color: #d0d0d0;
         background-color: #${osConfig.mast.colors.black};
       }
       #tray {
-        padding: 3px 4px;
-        margin: 0px 0px;
         color: #fff;
       }
-      #tray * {
-        padding: 3px 15px;
-        margin: 0px;
-      }
       #mode {
-        padding: 3px 15px;
-        margin: 0px;
         background-color: #${osConfig.mast.colors.black};
         color: #ffffff;
       }
@@ -329,8 +322,6 @@
       #idle_inhibitor,
       #mpd {
         color: #${osConfig.mast.colors.white};
-        padding: 3px 15px;
-        margin: 0px;
         border-style: solid;
         border-width: 0px 0px 0px 1px;
         border-color: #${osConfig.mast.colors.black};
