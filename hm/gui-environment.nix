@@ -157,24 +157,14 @@
       settings = {
         "browser.ml.enable" = false;
         "browser.compactmode.show" = true;
-        "security.ask_for_password" = 0;
-        "dom.battery.enabled" = false;
-        "extensions.pocket.enabled" = false;
-        "extensions.pocket.showHome" = false;
         "browser.shell.checkDefaultBrowser" = false;
         "apz.gtk.kinetic_scroll.enabled" = false;
-        "gfx.webrender.all" = true;
-        "media.ffpmeg.vaapi.enabled" = true;
-        "media.ffvpx.enabled" = false;
-        "media.rdd-vpx.enabled" = false;
-        "gfx.webrender.compositor.force-enabled" = true;
-        "media.navigator.mediadatadecoder_vpx_enabled" = true;
-        "webgl.force-enabled" = true;
-        "layers.acceleration.force-enabled" = true;
-        "layers.offmainthreadcomposition.enabled" = true;
-        "layers.offmainthreadcomposition.async-animations" = true;
-        "html5.offmainthread" = true;
+        "security.ask_for_password" = 0;
         "signon.rememberSignons" = false;
+
+        #"gfx.webrender.all" = true;
+        #"gfx.webrender.compositor.force-enabled" = true;
+
       };
     };
   };
