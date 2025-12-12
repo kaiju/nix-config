@@ -1,6 +1,10 @@
 { pkgs, config, ... }:
 {
 
+  imports = [
+    ../modules/containers.nix
+  ];
+
   networking = {
     hostName = "ops";
     useDHCP = false;
@@ -278,8 +282,6 @@
       };
     };
   };
-
-  virtualisation.docker.enable = true;
 
   services.dockerRegistry = {
     enable = true;
