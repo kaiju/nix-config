@@ -128,7 +128,10 @@
 
   };
 
-  users.users.josh.extraGroups = [ "libvirtd" ];
+  users.users.josh.extraGroups = [
+    "libvirtd"
+    "incus-admin"
+  ];
   home-manager.users.josh.home.sessionVariables.LIBVIRT_DEFAULT_URI = "qemu:///system";
 
   # libvirt
@@ -152,13 +155,10 @@
   '';
 
   # hey why not
-  # nevermind, incus requires nftables which probably conflicts w/ libvirt
-  /*
-    virtualisation.incus = {
-      enable = true;
-      ui.enable = true;
-    };
-  */
+  virtualisation.incus = {
+    enable = true;
+    ui.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     btop
