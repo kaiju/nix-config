@@ -38,11 +38,13 @@
     xxd
     tmux
     htop
-    ranger
+    btop
     unzip
     p7zip
     wget
     curl
+    jq
+    yq
     git
     file
     lm_sensors
