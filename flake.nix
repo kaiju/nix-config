@@ -205,10 +205,11 @@
               ];
               home.stateVersion = "25.11";
               imports = [
-                hm/josh.nix
-                hm/work.nix
+                home-manager/users/josh/config.nix
+                home-manager/users/josh/work.nix
                 hm/darwin.nix
-                hm/dev-tools.nix
+                home-manager/development.nix
+                home-manager/users/josh/workstation.nix
               ];
             };
           }
