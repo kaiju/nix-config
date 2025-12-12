@@ -6,7 +6,8 @@
     ../modules/containers.nix
   ];
   home-manager.users.josh.imports = [
-    ../../hm/dev-tools.nix
+    ../../home-manager/development.nix
+    ../../home-manager/users/josh/workstation.nix
     ../../hm/gnupg.nix
   ];
 }
