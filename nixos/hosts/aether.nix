@@ -9,7 +9,6 @@
   ];
 
   home-manager.users.josh.imports = [
-    ../../hm/dev-tools.nix
     ../../hm/obsidian.nix
     ../../hm/comms.nix
     ../../hm/sublime-text.nix
@@ -19,6 +18,8 @@
     ../../hm/rbw.nix
     ../../hm/xorg.nix
 
+    ../../home-manager/users/josh/workstation.nix
+    ../../home-manager/development.nix
     ../../home-manager/wayland.nix
     ../../home-manager/zed-editor.nix
   ];

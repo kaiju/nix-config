@@ -1,29 +1,9 @@
 { pkgs, ... }:
-
 {
 
-  programs.yazi = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  home.packages = with pkgs; [
-    bitwarden-cli
-  ];
-
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
   programs.btop.enable = true;
-  programs.htop = {
-    enable = true;
-  };
-
-  programs.tmux = {
-    enable = true;
-  };
+  programs.htop.enable = true;
+  programs.tmux.enable = true;
 
   programs.starship = {
     enable = true;
@@ -45,15 +25,6 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
-  };
-
-  programs.git = {
-    enable = true;
-    settings = {
-      init = {
-        defaultBranch = "main";
-      };
-    };
   };
 
   programs.zsh = {

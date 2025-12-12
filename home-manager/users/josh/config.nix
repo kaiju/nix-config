@@ -56,9 +56,4 @@
     name = "josh";
   };
 
-  # Make sure I have all my utils
-  home.packages = with pkgs.mastpkgs; [
-    bootstrap
-  ];
-
 }

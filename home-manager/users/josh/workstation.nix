@@ -1,23 +1,20 @@
+# Additional things I want on my workstations
 { pkgs, ... }:
 {
 
-  programs.direnv = {
+  programs.yazi = {
     enable = true;
     enableZshIntegration = true;
-    nix-direnv.enable = true;
-    config = {
-      global = {
-        load_dotenv = true;
-        strict_env = true;
-      };
-    };
   };
 
   home.packages = with pkgs; [
-    age # encryption tool
+    bitwarden-cli
+    age
     jq
     yq
-    shellcheck
+    magic-wormhole-rs
+    mastpkgs.mkfatimg
+    mastpkgs.bootstrap
 
     # cloud tools
     awscli2
@@ -32,10 +29,6 @@
     google-cloud-sql-proxy
     oci-cli
 
-    postgresql_15
-
-    magic-wormhole-rs
-    mastpkgs.mkfatimg
     duckdb
   ];
 
