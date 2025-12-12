@@ -7,7 +7,6 @@
 
   networking = {
     hostName = "ops";
-    nftables.enable = true;
     useDHCP = false;
     defaultGateway = {
       address = "192.168.8.1";
