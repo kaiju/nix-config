@@ -151,10 +151,16 @@
     rm /var/lib/libvirt/qemu/networks/default.xml
   '';
 
+  # hey why not
+  # nevermind, incus requires nftables which probably conflicts w/ libvirt
+  /*
+    virtualisation.incus = {
+      enable = true;
+      ui.enable = true;
+    };
+  */
+
   environment.systemPackages = with pkgs; [
-    cloud-hypervisor
-    firecracker
-    firectl
     btop
     dmidecode
     smartmontools
