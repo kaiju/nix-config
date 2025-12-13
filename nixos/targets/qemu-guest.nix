@@ -1,12 +1,14 @@
-{ config, lib, pkgs, modulesPath, ... }:
-let
-in {
+{
+  modulesPath,
+  ...
+}:
+{
 
   imports = [
     "${toString modulesPath}/profiles/qemu-guest.nix"
   ];
 
-  options = {};
+  options = { };
 
   config = {
 
@@ -15,7 +17,7 @@ in {
       fsType = "ext4";
       autoResize = true;
     };
-    
+
     boot.growPartition = true;
     boot.kernelParams = [ "console=ttyS0" ];
     boot.loader.grub.device = "/dev/vda";
@@ -24,23 +26,6 @@ in {
     services.qemuGuest.enable = true;
     systemd.services."serial-getty@ttyS0".enable = true;
 
-    # TODO: write system.build.vm here
-    # Reference existing system.build.vm from virtualisations
-    # system.build.vm = pkgs.runCommand "nixos-vm" {} ''
-    # ''
-
-    system.build.rawimage = import "${toString modulesPath}/../lib/make-disk-image.nix" {
-      inherit lib config pkgs;
-      format = "raw";
-    };
-
-    system.build.qcow2image = import "${toString modulesPath}/../lib/make-disk-image.nix" {
-      inherit lib config pkgs;
-      format = "qcow2";
-      additionalSpace = "100G";
-    };
-
   };
 
 }
-
