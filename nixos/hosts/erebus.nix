@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     ../modules/workstation.nix
@@ -10,4 +10,7 @@
     ../../home-manager/users/josh/workstation.nix
     ../../hm/gnupg.nix
   ];
+
+  # wsl does not care for this
+  networking.nftables.enable = lib.mkForce false;
 }
