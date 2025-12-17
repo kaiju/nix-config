@@ -9,7 +9,7 @@ in
   imports = [
     ../modules/server.nix
     ../modules/users/josh.nix
-  ]
+  ];
 
   networking = {
     hostName = "torrent";
