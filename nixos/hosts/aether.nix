@@ -6,6 +6,8 @@
     ../modules/sdr.nix
     ../modules/containers.nix
     ../modules/audio.nix
+    ../modules/workstation.nix
+    ../modules/users/josh.nix
   ];
 
   home-manager.users.josh.imports = [
@@ -50,29 +52,6 @@
   # is this needed??
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
-
-  # laptop specific i3 status configuration
-  home-manager.users.josh.programs.i3status-rust = {
-    bars.default.blocks = [
-      {
-        block = "backlight";
-        device = "intel_backlight";
-      }
-      {
-        block = "battery";
-        device = "BAT0";
-      }
-      {
-        block = "sound";
-        format = " $icon $output_description{ $volume|} ";
-      }
-      {
-        block = "net";
-        device = "wlp0s20f3";
-        format = " $icon $ssid $ip ";
-      }
-    ];
-  };
 
   # High DPI settings
   services.xserver = {

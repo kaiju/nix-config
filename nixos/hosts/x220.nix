@@ -9,6 +9,8 @@
     ../modules/sdr.nix
     ../modules/containers.nix
     ../modules/audio.nix
+    ../modules/workstation.nix
+    ../modules/users/josh.nix
   ];
 
   home-manager.users.josh.imports = [

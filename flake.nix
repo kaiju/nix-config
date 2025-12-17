@@ -44,12 +44,9 @@
       nixosConfigurations.aether = nixosSystem {
         host = "aether";
         system = "x86_64-linux";
-        hardware = nixos/targets/thinkpad_x1.nix;
         modules = [
           nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
-          nixos/modules/workstation.nix
-          nixos/modules/laptop.nix
-          nixos/modules/users/josh.nix
+          nixos/targets/thinkpad_x1.nix
         ];
       };
 
@@ -71,22 +68,17 @@
       nixosConfigurations.straylight = nixosSystem {
         host = "straylight";
         system = "x86_64-linux";
-        hardware = nixos/targets/straylight.nix;
         modules = [
-          ./nixos/modules/server.nix
-          ./nixos/modules/users/josh.nix
+          nixos/targets/straylight.nix
         ];
       };
 
       nixosConfigurations.x220 = nixosSystem {
         host = "x220";
         system = "x86_64-linux";
-        hardware = ./nixos/targets/thinkpad_x220.nix;
         modules = [
           nixos-hardware.nixosModules.lenovo-thinkpad-x220
-          ./nixos/modules/workstation.nix
-          ./nixos/modules/laptop.nix
-          ./nixos/modules/users/josh.nix
+          nixos/targets/thinkpad_x220.nix
         ];
       };
 
@@ -94,9 +86,8 @@
       nixosConfigurations.arcimedes = nixosSystem {
         host = "arcimedes";
         system = "x86_64-linux";
-        hardware = ./nixos/targets/efi-boot.nix;
         modules = [
-          ./nixos/modules/users/josh.nix
+          nixos/targets/efi-boot.nix
         ];
       };
 
@@ -104,10 +95,8 @@
       nixosConfigurations.armitage = nixosSystem {
         host = "armitage";
         system = "aarch64-linux";
-        hardware = ./nixos/targets/oci.nix;
         modules = [
-          ./nixos/modules/server.nix
-          ./nixos/modules/users/josh.nix
+          nixos/targets/oci.nix
         ];
       };
 
@@ -115,16 +104,17 @@
       nixosConfigurations.garage = nixosSystem {
         host = "garage";
         system = "x86_64-linux";
-        hardware = ./nixos/targets/ugh.nix;
+        modules = [
+          nixos/targets/ugh.nix
+        ];
       };
 
       # sigint -- radio intelligence
       nixosConfigurations.sigint = nixosSystem {
         host = "sigint";
         system = "x86_64-linux";
-        hardware = ./nixos/targets/sigint.nix;
         modules = [
-          ./nixos/modules/server.nix
+          nixos/targets/sigint.nix
         ];
       };
 
@@ -132,7 +122,9 @@
       nixosConfigurations.kronos = nixosSystem {
         host = "kronos";
         system = "x86_64-linux";
-        hardware = ./nixos/targets/efi-boot.nix;
+        modules = [
+          nixos/targets/efi-boot.nix
+        ];
       };
 
       # VMs
@@ -141,29 +133,24 @@
       nixosConfigurations.shell = nixosSystem {
         host = "shell";
         system = "x86_64-linux";
-        hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
-          ./nixos/modules/server.nix
+          nixos/targets/qemu-guest.nix
         ];
       };
 
       nixosConfigurations.torrent = nixosSystem {
         host = "torrent";
         system = "x86_64-linux";
-        hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
-          ./nixos/modules/server.nix
-          ./nixos/modules/users/josh.nix
+          nixos/targets/qemu-guest.nix
         ];
       };
 
       nixosConfigurations.ops = nixosSystem {
         host = "ops";
         system = "x86_64-linux";
-        hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
-          ./nixos/modules/server.nix
-          ./nixos/modules/users/josh.nix
+          nixos/targets/qemu-guest.nix
         ];
       };
 
@@ -173,7 +160,7 @@
         system = "x86_64-linux";
         hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
-          ./nixos/modules/server.nix
+          nixos/targets/qemu-guest.nix
         ];
       };
 
@@ -181,10 +168,10 @@
       nixosConfigurations.artemis = nixosSystem {
         host = "artemis";
         system = "x86_64-linux";
-        hardware = ./nixos/targets/qemu-guest.nix;
         modules = [
-          ./nixos/modules/server.nix
-          ./nixos/modules/users/josh.nix
+          #nixos/targets/qemu-guest.nix
+          #./nixos/modules/incus-image.nix
+          "${nixpkgs}/nixos/modules/virtualisation/lxc-container.nix"
         ];
       };
 

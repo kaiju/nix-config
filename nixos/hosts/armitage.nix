@@ -1,6 +1,11 @@
 { pkgs, ... }:
 {
 
+  imports = [
+    ../modules/server.nix
+    ../modules/users/josh.nix
+  ];
+
   networking = {
     defaultGateway = {
       address = "10.5.5.1";

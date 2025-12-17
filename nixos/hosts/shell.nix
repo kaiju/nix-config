@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ../modules/server.nix
     ../modules/users/josh.nix
     ../modules/users/sky.nix
     ../modules/users/nicholas.nix

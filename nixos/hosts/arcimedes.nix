@@ -4,6 +4,9 @@
   ...
 }:
 {
+  imports = [
+    ../modules/users/josh.nix
+  ];
   # hardware
 
   boot.initrd.availableKernelModules = [
