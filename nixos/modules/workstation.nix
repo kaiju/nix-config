@@ -3,7 +3,7 @@
 
   Common configuration for workstations
 */
-{ config, pkgs, ... }:
+{ ... }:
 {
 
   # NTFS support
