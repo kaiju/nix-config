@@ -8,7 +8,7 @@ in
 
   imports = [
     ../modules/server.nix
-    ../modules/users/josh.nix
+    ../users/josh.nix
   ];
 
   networking = {

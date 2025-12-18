@@ -7,7 +7,7 @@
 
   imports = [
     ../modules/server.nix
-    ../modules/users/josh.nix
+    ../users/josh.nix
   ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

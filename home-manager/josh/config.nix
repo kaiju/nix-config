@@ -2,7 +2,7 @@
   Common home configuration for Josh across all hosts.
   This gets included in both nixosSystem & homeManagerConfiguration contexts.
 */
-{ lib, pkgs, ... }:
+{ lib, ... }:
 {
 
   imports = [

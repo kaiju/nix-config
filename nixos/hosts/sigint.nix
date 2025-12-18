@@ -4,7 +4,7 @@
     ../modules/server.nix
     ../modules/bluetooth.nix
     ../modules/sdr.nix
-    ../modules/users/josh.nix
+    ../users/josh.nix
   ];
 
   networking = {

@@ -3,7 +3,7 @@
 
   imports = [
     ../modules/server.nix
-    ../modules/users/josh.nix
+    ../users/josh.nix
   ];
 
   environment.systemPackages = with pkgs; [

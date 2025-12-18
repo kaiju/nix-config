@@ -5,7 +5,7 @@
 }:
 {
   imports = [
-    ../modules/users/josh.nix
+    ../users/josh.nix
   ];
   # hardware
 

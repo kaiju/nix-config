@@ -3,7 +3,8 @@
 
   imports = [
     ../modules/server.nix
-    ../modules/users/josh.nix
+    ../users/josh.nix
+    ../users/kobek.nix
   ];
 
   networking = {
@@ -367,15 +368,7 @@
   };
 
   users.users.josh.extraGroups = [ "whylb" ];
-
-  users.users.kobek = {
-    isNormalUser = true;
-    extraGroups = [
-      "users"
-      "whylb"
-    ];
-    shell = pkgs.bash;
-  };
+  users.users.kobek.extraGroups = [ "whylb" ];
 
   systemd.tmpfiles.rules = [
     "d /opt/whylb 2775 josh whylb -"

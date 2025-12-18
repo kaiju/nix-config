@@ -4,7 +4,7 @@
   imports = [
     ../modules/server.nix
     ../modules/containers.nix
-    ../modules/users/josh.nix
+    ../users/josh.nix
   ];
 
   networking = {

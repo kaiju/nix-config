@@ -2,9 +2,9 @@
 {
   imports = [
     ../modules/server.nix
-    ../modules/users/josh.nix
-    ../modules/users/sky.nix
-    ../modules/users/nicholas.nix
+    ../users/josh.nix
+    ../users/sky.nix
+    ../users/nicholas.nix
   ];
 
   networking = {

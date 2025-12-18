@@ -6,7 +6,7 @@
     ../modules/xorg.nix
     ../modules/containers.nix
     ../modules/audio.nix
-    ../modules/users/josh.nix
+    ../users/josh.nix
   ];
 
   home-manager.users.josh.imports = [

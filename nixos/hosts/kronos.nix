@@ -6,7 +6,7 @@
 {
   imports = [
     ../modules/server.nix
-    ../modules/users/josh.nix
+    ../users/josh.nix
   ];
 
   # ZFS configuration

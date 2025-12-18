@@ -7,20 +7,18 @@
     ../modules/containers.nix
     ../modules/audio.nix
     ../modules/workstation.nix
-    ../modules/users/josh.nix
+    ../users/josh.nix
   ];
 
   home-manager.users.josh.imports = [
     ../../hm/obsidian.nix
     ../../hm/comms.nix
-    ../../hm/sublime-text.nix
-    ../../hm/visual-studio-code.nix
     ../../hm/gui-environment.nix
     ../../hm/gnupg.nix
     ../../hm/rbw.nix
     ../../hm/xorg.nix
 
-    ../../home-manager/users/josh/workstation.nix
+    ../../home-manager/josh/workstation.nix
     ../../home-manager/development.nix
     ../../home-manager/wayland.nix
     ../../home-manager/zed-editor.nix
