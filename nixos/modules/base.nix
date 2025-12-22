@@ -6,6 +6,10 @@
 { pkgs, ... }:
 {
 
+  image.modules = {
+    lxc-incus = ./lxc-incus.nix;
+  };
+
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w" # sublime text
     "olm-3.2.16" # nheko

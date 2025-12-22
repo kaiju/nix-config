@@ -171,8 +171,13 @@
         modules = [
           #nixos/targets/qemu-guest.nix
           #./nixos/modules/incus-image.nix
-          "${nixpkgs}/nixos/modules/virtualisation/lxc-container.nix"
+          #"${nixpkgs}/nixos/modules/virtualisation/lxc-container.nix"
         ];
+      };
+
+      nixosConfigurations.lxc-guest = nixosSystem {
+        host = "lxc-guest";
+        system = "x86_64-linux";
       };
 
       # Giving nix-darwin a shot
