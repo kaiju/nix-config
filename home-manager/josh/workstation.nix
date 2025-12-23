@@ -29,7 +29,8 @@
     google-cloud-sql-proxy
     oci-cli
 
-    duckdb
+    # duckdb via nix is a suckers game
+    #duckdb
   ];
 
 }
