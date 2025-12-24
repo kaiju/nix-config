@@ -6,8 +6,8 @@
 {
 
   imports = [
-    ../../shell-environment.nix
-    ../../neovim.nix
+    ../shell-environment.nix
+    ../neovim.nix
   ];
 
   home.username = "josh";
