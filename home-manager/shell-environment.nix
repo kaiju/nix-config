@@ -38,6 +38,23 @@
 
     initContent = ''
 
+      function set_title() {
+        echo -ne "\x1B]2;"
+        if [[ -n $SSH_CLIENT ]]; then
+          echo -ne "$(hostname)"
+        else
+          echo -ne "term"
+        fi
+        echo -ne " > $(dirs)"
+        if [[ -n $1 ]]; then
+          echo -ne " > $1"
+        fi
+        echo -ne "\x1B\\"
+      }
+
+      preexec_functions+=(set_title)
+      precmd_functions+=(set_title)
+
       # FUCK you
       setopt no_prompt_cr
 

@@ -245,7 +245,6 @@
       };
 
       input = {
-        #"1:1:AT_Translated_Set_2_keyboard" = {
         "type:keyboard" = {
           xkb_options = "ctrl:nocaps";
         };
@@ -262,8 +261,8 @@
     extraConfig = ''
       for_window [class="^.*"] inhibit_idle fullscreen
       for_window [app_id="^.*"] inhibit_idle fullscreen
-
-      for_window [app_id="scratch-terminal"] floating enable, resize set width 75 ppt height 30 ppt, border pixel 5
+      for_window [app_id="scratch-terminal"] floating enable, resize set width 75 ppt height 30 ppt, border pixel 5, move container to scratchpad
+      workspace 1
     '';
 
   };
@@ -309,6 +308,10 @@
         background-color: #${osConfig.mast.colors.black};
         color: #ffffff;
       }
+      #window {
+        padding: 5px 10px;
+        background-image: linear-gradient(to right, #${osConfig.mast.colors.black}, #${osConfig.mast.colors.background});
+      }
       #battery,
       #cpu,
       #memory,
@@ -333,6 +336,7 @@
         position = "top";
         modules-left = [
           "sway/workspaces"
+          "sway/window"
           "sway/mode"
         ];
         modules-right = [
@@ -348,6 +352,9 @@
         ];
         "sway/workspaces" = {
           format = "{name}";
+        };
+        "sway/window" = {
+          format = "> {title}";
         };
         "network" = {
           format-ethernet = "{ipaddr}";
