@@ -21,7 +21,6 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   home-manager.users.josh.imports = [
-    ../../hm/dev-tools.nix
     ../../home-manager/neovim.nix
   ];
 
