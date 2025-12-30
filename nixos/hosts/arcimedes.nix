@@ -6,6 +6,7 @@
 {
   imports = [
     ../users/josh.nix
+    ../modules/containers.nix
   ];
   # hardware
 
@@ -37,21 +38,14 @@
   */
 
   networking.hostName = "arcimedes";
+  networking.firewall.trustedInterfaces = [ "enp9s0" ];
 
   hardware.graphics.enable = true;
   hardware.graphics.extraPackages = with pkgs; [
     vpl-gpu-rt
     intel-media-driver # neccessary for jellyfin
     intel-compute-runtime # needed to make gpu show up in clinfo
-    intel-ocl # needed to make cpu show up in clinfo
-
-    # probably don't need to be here
-    #vaapiIntel
-    #vaapiVdpau
-    #libvdpau-va-gl
-    #intel-media-sdk
-    #intel-gpu-tools
-
+    #intel-ocl # needed to make cpu show up in clinfo
   ];
 
   environment.systemPackages = with pkgs; [
@@ -71,9 +65,6 @@
       fsType = "nfs";
     };
   };
-
-  virtualisation.podman.enable = true;
-  virtualisation.docker.enable = true;
 
   services.jellyfin = {
     enable = true;
