@@ -15,6 +15,7 @@ in
 {
   wallpaper = pkgs.callPackage ./wallpaper { };
   bootstrap = pkgs.callPackage ./bootstrap { };
+  plate = pkgs.callPackage ./plate { };
   ble-thermometer-scan = ble-thermometer-scan;
   mkfatimg = pkgs.callPackage mkfatimg { };
 }

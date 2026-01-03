@@ -1,5 +1,5 @@
 # Development tools
-{ ... }:
+{ pkgs, ... }:
 {
 
   programs.direnv = {
@@ -22,5 +22,9 @@
       };
     };
   };
+
+  home.packages = [
+    pkgs.mastpkgs.plate
+  ];
 
 }
