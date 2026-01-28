@@ -25,7 +25,7 @@
 
       tokyonight-nvim
     ];
-    extraLuaConfig = ''
+    initLua = ''
       -- options
       vim.o.autoindent = true
       vim.o.autoread = true
