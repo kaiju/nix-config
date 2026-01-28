@@ -5,6 +5,7 @@
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
+      plenary-nvim
       lualine-nvim
       nvim-lspconfig
       barbar-nvim
