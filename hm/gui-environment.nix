@@ -7,9 +7,9 @@
 {
 
   home.packages = with pkgs; [
-    xorg.xbacklight
+    xbacklight
     ncpamixer
-    xorg.xrdb
+    xrdb
     xdg-utils
     screenfetch
 

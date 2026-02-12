@@ -21,7 +21,7 @@
   xsession = {
     enable = true;
     initExtra = ''
-      ${pkgs.xorg.setxkbmap}/bin/setxkbmap -option 'ctrl:nocaps'
+      ${pkgs.setxkbmap}/bin/setxkbmap -option 'ctrl:nocaps'
       ${pkgs.feh}/bin/feh --bg-fill ${osConfig.mast.wallpaper}
     '';
 
