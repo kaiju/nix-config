@@ -5,6 +5,7 @@
     ../modules/server.nix
     ../users/josh.nix
     ../users/kobek.nix
+    ../users/sky.nix
   ];
 
   networking = {
