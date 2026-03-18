@@ -69,6 +69,19 @@
           };
         }
         {
+          name = "tnrva";
+          metrics_override = {
+            prefix = "nginx";
+          };
+          namespace_label = "vhost";
+          format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
+          source = {
+            files = [
+              "/var/log/nginx/tnrva-access.log"
+            ];
+          };
+        }
+        {
           name = "conduit";
           metrics_override = {
             prefix = "nginx";
@@ -180,6 +193,9 @@
       "matrix.mast.zone" = { };
       "gts.mast.zone" = { };
       "mast.consulting" = { };
+      "tnrva.org" = {
+        extraDomainNames = [ "www.tnrva.org" ];
+      };
     };
   };
 
@@ -254,6 +270,15 @@
         enableACME = true;
         forceSSL = true;
         root = "/opt/websites/kaiju.net";
+      };
+      "tnrva.org" = {
+        enableACME = true;
+        serverAliases = [ "www.tnrva.org" ];
+        forceSSL = true;
+        root = "/opt/websites/tnrva.org";
+        extraConfig = ''
+          access_log /var/log/nginx/tnrva-access.log combined;
+        '';
       };
       "gts.mast.zone" = {
         enableACME = true;
