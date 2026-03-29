@@ -21,6 +21,7 @@
         defaultBranch = "main";
       };
     };
+    signing.format = null;
   };
 
   home.packages = [
