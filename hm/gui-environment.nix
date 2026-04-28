@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }:
 
@@ -153,6 +154,7 @@
 
   programs.firefox = {
     enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     profiles.default = {
       isDefault = true;
       settings = {
@@ -162,10 +164,6 @@
         "apz.gtk.kinetic_scroll.enabled" = false;
         "security.ask_for_password" = 0;
         "signon.rememberSignons" = false;
-
-        #"gfx.webrender.all" = true;
-        #"gfx.webrender.compositor.force-enabled" = true;
-
       };
     };
   };
