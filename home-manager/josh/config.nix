@@ -19,9 +19,9 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
+    settings = {
       "*" = {
-        identityFile = [
+        identityFile = lib.mkDefault [
           "~/.ssh/josh@mast.zone.key"
         ];
         forwardAgent = false;
@@ -48,6 +48,7 @@
         hostname = "sigint.mast.haus";
         forwardAgent = true;
       };
+
     };
   };
 

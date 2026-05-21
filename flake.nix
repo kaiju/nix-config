@@ -185,6 +185,7 @@
         modules = [
           home-manager.darwinModules.home-manager
           {
+
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
@@ -192,7 +193,7 @@
               home.sessionPath = [
                 "$HOME/.rd/bin"
               ];
-              programs.ssh.matchBlocks."*".identityFile = [
+              programs.ssh.settings."*".identityFile = [
                 "~/.ssh/josh@fulcradynamics.com.key"
               ];
               home.stateVersion = "25.11";
@@ -207,6 +208,7 @@
           }
 
           {
+            nixpkgs.config.allowUnfree = true;
             nixpkgs.hostPlatform = "aarch64-darwin";
             nixpkgs.overlays = import ./lib/overlays.nix;
             system.stateVersion = 6;
