@@ -176,8 +176,8 @@
     enable = true;
     xwayland = true;
     extraSessionCommands = ''
-      export WLR_SCENE_DISABLED_DIRECT_SCANOUT=1
-      export WLR_RENDER_NO_EXPLICIT_SYNC=1
+      #export WLR_SCENE_DISABLED_DIRECT_SCANOUT=1
+      #export WLR_RENDER_NO_EXPLICIT_SYNC=1
       export MOZ_ENABLE_WAYLAND=1
       export XDG_SESSION_TYPE=wayland
       export XDG_CURRENT_DESKTOP=sway
