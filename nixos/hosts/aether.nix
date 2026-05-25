@@ -11,13 +11,11 @@
   ];
 
   home-manager.users.josh.imports = [
-    ../../hm/obsidian.nix
-    ../../hm/comms.nix
-    ../../hm/gui-environment.nix
-    ../../hm/gnupg.nix
-    ../../hm/rbw.nix
-    ../../hm/xorg.nix
-
+    ../../home-manager/comms.nix
+    ../../home-manager/gnupg.nix
+    ../../home-manager/xorg.nix
+    ../../home-manager/gui-environment.nix
+    ../../home-manager/obsidian.nix
     ../../home-manager/josh/workstation.nix
     ../../home-manager/development.nix
     ../../home-manager/wayland.nix

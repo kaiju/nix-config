@@ -200,7 +200,7 @@
               imports = [
                 home-manager/josh/config.nix
                 home-manager/josh/work.nix
-                hm/darwin.nix
+                home-manager/darwin.nix
                 home-manager/development.nix
                 home-manager/josh/workstation.nix
               ];
