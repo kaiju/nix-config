@@ -14,7 +14,7 @@ some of the speedbumps I've hit along with what I've learned via comments.
 - `nixos/targets`: NixOS hardware/platform target configs
 - `nixos/hosts`: Host-specific NixOS configuration
 - `nixos/modules`: Common NixOS configuration modules
-- `hm/`: Home Manager modules
+- `home-manager/`: Home Manager modules
 
 ## Building NixOS Systems
 
