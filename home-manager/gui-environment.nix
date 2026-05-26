@@ -26,23 +26,18 @@
     inconsolata
     cantarell-fonts
 
-    #nerdfonts
     nerd-fonts.commit-mono
     nerd-fonts.blex-mono
     nerd-fonts.iosevka
     commit-mono
 
     # Apps
-    bitwarden-desktop
     vlc
+    gedit
+    dconf-editor
+    nemo # file manager
+    seahorse # keyring interface
   ];
-
-  #services.gnome-keyring.enable = true;
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-    };
-  };
 
   gtk = {
     enable = true;
@@ -58,17 +53,9 @@
       package = pkgs.adwaita-icon-theme;
       name = "Adwaita";
     };
+    colorScheme = "dark";
     gtk4.theme = null;
-    /*
-      gtk2.extraConfig = ''
-      '';
-      gtk3.extraConfig = {
-        gtk-application-prefer-dark-theme = true;
-      };
-      gtk4.extraConfig = {
-        gtk-application-prefer-dark-theme = true;
-      };
-    */
+    gtk3.theme = null;
   };
 
   qt = {
@@ -83,12 +70,12 @@
       enable = true;
       config.common.default = [
         "gtk"
-        "wlr"
+        "luminous"
       ];
       xdgOpenUsePortal = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk
+        xdg-desktop-portal-luminous
       ];
     };
 
@@ -139,18 +126,6 @@
   };
 
   programs.chromium.enable = true;
-
-  /*
-    programs.floorp = {
-      enable = true;
-    };
-  */
-
-  /*
-    programs.librewolf = {
-      enable = true;
-    };
-  */
 
   programs.firefox = {
     enable = true;
