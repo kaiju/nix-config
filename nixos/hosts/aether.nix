@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
   imports = [
-    ../modules/bluetooth.nix
     ../modules/xorg.nix
+    ../modules/bluetooth.nix
     ../modules/sdr.nix
     ../modules/containers.nix
     ../modules/audio.nix
@@ -13,7 +13,6 @@
   home-manager.users.josh.imports = [
     ../../home-manager/comms.nix
     ../../home-manager/gnupg.nix
-    ../../home-manager/xorg.nix
     ../../home-manager/gui-environment.nix
     ../../home-manager/obsidian.nix
     ../../home-manager/josh/workstation.nix

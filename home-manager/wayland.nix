@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   osConfig,
@@ -113,7 +114,7 @@
     '';
     wrapperFeatures.gtk = true;
     config = {
-      defaultWorkspace = "1";
+      defaultWorkspace = "workspace number 1";
       fonts = {
         names = [ "CommitMonoNerdFont" ];
         style = "Regular";
@@ -161,14 +162,19 @@
 
       bars = [ ];
 
-      keybindings = lib.mkOptionDefault {
-        "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'";
-        "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'";
-        "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-        "XF86AudioMicMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-        "XF86MonBrightnessUp" = "exec ${pkgs.brillo}/bin/brillo -A 5";
-        "XF86MonBrightnessDown" = "exec ${pkgs.brillo}/bin/brillo -U 5";
-      };
+      keybindings =
+        let
+          modifier = config.wayland.windowManager.sway.config.modifier;
+        in
+        lib.mkOptionDefault {
+          "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'";
+          "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'";
+          "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "XF86AudioMicMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+          "XF86MonBrightnessUp" = "exec ${pkgs.brillo}/bin/brillo -A 5";
+          "XF86MonBrightnessDown" = "exec ${pkgs.brillo}/bin/brillo -U 5";
+          "${modifier}+Shift+Return" = "exec ${pkgs.foot}/bin/foot -a float-terminal";
+        };
 
       input = {
         "type:keyboard" = {
@@ -187,9 +193,7 @@
     extraConfig = ''
       for_window [class="^.*"] inhibit_idle fullscreen
       for_window [app_id="^.*"] inhibit_idle fullscreen
-      for_window [app_id="scratch-terminal"] floating enable, resize set 75 ppt 30 ppt, border pixel 5, move absolute position center, move container to scratchpad
-      for_window [app_id="mpv"] floating enable, resize set 50 ppt 50 ppt, move absolute position center
-      workspace 1
+      for_window [app_id="float-terminal"] floating enable, resize set 50 ppt 50 ppt, move absolute position center
     '';
 
   };

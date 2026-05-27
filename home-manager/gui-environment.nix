@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   config,
   ...
 }:
@@ -115,16 +114,6 @@
 
   };
 
-  programs.rofi = {
-    enable = true;
-    font = "Blex Mono Nerd Font 10";
-    terminal = "${pkgs.alacritty}/bin/alacritty";
-    theme = "Monokai";
-    extraConfig = {
-      combi-modi = "drun,window,ssh";
-    };
-  };
-
   programs.chromium.enable = true;
 
   programs.firefox = {
@@ -149,73 +138,6 @@
     longitude = "-77.475";
     provider = "manual";
     temperature.night = 2700;
-  };
-
-  programs.urxvt = {
-    enable = true;
-    extraConfig = {
-      depth = "32";
-      fading = "30";
-      internalBorder = "14";
-      background = "[90]#1d1f21";
-      perl-ext-common = "url-select,clipboard";
-      "keysym.C-c" = "perl:clipboard:copy";
-      "keysym.C-v" = "perl:clipboard:paste";
-    };
-    fonts = [
-      "xft:Iosevka:size=14"
-    ];
-    scroll.bar.enable = false;
-  };
-
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      env = {
-        "TERM" = "xterm-256color";
-        "WINIT_X11_SCALE_FACTOR" = lib.mkDefault "1";
-      };
-      window = {
-        opacity = 1.0;
-        padding = {
-          x = 10;
-          y = 10;
-        };
-      };
-      font = {
-        size = 11.0;
-        normal = {
-          family = "Iosevka Nerd Font";
-        };
-      };
-      # tokyo night
-      colors = {
-        primary = {
-          foreground = "0xa9b1d6";
-          background = "0x1a1b26";
-        };
-        normal = {
-          black = "0x32344a";
-          red = "0xf7768e";
-          green = "0x9ece6a";
-          yellow = "0xe0af68";
-          blue = "0x7aa2f7";
-          magenta = "0xad8ee6";
-          cyan = "0x449dab";
-          white = "0x787c99";
-        };
-        bright = {
-          black = "0x444b6a";
-          red = "0xff7a93";
-          green = "0xb9f27c";
-          yellow = "0xff9e64";
-          blue = "0x7da6ff";
-          magenta = "0xbb9af7";
-          cyan = "0x0db9d7";
-          white = "0xacb0d0";
-        };
-      };
-    };
   };
 
   xresources.path = ".Xdefaults";
@@ -264,38 +186,6 @@
     *color15:      base07
   '';
 
-  /*
-    xresources.properties = {
-      "*foreground" = "#c5c8c6";
-      "*background" = "#1d1f21";
-      "*cursorColor" = "#c5c8c6";
-      # black
-      "*color0" = "#1d1f21";
-      "*color8" = "#666666";
-      # red
-      "*color1" = "#cc6666";
-      "*color9" = "#d54e53";
-      # green
-      "*color2" = "#b5bd68";
-      "*color10" = "#b9ca4a";
-      # yellow
-      "*color3" = "#f0c674";
-      "*color11" = "#e7c547";
-      # blue
-      "*color4" = "#81a2be";
-      "*color12" = "#7aa6da";
-      # magenta
-      "*color5" = "#b294bb";
-      "*color13" = "#c397d8";
-      # cyan
-      "*color6" = "#8abeb7";
-      "*color14" = "#70c0b1";
-      # white
-      "*color7" = "#c5c8c6";
-      "*color15" = "#eaeaea";
-    };
-  */
-
   programs.mpv = {
     enable = true;
     scripts = with pkgs.mpvScripts; [
@@ -308,16 +198,6 @@
       osd-font = "CommitMono Nerd Font";
       osd-font-size = 16;
     };
-  };
-
-  programs.kitty = {
-    enable = true;
-    enableGitIntegration = true;
-    font = {
-      name = "CommitMonoNerdFont";
-      size = 10;
-    };
-    shellIntegration.enableZshIntegration = true;
   };
 
 }
