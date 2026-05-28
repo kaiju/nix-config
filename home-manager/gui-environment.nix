@@ -121,6 +121,18 @@
 
   };
 
+  services = {
+    flameshot = {
+      enable = true;
+      settings = {
+        General = {
+          showHelp = false;
+          savePath = "/home/josh";
+        };
+      };
+    };
+  };
+
   programs.chromium.enable = true;
 
   programs.firefox = {
