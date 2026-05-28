@@ -20,4 +20,6 @@
 
   programs.nix-ld.enable = true;
 
+  services.gvfs.enable = true;
+
 }

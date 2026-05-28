@@ -27,29 +27,11 @@
 
   mast.wallpaper = "${pkgs.mastpkgs.wallpaper}/lenovo-1.jpg";
 
-  programs.udevil.enable = true;
-
-  services.gvfs.enable = true;
-
-  services.greetd = {
-    enable = true;
-    settings.default_session = {
-      command = "${pkgs.cage}/bin/cage -s -d -- ${pkgs.foot}/bin/foot -f monospace:size=25 ${pkgs.tuigreet}/bin/tuigreet -s ${pkgs.sway}/share/wayland-sessions -t -r";
-    };
-  };
-
   # Neccessary for Home Manager w/ useUserPackages
   environment.pathsToLink = [
     "/share/xdg-desktop-portal"
     "/share/applications"
   ];
-
-  # Is this neccessary w/ HM sway.xwayland = true?
-  programs.xwayland.enable = true;
-
-  # Move these into a common module
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.login.enableGnomeKeyring = true;
 
   # High DPI settings
   services.xserver = {
@@ -93,15 +75,6 @@
     "*.dpi" = "210";
     "*dpi" = "210";
   };
-
-  /*
-    home-manager.users.josh.home.pointerCursor = {
-      package = pkgs.vanilla-dmz;
-      name = "Vanilla-DMZ";
-      size = 64;
-      x11.enable = true;
-    };
-  */
 
   home-manager.users.josh.programs.alacritty.settings.env = {
     "WINIT_X11_SCALE_FACTOR" = "2.3";
