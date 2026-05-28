@@ -188,7 +188,7 @@
 
       startup = [
         {
-          command = "${pkgs.foot}/bin/foot -a scratch-terminal";
+          command = "${pkgs.foot}/bin/foot";
         }
       ];
 
