@@ -1,12 +1,14 @@
 { pkgs, ... }:
 {
   imports = [
+    ../modules/laptop.nix
+    ../modules/workstation.nix
+    ../modules/gui.nix
     ../modules/xorg.nix
     ../modules/bluetooth.nix
     ../modules/sdr.nix
     ../modules/containers.nix
     ../modules/audio.nix
-    ../modules/workstation.nix
     ../users/josh.nix
   ];
 
@@ -36,15 +38,16 @@
     };
   };
 
-  # hmm xdg tweaking
+  # Neccessary for Home Manager w/ useUserPackages
   environment.pathsToLink = [
     "/share/xdg-desktop-portal"
     "/share/applications"
   ];
 
+  # Is this neccessary w/ HM sway.xwayland = true?
   programs.xwayland.enable = true;
 
-  # is this needed??
+  # Move these into a common module
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
 
@@ -91,12 +94,14 @@
     "*dpi" = "210";
   };
 
-  home-manager.users.josh.home.pointerCursor = {
-    package = pkgs.vanilla-dmz;
-    name = "Vanilla-DMZ";
-    size = 64;
-    x11.enable = true;
-  };
+  /*
+    home-manager.users.josh.home.pointerCursor = {
+      package = pkgs.vanilla-dmz;
+      name = "Vanilla-DMZ";
+      size = 64;
+      x11.enable = true;
+    };
+  */
 
   home-manager.users.josh.programs.alacritty.settings.env = {
     "WINIT_X11_SCALE_FACTOR" = "2.3";

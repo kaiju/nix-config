@@ -6,6 +6,10 @@
 }:
 {
 
+  home.pointerCursor = {
+    x11.enable = true;
+  };
+
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {
       xkb-options = [

@@ -8,6 +8,10 @@
 
 {
 
+  home.pointerCursor = {
+    sway.enable = true;
+  };
+
   programs.chromium.commandLineArgs = [
     "--ozone-platform-hint=auto"
   ];
