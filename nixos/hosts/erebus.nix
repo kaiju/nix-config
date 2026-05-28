@@ -8,7 +8,7 @@
   home-manager.users.josh.imports = [
     ../../home-manager/development.nix
     ../../home-manager/josh/workstation.nix
-    ../../hm/gnupg.nix
+    ../../home-manager/gnupg.nix
   ];
 
   # wsl does not care for this
