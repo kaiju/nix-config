@@ -20,5 +20,8 @@ pkgs.mkShell {
   };
   shellHook = ''
     export PATH=.venv/bin/:$PATH
+
+    # LD_LIBRARY_PATH magic for NixOS/nix-ld environments
+    [ -n "''${NIX_LD_LIBRARY_PATH:-}" ] && export LD_LIBRARY_PATH="$NIX_LD_LIBRARY_PATH" || true
   '';
 }
