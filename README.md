@@ -40,10 +40,13 @@ The `nixosSystem` function wraps `nixpkgs.lib.nixosSystem` and passes in NixOS m
 
 I typically build system configurations on a single machine and deploy them to other hosts:
 
-`# nixos-rebuild switch --flake '.#<host>' --target-host <hostname> --use-remote-sudo`
+`# nixos-rebuild switch --flake '.#<host>' --target-host <hostname> --sudo`
 
 ## Building Home Configuration
 
 [Home Manager](https://github.com/nix-community/home-manager) has support for building home configurations from `homeConfigurations` flake outputs. This is handy for deploying my home configuration on non-NixOS hosts like WSL & OSX.
 
 `# home-manager switch --flake '.#<profile>'`
+
+I no longer do this since I went fully off the deep end with `nix-darwin` and `nix-wsl`.
+
